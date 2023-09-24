@@ -3,7 +3,7 @@ import Logo from "../../assets/LegoLogo.png"
 import { LuSearch } from "react-icons/lu"
 import { FiHeart } from "react-icons/fi"
 import { HiOutlineShoppingBag } from "react-icons/hi"
-import MiniNav from "./MiniNav"
+import MiniNav from "../MiniNav"
 
 const Nav = () => {
   return (

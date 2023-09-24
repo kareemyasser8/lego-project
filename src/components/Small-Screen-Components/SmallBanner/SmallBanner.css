@@ -1,0 +1,8 @@
+.small-banner{
+    height: 600px;
+    font-family: 'CeraPro';
+}
+
+.small-banner img{
+    object-position: right;
+}

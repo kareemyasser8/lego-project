@@ -1,10 +1,12 @@
 import './App.css'
-import Nav from './components/Nav/Nav'
+import Nav from './components/Nav'
+import HomeBanner from './components/HomeBanner'
 
 function App() {
 
   return <>
     <Nav/>
+    <HomeBanner/>
   </>
 }
 
