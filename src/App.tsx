@@ -6,6 +6,7 @@ import banner from "./assets/banner.webp"
 import banner2 from "./assets/banner2.webp"
 import { BannerData } from "./components/HomeBanner/HomeBanner"
 import Articles from "./components/Articles/Articles"
+import LargeFooter from "./components/LargeFooter/LargeFooter"
 
 function App() {
   let bannerData: BannerData[] = [
@@ -38,6 +39,7 @@ function App() {
           <div className="mt-5 px-5">
             <Articles />
           </div>
+          <LargeFooter />
         </div>
       </div>
     </>

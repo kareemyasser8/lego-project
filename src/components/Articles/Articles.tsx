@@ -38,9 +38,9 @@ const Articles = () => {
       </div>
 
       <div className="article-cards-wrapper row mb-5">
-        {articles.map((article)=>
-           <div className="col-lg-4 col-md-6">
-                <ArticleCard article={article}/>
+        {articles.map((article, index)=>
+           <div key={index} className="col-lg-4 col-md-6">
+                <ArticleCard  article={article}/>
             </div>
         )}
 
