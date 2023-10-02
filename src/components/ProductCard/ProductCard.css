@@ -1,0 +1,63 @@
+.product-card{
+    width: 250px;
+}
+
+.img-container{
+    width: 260px;
+    height: 260px;
+}
+
+.img-container img{
+    transition: 0.5s ease
+}
+
+.img-container:hover img{
+    cursor: pointer;
+    scale: 1.1;
+    transition: 0.5s ease-out;
+}
+
+.ratings-stars-section{
+    height: 18px;
+}
+
+.card-Title{
+    width: 100%;
+    height: 80px;
+}
+
+.badge{
+    bottom: 10px;
+    left: 9px;
+    cursor: pointer;
+}
+
+.heart-product{
+    background-color: #F8F8F8;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    border-radius: 50% 50%;
+    left: 9px;
+    cursor: pointer;
+    top: 10px;
+    position: absolute;
+}
+
+.addToBag{
+    background: var(--primary-color);
+    padding: 5px;
+    width: 100%;
+    height: 55px;
+    border-radius: 5px;
+    border: none;
+    color: black;
+}
+
+.addToBag:hover{
+    border: 2px solid var(--primary-color);
+    background: transparent;
+}
