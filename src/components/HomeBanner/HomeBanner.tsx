@@ -1,23 +1,21 @@
-import "./HomeBanner.css"
 import LargeBanner from "../Large-Screen-Components/LargeBanner/LargeBanner"
 import SmallBanner from "../Small-Screen-Components/SmallBanner/SmallBanner"
-import banner from "../../assets/banner.webp"
 import { useEffect, useState } from "react"
 
 export interface BannerData {
   imageCover: string
   title: string
   text: string
+  position: "center" | "left"
+  textColor: "dark" | "light"
 }
 
-const HomeBanner = () => {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 840)
+interface Props {
+  bannerData: BannerData
+}
 
-  let bannerData = {
-    imageCover: banner,
-    title: "The magic is brewing",
-    text: "Conjure up the fun with new Hocus Pocus: The Sanderson Sisters' Cottage.",
-  }
+const HomeBanner = ({ bannerData }: Props) => {
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 840)
 
   const handleWindowReize = () => {
     setIsSmallScreen(window.innerWidth <= 840)
