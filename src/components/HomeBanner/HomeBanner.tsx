@@ -15,10 +15,10 @@ interface Props {
 }
 
 const HomeBanner = ({ bannerData }: Props) => {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 840)
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 990)
 
   const handleWindowReize = () => {
-    setIsSmallScreen(window.innerWidth <= 840)
+    setIsSmallScreen(window.innerWidth <= 990)
   }
 
   useEffect(() => {

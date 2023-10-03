@@ -1,0 +1,9 @@
+.mobile-nav{
+    position: fixed;
+    background-color: white;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.mobile-nav-item{
+    cursor: pointer;
+}

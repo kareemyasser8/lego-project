@@ -2,3 +2,14 @@
     font-family: 'CeraPro';
 }
 
+@media (min-width: 840px) {
+    .lg-banner{
+        margin-top: 127px;
+    }   
+}
+
+@media (max-width: 991px) {
+    .lg-banner{
+        margin-top: 10px;
+    }   
+}

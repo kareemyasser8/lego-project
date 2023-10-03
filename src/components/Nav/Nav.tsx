@@ -1,63 +1,22 @@
-import "./Nav.css"
-import Logo from "../../assets/LegoLogo.png"
-import { LuSearch } from "react-icons/lu"
-import { FiHeart } from "react-icons/fi"
-import { HiOutlineShoppingBag } from "react-icons/hi"
-import MiniNav from "../MiniNav"
-import { MutableRefObject, useEffect, useRef } from "react"
+import { useEffect, useState } from "react"
+import LargeNav from "../LargeNav/LargeNav"
+import MobileNav from "../MobileNav/MobileNav"
 
 const Nav = () => {
-  let navRef
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 991)
 
-  // useEffect(() => {
-  //   navRef = useRef<MutableRefObject<null>>(null)
-  //   const nav = navRef.current
+  const handleWindowReize = () => {
+    setIsSmallScreen(window.innerWidth <= 991)
+  }
 
-  //   window.addEventListener("scroll", function () {
-  //     var currentScrollPos = window.scrollY
-  //     var prevScrollPos = 0
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowReize)
+    return () => {
+      window.removeEventListener("resize", handleWindowReize)
+    }
+  }, [])
 
-  //     if (currentScrollPos > prevScrollPos) {
-  //       // scrolling down
-  //     }
-  //     prevScrollPos = currentScrollPos
-  //   })
-
-  //   return () => {}
-  // }, [])
-
-  return (
-    <>
-      <div className="position-fixed mb-5 col-12 z-2" ref={navRef}>
-        <MiniNav />
-        <nav className="navbar navbar-expand-lg px-3">
-          <div className="container-fluid">
-            <div className="navbar-brand">
-              <img className="nav-logo" src={Logo}></img>
-            </div>
-            <ul className="navbar-nav ms-5 me-auto gap-5 mb-2 mb-lg-0">
-              <li className="nav-item">SHOP</li>
-              <li className="nav-item">DISCOVER</li>
-              <li className="nav-item">HELP</li>
-            </ul>
-
-            <div className="navbar-nav me-3 gap-4 mb-2 mb-lg-0">
-              <div className="search-bg rounded-circle">
-                <LuSearch className="search-icon" />
-              </div>
-              <div className="nav-right-item">
-                <FiHeart className="heart-icon" />
-              </div>
-              <div className="nav-right-item">
-                <HiOutlineShoppingBag className="cart-icon" />
-                <div className="cart-counter">(0)</div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </>
-  )
+  return <>{isSmallScreen ? <MobileNav /> : <LargeNav />}</>
 }
 
 export default Nav

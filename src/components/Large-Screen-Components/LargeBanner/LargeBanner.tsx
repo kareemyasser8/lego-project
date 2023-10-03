@@ -7,7 +7,7 @@ interface Props {
 
 const LargeBanner = ({ data }: Props) => {
   return (
-    <div className="row  justify-content-md-center" style={{marginTop: "127px"}}>
+    <div className=" lg-banner">
       <div
         className="
           col-12

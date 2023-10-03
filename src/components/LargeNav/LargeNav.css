@@ -1,0 +1,55 @@
+.navbar{
+    background-color: var(--secondary-color);
+    width: 100%;
+    font-family: 'CeraPro', 'sans-serif'; 
+}
+
+.nav-logo{
+    height: 50px;
+    width: 50px;
+}
+
+.nav-item{
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-item:hover{
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 5px;
+}
+
+.search-bg{
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+}
+
+.search-icon{
+    font-size: 1.3rem;
+}
+
+.nav-right-item{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.heart-icon{
+    font-size: 1.3rem;
+}
+
+.cart-icon{
+    font-size: 1.4rem;
+}
+
+.cart-counter{
+    font-size: 0.8rem;
+}
+
