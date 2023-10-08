@@ -1,11 +1,12 @@
-import Logo from "../../assets/LegoLogo.png"
-import { LuSearch } from "react-icons/lu"
 import { FiHeart } from "react-icons/fi"
 import { HiOutlineShoppingBag } from "react-icons/hi"
+import { LuSearch } from "react-icons/lu"
+import Logo from "../../assets/LegoLogo.png"
 import MiniNav from "../MiniNav"
 import "./LargeNav.css"
 
 const LargeNav = () => {
+  
   return (
     <>
       <div className="position-fixed mb-5 col-12 z-2">

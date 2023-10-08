@@ -7,6 +7,8 @@ import banner2 from "./assets/banner2.webp"
 import { BannerData } from "./components/HomeBanner/HomeBanner"
 import Articles from "./components/Articles/Articles"
 import LargeFooter from "./components/LargeFooter/LargeFooter"
+import LoginPopup from "./components/LoginPopup/LoginPopup"
+import { LoginPopupContextProvider } from "./state-management/contexts/loginPopupContext"
 
 function App() {
   let bannerData: BannerData[] = [
@@ -28,20 +30,25 @@ function App() {
 
   return (
     <>
-      <Nav />
-      <div className=" row justify-content-center">
-        <div className="col-12">
-          <HomeBanner bannerData={bannerData[0]} />
-          <div className="mt-5 px-5">
-            <Recommended />
+      <LoginPopupContextProvider>
+        <div className="position-relative">
+          <LoginPopup />
+          <Nav />
+          <div className=" row justify-content-center">
+            <div className="col-12">
+              <HomeBanner bannerData={bannerData[0]} />
+              <div className="mt-5 px-5">
+                <Recommended />
+              </div>
+              <HomeBanner bannerData={bannerData[1]} />
+              <div className="mt-5 px-5">
+                <Articles />
+              </div>
+              <LargeFooter />
+            </div>
           </div>
-          <HomeBanner bannerData={bannerData[1]} />
-          <div className="mt-5 px-5">
-            <Articles />
-          </div>
-          <LargeFooter />
         </div>
-      </div>
+      </LoginPopupContextProvider>
     </>
   )
 }

@@ -1,6 +1,7 @@
 :root {
     --primary-color: #FD8024;
     --secondary-color: #F6C903;
+    --blue-color: #005595;
   }
 
   @font-face {
@@ -11,6 +12,7 @@
 body{
   font-family: 'CeraPro';
   overflow-x: hidden;
+  color: black;
 }
 
 .btn-light:hover{
@@ -24,7 +26,7 @@ body{
 }
 
 .blueBtn{
-  border: 2px solid #005595;
+  border: 2px solid var(--blue-color);
   border-radius: 2rem;
   font-size: 1rem;
   cursor: pointer;
@@ -34,7 +36,7 @@ body{
 
 .blueBtn:hover{
   border: 2px solid transparent;
-  background-color: #005595;
+  background-color: var(--blue-color);
   color: white;
   text-decoration: underline;
 }
