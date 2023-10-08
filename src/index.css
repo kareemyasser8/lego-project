@@ -1,31 +1,31 @@
 :root {
-    --primary-color: #FD8024;
-    --secondary-color: #F6C903;
-    --blue-color: #005595;
-  }
+  --primary-color: #fd8024;
+  --secondary-color: #f6c903;
+  --blue-color: #005595;
+}
 
-  @font-face {
-    font-family: 'CeraPro';
-    src: url(assets/Fonts/Cera-Pro-Regular.otf);
-  }
+@font-face {
+  font-family: "CeraPro";
+  src: url(assets/Fonts/Cera-Pro-Regular.otf);
+}
 
-body{
-  font-family: 'CeraPro';
+body {
+  font-family: "CeraPro";
   overflow-x: hidden;
   color: black;
 }
 
-.btn-light:hover{
+.btn-light:hover {
   background-color: black;
   border: none;
   color: white;
 }
 
-.btn-light{
+.btn-light {
   border: none;
 }
 
-.blueBtn{
+.blueBtn {
   border: 2px solid var(--blue-color);
   border-radius: 2rem;
   font-size: 1rem;
@@ -34,9 +34,22 @@ body{
   padding: 7px 15px 7px 15px;
 }
 
-.blueBtn:hover{
+.blueBtn:hover {
   border: 2px solid transparent;
   background-color: var(--blue-color);
   color: white;
   text-decoration: underline;
+}
+
+.filledBlueBtn {
+  background-color: var(--blue-color);
+  padding: 15px;
+  color: white;
+  width: 200px;
+  border-radius: 30px;
+  border: none;
+}
+
+.filledBlueBtn:hover{
+  background-color: #083c63;
 }
