@@ -4,12 +4,43 @@ import { LuSearch } from "react-icons/lu"
 import Logo from "../../assets/LegoLogo.png"
 import MiniNav from "../MiniNav"
 import "./LargeNav.css"
+import { useEffect, useRef } from "react"
 
 const LargeNav = () => {
-  
+  const navbar = useRef<HTMLDivElement>(null)
+  let lastScrollTop = window.scrollY || document.documentElement.scrollTop
+
+  const handleScrollUp = () => {
+    const scrollTopPosition =
+      window.scrollY || document.documentElement.scrollTop
+
+    if (scrollTopPosition > lastScrollTop) {
+      //scroll down
+      if (navbar.current) {
+        navbar.current.style.top = "-300px"
+        navbar.current.style.transition = "0.8s ease-out"
+      }
+    } else if (scrollTopPosition < lastScrollTop) {
+      //scroll up
+      if (navbar.current) {
+        navbar.current.style.top = "0px"
+        navbar.current.style.transition = "0.5s ease-out"
+      }
+    }
+    lastScrollTop = scrollTopPosition <= 0 ? 0 : scrollTopPosition
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollUp)
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollUp)
+    }
+  }, [])
+
   return (
     <>
-      <div className="position-fixed mb-5 col-12 z-2">
+      <div className="position-fixed mb-5 col-12 z-2" ref={navbar}>
         <MiniNav />
         <nav className="navbar navbar-expand-lg px-3">
           <div className="container-fluid">
