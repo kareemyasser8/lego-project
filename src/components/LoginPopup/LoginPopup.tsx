@@ -6,6 +6,7 @@ import { ImCross } from "react-icons/im"
 
 import legoLogo from "../../assets/LegoLogo.png"
 import loginPopupContext from "../../state-management/contexts/loginPopupContext"
+import { Link } from "react-router-dom"
 
 const LoginPopup = () => {
   const { showLoginPopup, dispatch } = useContext(loginPopupContext)
@@ -66,24 +67,28 @@ const LoginPopup = () => {
               </div>
             </div>
             <div className="w-100 p-3">
-              <button className="w-100 signInBtn" style={{ height: "50px" }}>
-                Sign In
-              </button>
+              <Link to="/login">
+                <button className="w-100 signInBtn" style={{ height: "50px" }}>
+                  Sign In
+                </button>
+              </Link>
               <div
                 className="w-100 d-flex align-items-center py-5 border-bottom border-2"
                 style={{ fontSize: "1.0rem" }}
               >
                 <div>Don't have an account ?</div>
-                <div
-                  className="ms-4"
-                  style={{
-                    fontSize: "1rem",
-                    color: "#005595",
-                    cursor: "pointer",
-                  }}
-                >
-                  Register
-                </div>
+                <Link to="/registeration">
+                  <div
+                    className="ms-4"
+                    style={{
+                      fontSize: "1rem",
+                      color: "#005595",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Register
+                  </div>
+                </Link>
               </div>
             </div>
           </motion.div>
