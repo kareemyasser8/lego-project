@@ -54,3 +54,16 @@ body {
 .filledBlueBtn:hover{
   background-color: #083c63;
 }
+
+.strokedBlueBtn {
+  border: 2px solid var(--blue-color);
+  padding: 15px;
+  color: var(--blue-color);
+  width: 100%;
+  min-width: 200px;
+  border-radius: 30px;
+}
+
+.strokedBlueBtn:hover{
+  color: #083c63;
+}
