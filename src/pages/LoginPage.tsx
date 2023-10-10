@@ -5,6 +5,7 @@ import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia"
 import { FieldValues, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Link } from "react-router-dom"
 
 const LoginPage = () => {
   const [isPassVisible, setIsPassVisible] = useState(false)
@@ -52,15 +53,15 @@ const LoginPage = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="firstName">Password</label>
+          <label htmlFor="password">Password</label>
           <div className="input-container">
             <input
               className={errors.password ? "input-danger" : "input"}
               {...register("password")}
               autoComplete="off"
               type={isPassVisible ? "text" : "password"}
-              id="firstName"
-              placeholder="Write your first name"
+              id="password"
+              placeholder="*********"
             />
 
             <div className="input-icon password" onClick={togglePassVisibility}>
@@ -73,8 +74,17 @@ const LoginPage = () => {
         </div>
 
         <button className="filledBlueBtn btn-submit">Sign in</button>
-        <p className="align-self-center" style={{marginBottom:'-1px'}}>or</p>
-        <button className="strokedBlueBtn btn-submit">Create account</button>
+        <p className="align-self-center" style={{ marginBottom: "-1px" }}>
+          or
+        </p>
+
+        <Link
+          to="/registeration"
+          type="button"
+          className="strokedBlueBtn btn-submit"
+        >
+          Create account
+        </Link>
       </form>
     </AuthLayout>
   )
