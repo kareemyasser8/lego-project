@@ -1,0 +1,14 @@
+.list{
+    border-radius: 0;
+}
+
+.list .active{
+    background-color: #006db7;
+    text-decoration: none;
+    z-index: 0;
+}
+
+.list-group-item{
+    padding:15px;
+    font-weight: 100;
+}

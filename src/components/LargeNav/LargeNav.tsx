@@ -9,12 +9,13 @@ import { useEffect, useRef } from "react"
 const LargeNav = () => {
   const navbar = useRef<HTMLDivElement>(null)
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
+  let scrollTopPosition = 0;
 
   const handleScrollUp = () => {
-    const scrollTopPosition =
+     scrollTopPosition =
       window.scrollY || document.documentElement.scrollTop
 
-    if (scrollTopPosition > lastScrollTop) {
+    if (scrollTopPosition > lastScrollTop ) {
       //scroll down
       if (navbar.current) {
         navbar.current.style.top = "-300px"

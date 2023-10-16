@@ -10,8 +10,8 @@ const Products = () => {
     axios
       .get("http://localhost:3000/api/products", { signal: controller.signal })
       .then((res) => {
-        setProducts(res.data.rows)
-        // console.log(res.data.rows)
+        setProducts(res.data.products)
+        // console.log(res.data.products)
       })
       .catch(err=>{
         if(err instanceof CanceledError) return;
@@ -27,8 +27,9 @@ const Products = () => {
         <div key={index}>
           <p>{p.title}</p>
           <div style={{ height: "200px", width: "200px" }}>
-            <img style={{ width: "100%" }} src={p.imageURL} alt="" />
+            <img style={{ width: "100%" }} src={p.imageUrl} alt="" />
           </div>
+          <p>{p.description}</p>
         </div>
       ))}
     </>

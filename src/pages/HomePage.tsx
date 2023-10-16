@@ -30,9 +30,9 @@ const HomePage = () => {
       <div className=" row justify-content-center">
         <div className="col-12">
           <HomeBanner bannerData={bannerData[0]} />
-          <div className="mt-5 px-5">
+          {/* <div className="mt-5 px-5">
             <Products />
-          </div>
+          </div> */}
           <div className="mt-5 px-5">
             <Recommended />
           </div>

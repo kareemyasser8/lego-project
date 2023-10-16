@@ -4,20 +4,42 @@ import HomePage from "./pages/HomePage"
 import RegisterationPage from "./pages/RegisterationPage"
 import LoginPage from "./pages/LoginPage"
 import ErrorPage from "./pages/ErrorPage"
+import AccountManagePage from "./pages/AccountManagePage"
+import AccountOverview from "./components/AccountOverview/AccountOverview"
+import ProductsTable from "./components/ProductsTable/ProductsTable"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <ErrorPage/>,
-    children: [{ index: true, element: <HomePage /> }],
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "user",
+        element: <AccountManagePage />,
+        children: [
+          {
+            index: true,
+            element: <AccountOverview />,
+          },
+          {
+            path: 'products',
+            element: <ProductsTable />,
+          },
+        ],
+      },
+    ],
   },
   {
-    path: "/registeration",
+    path: "registeration",
     element: <RegisterationPage />,
   },
   {
-    path: "/login",
+    path: "login",
     element: <LoginPage />,
   },
 ])

@@ -1,0 +1,62 @@
+.bg-blue{
+    background-color: #9eaad6;
+}
+
+.bg-red{
+    background-color: #e48c8c;
+}
+
+.bg-green{
+    background-color: #45beae;
+}
+
+.bg-yellow{
+    background-color: #bda625;
+}
+
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.lower-part{
+    border-top: 1px solid rgb(228, 228, 228);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-card{
+    width: 100%;
+}
+
+.dashboard-card:hover{
+    /* border: 1px solid red; */
+    filter: brightness(0.9);
+    cursor: pointer;
+}
+
+.dashboard-card .upper-part{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-title{
+    font-weight: 600;
+}
+
+.dashboard-options-cards{
+    display: flex;
+    gap: 10px;
+    flex-basis: 1 1 1;
+}
+
+
+/* .more-details-text::after{
+    content: " >";
+} */

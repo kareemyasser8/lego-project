@@ -69,3 +69,20 @@ body {
 .strokedBlueBtn:hover{
   color: #083c63;
 }
+
+@media (min-width: 840px) {
+  .page{
+      margin-top: 100px;
+  }   
+}
+
+@media (max-width: 991px) {
+  .page{
+      margin-top: 30px;
+  }   
+}
+
+a{
+  text-decoration: none;
+}
+
