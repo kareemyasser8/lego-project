@@ -1,9 +1,7 @@
 import { Product } from "../../Products"
 import "./ProductCard.css"
-import yellowStar from "../../assets/yellowStar.svg"
-import grayStar from "../../assets/grayStar.svg"
-import halfStar from "../../assets/halfStar.svg"
 import {AiOutlineHeart} from 'react-icons/ai';
+import ProductRating from "../ProductRating/ProductRating"
 
 interface Props {
   product: Product
@@ -32,20 +30,7 @@ const ProductCard = ({ product }: Props) => {
         <div className="card-Title mt-2 fw-bold">
           <p>{product.title}</p>
         </div>
-        <div className="ratings-stars-section col-12 d-flex align-items-center">
-          {Array.from({ length: Math.floor(product.ratings) }, (_, index) => (
-            <img key={index} className="h-100" src={yellowStar} alt="" />
-          ))}
-          {product.ratings % 1 !== 0 && (
-            <img className="h-100" src={halfStar} alt="" />
-          )}
-          {Array.from(
-            { length: 5 - Math.ceil(product.ratings) },
-            (_, index) => (
-              <img key={index} className="h-100" src={grayStar} alt="" />
-            )
-          )}
-        </div>
+        <ProductRating ratings={product.ratings}/>
         <div className="product-price fs-5 fw-bold">
           <p> ${product.price}</p>
         </div>

@@ -1,0 +1,53 @@
+.img-input-container{
+    background-color: #eeeeee;
+    border-radius: 5px;
+    border: 2px dashed rgb(153, 152, 152);
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+}
+
+.img-input-container .FaCloudUploadAlt{
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.img-upload-btn{
+    background-color: #797777;
+    padding: 5px 10px 5px 10px;
+    width: max-content + 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.img-upload-btn:hover{
+    cursor: pointer;
+    background-color: #3f3f3f;
+}
+
+.uploaded-img-container{
+    margin-top: 10px;
+    padding: 5px 10px 5px 10px;
+    min-height: 65px;
+    height: max-content;
+    background-color: #eeeeee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.uploaded-img-preview{
+    height: 50px;
+    width: 100px;
+    border: 1px solid rgb(100, 100, 100);
+    object-fit: cover;
+}
+
+.uploaded-img-options:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

@@ -7,6 +7,7 @@ import ErrorPage from "./pages/ErrorPage"
 import AccountManagePage from "./pages/AccountManagePage"
 import AccountOverview from "./components/AccountOverview/AccountOverview"
 import ProductsTable from "./components/ProductsTable/ProductsTable"
+import EditProduct from "./components/EditProduct/EditProduct"
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
           {
             path: 'products',
             element: <ProductsTable />,
+          },
+          {
+            path: 'products/:id',
+            element: <EditProduct />,
           },
         ],
       },

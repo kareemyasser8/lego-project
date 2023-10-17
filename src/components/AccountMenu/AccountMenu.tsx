@@ -13,7 +13,7 @@ const AccountMenu = () => {
         <li className={location.pathname === '/user'? "list-group-item active" : "list-group-item"}>Account Overview</li>
       </Link>
       <Link to={"/user/products"}>
-        <li className={location.pathname === '/user/products'? "list-group-item active" : "list-group-item"}>Products</li>
+        <li className={location.pathname.includes('/user/products') ? "list-group-item active" : "list-group-item"}>Products</li>
       </Link>
       <li className="list-group-item">Orders</li>
       <li className="list-group-item">Users</li>
