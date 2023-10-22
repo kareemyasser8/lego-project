@@ -1,49 +1,49 @@
-import { ChangeEvent, MouseEventHandler, RefObject, useState } from 'react';
+import { ChangeEvent, RefObject, useState } from "react"
 
-const useImageUploader = (
-  ref: RefObject<HTMLInputElement>
-) => {
-  const [imgFiles, setImgFiles] = useState<File[]>([]);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+const useImageUploader = (ref: RefObject<HTMLInputElement>) => {
+  const [imgfileList, setImgFileList] = useState<File[]>([])
 
-  const handleBrowseClick: MouseEventHandler<HTMLDivElement> = () => {
-    if (ref.current) {
-      ref.current.click();
+  const onDragEnter = () => {
+    ref.current?.classList.add("dragover")
+  }
+
+  const onDragLeave = () => {
+    ref.current?.classList.remove("dragover")
+  }
+  const onDrop = () => {
+    ref.current?.classList.remove("dragover")
+  }
+
+  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+  }
+
+  const onFileDrop = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    if (event.target.files) {
+      const newFile = event.target.files[0]
+      const updatedList = [...imgfileList, newFile]
+      setImgFileList(updatedList)
+  
     }
-  };
+  }
 
-  const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      const newFiles = Array.from(files);
-      setImgFiles([...imgFiles, ...newFiles]);
-      setSelectedFile(newFiles[0]);
-    }
-  };
+  const fileRemove = (file: File) => {
+    console.log("clicked")
 
-  const handleFileUpload = async () => {
-    if (selectedFile) {
-      setIsLoading(true);
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
-        if (response.ok) {
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-        }
-      } catch (error) {
-        setIsLoading(false);
-      }
-    }
-  };
+    const updatedList = imgfileList.filter((f) => f !== file)
+    setImgFileList(updatedList)
+  }
 
-  return { handleBrowseClick, handleFileSelect, handleFileUpload, imgFiles, isLoading };
-};
+  return{
+    onDragEnter,
+    onDragLeave,
+    onDrop,
+    onDragOver,
+    onFileDrop,
+    fileRemove,
+    imgfileList,
+  }
+}
 
-export default useImageUploader;
+export default useImageUploader

@@ -1,53 +1,75 @@
-.img-input-container{
-    background-color: #eeeeee;
-    border-radius: 5px;
-    border: 2px dashed rgb(153, 152, 152);
-    height: 230px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: gray;
+.img-input-container {
+  background-color: #eeeeee;
+  border-radius: 5px;
+  border: 2px dashed rgb(153, 152, 152);
+  height: 230px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  opacity: 1;
 }
 
-.img-input-container .FaCloudUploadAlt{
-    font-size: 3rem;
-    margin-bottom: 10px;
+.img-input-container.dragover{
+    opacity: 0.6;
+  }
+
+.img-input-container .FaCloudUploadAlt {
+  font-size: 3rem;
+  margin-bottom: 10px;
 }
 
-.img-upload-btn{
-    background-color: #797777;
-    padding: 5px 10px 5px 10px;
-    width: max-content + 10px;
-    border-radius: 5px;
-    border: none;
-    color: white;
+.img-upload-btn {
+  background-color: #797777;
+  padding: 5px 10px;
+  /* position: relative; */
+  overflow: hidden;
+  display: inline-block;
+  border-radius: 5px;
+  border: none;
+  color: white;
 }
 
-.img-upload-btn:hover{
+.img-upload-btn input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; /* Updated to 0 to hide the default appearance */
     cursor: pointer;
-    background-color: #3f3f3f;
+    width: 100%;
+    height: 100%;
 }
 
-.uploaded-img-container{
-    margin-top: 10px;
-    padding: 5px 10px 5px 10px;
-    min-height: 65px;
-    height: max-content;
-    background-color: #eeeeee;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.img-upload-btn input:hover {
+    background-color: red;
 }
 
-.uploaded-img-preview{
-    height: 50px;
-    width: 100px;
-    border: 1px solid rgb(100, 100, 100);
-    object-fit: cover;
+.img-upload-btn:hover {
+  cursor: pointer;
+  background-color: #3f3f3f;
 }
 
-.uploaded-img-options:hover{
-    cursor: pointer;
-    text-decoration: underline;
+.uploaded-img-container {
+  margin-top: 10px;
+  padding: 5px 10px 5px 10px;
+  min-height: 65px;
+  height: max-content;
+  background-color: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.uploaded-img-preview {
+  height: 50px;
+  width: 100px;
+  border: 1px solid rgb(100, 100, 100);
+  object-fit: cover;
+}
+
+.uploaded-img-options:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }

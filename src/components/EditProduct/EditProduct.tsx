@@ -6,7 +6,6 @@ import ImageUploadInput from "../ImageUploadInput/ImageUploadInput"
 const EditProduct = () => {
   const handleRatingsInputField = useRatingsInput(0, 5)
   const handlePriceInputField = usePriceInput(0, 1000)
-
   return (
     <>
       <div className="col-12">
@@ -62,7 +61,7 @@ const EditProduct = () => {
               <div className="mb-3">
                 <label htmlFor="rating">Images</label>
                 <div className="input-container">
-                  <ImageUploadInput />
+                  <ImageUploadInput/>
                 </div>
                 {/* <div className="input-error">ghalat yala</div> */}
               </div>
@@ -95,8 +94,12 @@ const EditProduct = () => {
                 {/* <div className="input-error">ghalat yala</div> */}
               </div>
 
-              <button className="filledBlueBtn" style={{width: 'max-content'}}>Submit changes</button>
-
+              <button
+                className="filledBlueBtn"
+                style={{ width: "max-content" }}
+              >
+                Submit changes
+              </button>
             </form>
           </div>
           <div className="col-lg-5 col-sm-12">
