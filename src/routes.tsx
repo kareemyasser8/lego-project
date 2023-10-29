@@ -8,6 +8,7 @@ import AccountManagePage from "./pages/AccountManagePage"
 import AccountOverview from "./components/AccountOverview/AccountOverview"
 import ProductsTable from "./components/ProductsTable/ProductsTable"
 import EditProduct from "./components/EditProduct/EditProduct"
+import { ImageFilesContextProvider } from "./state-management/contexts/imageFilesContext"
 
 const router = createBrowserRouter([
   {
@@ -28,12 +29,16 @@ const router = createBrowserRouter([
             element: <AccountOverview />,
           },
           {
-            path: 'products',
+            path: "products",
             element: <ProductsTable />,
           },
           {
-            path: 'products/:id',
-            element: <EditProduct />,
+            path: "products/:id",
+            element: (
+              <ImageFilesContextProvider>
+                <EditProduct />
+              </ImageFilesContextProvider>
+            ),
           },
         ],
       },

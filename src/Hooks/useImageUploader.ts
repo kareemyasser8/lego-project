@@ -1,49 +1,54 @@
-import { ChangeEvent, RefObject, useState } from "react"
+import { ChangeEvent, RefObject, useReducer, useState } from "react";
+import imgListReducer, { ImageAction } from "../state-management/reducers/imgListReducer";
 
 const useImageUploader = (ref: RefObject<HTMLInputElement>) => {
-  const [imgfileList, setImgFileList] = useState<File[]>([])
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [fileLimit, setFileLimit] = useState(false);
+  const [files, dispatch] = useReducer(imgListReducer, []);
 
   const onDragEnter = () => {
-    ref.current?.classList.add("dragover")
-  }
+    ref.current?.classList.add("dragover");
+  };
 
   const onDragLeave = () => {
-    ref.current?.classList.remove("dragover")
-  }
-  const onDrop = () => {
-    ref.current?.classList.remove("dragover")
-  }
+    ref.current?.classList.remove("dragover");
+  };
+
+  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    ref.current?.classList.remove("dragover");
+    const droppedFiles = event.dataTransfer?.files;
+    if (droppedFiles) {
+      const chosenFiles = Array.from(droppedFiles);
+      dispatch({ type: "ADD", files: chosenFiles });
+    }
+  };
 
   const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   const onFileDrop = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     if (event.target.files) {
-      const newFile = event.target.files[0]
-      const updatedList = [...imgfileList, newFile]
-      setImgFileList(updatedList)
-  
+      const chosenFiles = Array.from(event.target.files);
+      dispatch({ type: "ADD", files: chosenFiles });
     }
-  }
+  };
 
   const fileRemove = (file: File) => {
-    console.log("clicked")
+    dispatch({ type: "REMOVE", file: file });
+  };
 
-    const updatedList = imgfileList.filter((f) => f !== file)
-    setImgFileList(updatedList)
-  }
-
-  return{
+  return {
     onDragEnter,
     onDragLeave,
     onDrop,
     onDragOver,
     onFileDrop,
     fileRemove,
-    imgfileList,
-  }
-}
+    files,
+  };
+};
 
-export default useImageUploader
+export default useImageUploader;

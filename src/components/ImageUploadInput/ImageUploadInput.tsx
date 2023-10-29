@@ -1,11 +1,18 @@
 import './ImageUploadInput.css';
-import { useRef } from 'react';
+import { useReducer, useRef } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 
 import useImageUploader from '../../Hooks/useImageUploader';
+import { UseFormRegisterReturn } from 'react-hook-form';
+import imgListReducer from '../../state-management/reducers/imgListReducer';
 
-const ImageUploadInput = () => {
+interface Props{
+  imageOptions?: UseFormRegisterReturn<"image">
+}
+
+const ImageUploadInput = ({imageOptions}: Props) => {
   const wrapperRef = useRef<HTMLInputElement>(null)
+  // const [files, dispatch] = useReducer(imgListReducer, []);
 
   const {
     onDragEnter,
@@ -14,7 +21,7 @@ const ImageUploadInput = () => {
     onDragOver,
     onFileDrop,
     fileRemove,
-    imgfileList,
+    files
   } = useImageUploader(wrapperRef)
 
   return (
@@ -33,12 +40,12 @@ const ImageUploadInput = () => {
           <div className="fw-bold">Drag your file here</div>
           <div>or</div>
           <div typeof="button" className="img-upload-btn mt-2">
-            <input type="file" onChange={onFileDrop} />
+            <input {...imageOptions} type="file" onChange={onFileDrop} multiple accept='image/png , image/jpg, image/jpeg' />
             Browse
           </div>
         </div>
 
-        {imgfileList.map((file, index) => (
+        {files.map((file, index) => (
           <div key={index} className="uploaded-img-container flex-wrap">
             <div className="d-flex align-items-center flex-wrap gap-2">
               <img

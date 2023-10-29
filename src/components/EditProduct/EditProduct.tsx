@@ -1,22 +1,30 @@
-import ProductPreviewCard from "../ProductPreviewCard/ProductPreviewCard"
-import useRatingsInput from "../../Hooks/useRatingsInput"
-import usePriceInput from "../../Hooks/usePriceInput"
-import ImageUploadInput from "../ImageUploadInput/ImageUploadInput"
+import { FieldValues, useForm } from 'react-hook-form';
+import usePriceInput from '../../Hooks/usePriceInput';
+import useRatingsInput from '../../Hooks/useRatingsInput';
+import ImageUploadInput from '../ImageUploadInput/ImageUploadInput';
+import ProductPreviewCard from '../ProductPreviewCard/ProductPreviewCard';
 
 const EditProduct = () => {
+  const { register, handleSubmit, setValue } = useForm()
   const handleRatingsInputField = useRatingsInput(0, 5)
+  
   const handlePriceInputField = usePriceInput(0, 1000)
+  const onSubmit = (data: FieldValues) => {
+    console.log(data)
+  }
+
   return (
     <>
       <div className="col-12">
         <p className="h4">Edit Product</p>
         <div className="row">
           <div className="col-lg-7 col-sm-12 mb-3">
-            <form className="lego-form">
+            <form className="lego-form" onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
                 <label htmlFor="title">Title</label>
                 <div className="input-container">
                   <input
+                    {...register("name")}
                     autoComplete="off"
                     type="text"
                     id="title"
@@ -30,6 +38,7 @@ const EditProduct = () => {
                 <label htmlFor="price">Price</label>
                 <div className="input-container">
                   <input
+                    {...register("price")}
                     autoComplete="off"
                     type="number"
                     id="price"
@@ -46,6 +55,7 @@ const EditProduct = () => {
                 <label htmlFor="rating">Rating</label>
                 <div className="input-container">
                   <input
+                    {...register("ratings")}
                     autoComplete="off"
                     type="number"
                     id="rating"
@@ -61,7 +71,7 @@ const EditProduct = () => {
               <div className="mb-3">
                 <label htmlFor="rating">Images</label>
                 <div className="input-container">
-                  <ImageUploadInput/>
+                  <ImageUploadInput imageOptions={{ ...register("image") }} />
                 </div>
                 {/* <div className="input-error">ghalat yala</div> */}
               </div>
@@ -70,6 +80,7 @@ const EditProduct = () => {
                 <label htmlFor="description">Description</label>
                 <div className="input-container">
                   <textarea
+                    {...register("description")}
                     autoComplete="off"
                     id="description"
                     placeholder="Enter Product Description"
@@ -82,6 +93,7 @@ const EditProduct = () => {
                 <label htmlFor="numInStock">Number in stock</label>
                 <div className="input-container">
                   <input
+                    {...register("numInStock")}
                     autoComplete="off"
                     type="number"
                     id="numInStock"

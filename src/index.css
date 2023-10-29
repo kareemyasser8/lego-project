@@ -133,7 +133,7 @@ a{
   position: relative;
 }
 
-.lego-form input, textarea::placeholder {
+.lego-form input::placeholder, textarea::placeholder {
   color: rgba(100, 100, 100, 0.5);
   font-style: italic;
 }

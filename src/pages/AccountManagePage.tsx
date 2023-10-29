@@ -31,7 +31,7 @@ const AccountManagePage = () => {
               col-sm-12
               px-lg-4
               "
-              >
+              > 
                 <Outlet/>
               </div>
           </div>
