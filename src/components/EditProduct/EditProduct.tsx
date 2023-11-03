@@ -1,16 +1,74 @@
-import { FieldValues, useForm } from 'react-hook-form';
-import usePriceInput from '../../Hooks/usePriceInput';
-import useRatingsInput from '../../Hooks/useRatingsInput';
-import ImageUploadInput from '../ImageUploadInput/ImageUploadInput';
-import ProductPreviewCard from '../ProductPreviewCard/ProductPreviewCard';
+import { ChangeEvent, useState } from "react"
+import ProductPreviewCard from "../ProductPreviewCard/ProductPreviewCard"
+import { Product } from "../../Products"
+import usePriceInput from "../../Hooks/usePriceInput"
+import useRatingsInput from "../../Hooks/useRatingsInput"
+import { FieldValues, useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import ImageUploadInput from "../ImageUploadInput/ImageUploadInput"
+
+const schema = z.object({
+  title: z.string().min(1, { message: "Title field is required" }),
+  price: z
+    .number({ invalid_type_error: "Price field is required" })
+    .min(1)
+    .max(1000),
+  rating: z.number(),
+  images: z
+  .array(
+    z.custom<File>((file) => file instanceof File)
+      .refine((file) => file.size <= 3 * 1024 * 1024, {
+        message: "File size should be less than 3MB",
+      })
+      .refine((file) => {
+        const acceptedTypes = ["image/jpeg", "image/png", "image/gif"];
+        return acceptedTypes.includes(file.type);
+      }, { message: "Only .jpg, .png, and .gif files are allowed" })
+  ),
+  description: z.string().min(1, { message: "Description field is required" }),
+  numInStock: z
+    .number({ invalid_type_error: "Number in stock field is required" })
+    .min(1)
+    .max(1000),
+})
 
 const EditProduct = () => {
-  const { register, handleSubmit, setValue } = useForm()
-  const handleRatingsInputField = useRatingsInput(0, 5)
-  
+  const [product, setProduct] = useState<Product>({
+    title: "",
+    price: +"",
+    rating: +"",
+    images: [],
+    description: "",
+    numInStock: +"",
+  })
+
+  type FormData = z.infer<typeof schema>
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    trigger,
+  } = useForm<FormData>({ resolver: zodResolver(schema) })
+
   const handlePriceInputField = usePriceInput(0, 1000)
+  const handleRatingsInputField = useRatingsInput(0, 5)
+
+  const handleImagesUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const imageFiles = Array.from(event.target.files)
+      setProduct({
+        ...product,
+        images: [...(product.images || []), imageFiles[0]],
+      })
+      console.log(product)
+    }
+  }
+
   const onSubmit = (data: FieldValues) => {
-    console.log(data)
+    console.log("hello world")
   }
 
   return (
@@ -24,86 +82,134 @@ const EditProduct = () => {
                 <label htmlFor="title">Title</label>
                 <div className="input-container">
                   <input
-                    {...register("name")}
                     autoComplete="off"
+                    {...register("title")}
+                    className={errors?.title ? `input-danger` : `input`}
+                    onChange={(event) => {
+                      setValue("title", event.target.value)
+                      setProduct({ ...product, title: event.target.value })
+                      trigger("title")
+                    }}
+                    value={product.title}
                     type="text"
                     id="title"
                     placeholder="Enter product title"
                   />
                 </div>
-                {/* <div className="input-error">ghalat yala</div> */}
+                {errors.title && (
+                  <div className="input-error">{errors.title.message}</div>
+                )}
               </div>
 
               <div className="mb-3">
                 <label htmlFor="price">Price</label>
                 <div className="input-container">
                   <input
-                    {...register("price")}
                     autoComplete="off"
+                    {...register("price", { valueAsNumber: true })}
+                    className={errors?.price ? `input-danger` : `input`}
                     type="number"
+                    step="any"
                     id="price"
                     min={0}
                     max={1000}
-                    onChange={handlePriceInputField}
+                    onChange={(event) => {
+                      handlePriceInputField(event)
+                      setProduct({ ...product, price: +event.target.value })
+                      setValue("price", +event.target.value)
+                      trigger("price")
+                    }}
                     placeholder="Price in $"
                   />
                 </div>
-                {/* <div className="input-error">ghalat yala</div> */}
+                {errors.price && (
+                  <div className="input-error">{errors.price.message}</div>
+                )}
               </div>
 
               <div className="mb-3">
                 <label htmlFor="rating">Rating</label>
                 <div className="input-container">
                   <input
-                    {...register("ratings")}
                     autoComplete="off"
                     type="number"
+                    {...register("rating", { valueAsNumber: true })}
                     id="rating"
+                    step="any"
                     min={0}
                     max={5}
-                    onChange={handleRatingsInputField}
+                    onChange={(event) => {
+                      handleRatingsInputField(event)
+                      setProduct({ ...product, rating: +event.target.value })
+                    }}
                     placeholder="Enter Product Rating"
                   />
                 </div>
-                {/* <div className="input-error">ghalat yala</div> */}
               </div>
 
               <div className="mb-3">
                 <label htmlFor="rating">Images</label>
                 <div className="input-container">
-                  <ImageUploadInput imageOptions={{ ...register("image") }} />
+                  <ImageUploadInput
+                    handleImagesUpload={handleImagesUpload}
+                    errors={errors}
+                    imageOptions={{ ...register("images") }}
+                    value= {product.images?.map((file) => file)}
+                  />
                 </div>
-                {/* <div className="input-error">ghalat yala</div> */}
               </div>
 
               <div className="mb-3">
                 <label htmlFor="description">Description</label>
                 <div className="input-container">
                   <textarea
-                    {...register("description")}
                     autoComplete="off"
+                    className={errors?.description ? `input-danger` : `input`}
                     id="description"
+                    {...register("description")}
+                    onChange={(event) => {
+                      setProduct({
+                        ...product,
+                        description: event.target.value,
+                      })
+                      setValue("description", event.target.value)
+                      trigger("description")
+                    }}
                     placeholder="Enter Product Description"
                   />
                 </div>
-                {/* <div className="input-error">ghalat yala</div> */}
+                {errors.description && (
+                  <div className="input-error">
+                    {errors.description.message}
+                  </div>
+                )}
               </div>
 
               <div className="mb-3">
                 <label htmlFor="numInStock">Number in stock</label>
                 <div className="input-container">
                   <input
-                    {...register("numInStock")}
                     autoComplete="off"
+                    className={errors?.numInStock ? `input-danger` : `input`}
                     type="number"
                     id="numInStock"
+                    {...register("numInStock", { valueAsNumber: true })}
                     min={0}
                     max={1000}
-                    onChange={handlePriceInputField}
+                    onChange={(event) => {
+                      setProduct({
+                        ...product,
+                        numInStock: +event.target.value,
+                      })
+                      setValue("numInStock", +event.target.value)
+                      trigger("numInStock")
+                    }}
                     placeholder="The product amount"
                   />
                 </div>
-                {/* <div className="input-error">ghalat yala</div> */}
+                {errors.numInStock && (
+                  <div className="input-error">{errors.numInStock.message}</div>
+                )}
               </div>
 
               <button
@@ -115,7 +221,7 @@ const EditProduct = () => {
             </form>
           </div>
           <div className="col-lg-5 col-sm-12">
-            <ProductPreviewCard />
+            <ProductPreviewCard data={product} />
           </div>
         </div>
       </div>

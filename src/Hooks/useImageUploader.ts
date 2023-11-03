@@ -2,8 +2,7 @@ import { ChangeEvent, RefObject, useReducer, useState } from "react";
 import imgListReducer, { ImageAction } from "../state-management/reducers/imgListReducer";
 
 const useImageUploader = (ref: RefObject<HTMLInputElement>) => {
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [fileLimit, setFileLimit] = useState(false);
+
   const [files, dispatch] = useReducer(imgListReducer, []);
 
   const onDragEnter = () => {
@@ -38,6 +37,7 @@ const useImageUploader = (ref: RefObject<HTMLInputElement>) => {
 
   const fileRemove = (file: File) => {
     dispatch({ type: "REMOVE", file: file });
+    console.log(files);
   };
 
   return {

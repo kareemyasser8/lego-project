@@ -30,7 +30,7 @@ const ProductCard = ({ product }: Props) => {
         <div className="card-Title mt-2 fw-bold">
           <p>{product.title}</p>
         </div>
-        <ProductRating ratings={product.ratings}/>
+        <ProductRating ratings={product.rating}/>
         <div className="product-price fs-5 fw-bold">
           <p> ${product.price}</p>
         </div>

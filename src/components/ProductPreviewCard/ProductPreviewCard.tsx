@@ -1,8 +1,15 @@
 import "./ProductPreviewCard.css"
 import noImage from "../../assets/no-image-placeholder.webp"
 import ProductRating from "../ProductRating/ProductRating"
+import { FieldValues } from "react-hook-form"
+import { useEffect, useState } from "react"
+import { Product } from "../../Products"
 
-const ProductPreviewCard = () => {
+interface Props {
+  data: Product
+}
+
+const ProductPreviewCard = ({ data }: Props) => {
   return (
     <div className="row">
       <div className="col-12">
@@ -18,7 +25,19 @@ const ProductPreviewCard = () => {
             align-items-center
             justify-content-center"
             >
-              <img className="w-100" src={noImage} alt="" />
+              {data?.images ? (
+                <img
+                  className="w-100"
+                  src={
+                    data.images[0]?.type?.startsWith("image/")
+                      ? URL.createObjectURL(data.images[0])
+                      : noImage
+                  }
+                  alt=""
+                />
+              ) : (
+                <img className="w-100" src={noImage} alt="" />
+              )}
             </div>
 
             <div
@@ -30,17 +49,16 @@ const ProductPreviewCard = () => {
               <img className="w-30" src={noImage} alt="" />
             </div>
           </div>
+
           <div className="col-lg-12 col-md-7 col-sm-12">
             <div className="mt-2 fw-bold">
-              <p>Title</p>
+              <p>{data?.title}</p>
             </div>
-            <ProductRating ratings={0} />
+            <ProductRating ratings={data?.rating || 0} />
             <div className="product-price fs-5 fw-bold">
-              <p> $0</p>
+              <p>${data?.price || 0}</p>
             </div>
-            <p>
-            Gather friends or family for a seasonal build with this LEGO® Gingerbread Ornaments (40642) set, featuring 3 buildable gingerbread figures. Build and customize each figure to create unique designs that will bring a fun, festive feel to any home or workplace.
-            </p>
+            <p>{data?.description || ""}</p>
           </div>
         </div>
       </div>

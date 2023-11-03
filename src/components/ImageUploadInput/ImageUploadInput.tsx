@@ -1,18 +1,22 @@
-import './ImageUploadInput.css';
-import { useReducer, useRef } from 'react';
-import { FaCloudUploadAlt } from 'react-icons/fa';
+import "./ImageUploadInput.css"
+import { ChangeEvent, useRef } from "react"
+import { FaCloudUploadAlt } from "react-icons/fa"
+import useImageUploader from "../../Hooks/useImageUploader"
 
-import useImageUploader from '../../Hooks/useImageUploader';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import imgListReducer from '../../state-management/reducers/imgListReducer';
-
-interface Props{
-  imageOptions?: UseFormRegisterReturn<"image">
+interface Props {
+  imageOptions?: any
+  handleImagesUpload: (event: ChangeEvent<HTMLInputElement>) => void
+  errors?: any
+  value?: any
 }
 
-const ImageUploadInput = ({imageOptions}: Props) => {
+const ImageUploadInput = ({
+  imageOptions,
+  handleImagesUpload,
+  errors,
+  value,
+}: Props) => {
   const wrapperRef = useRef<HTMLInputElement>(null)
-  // const [files, dispatch] = useReducer(imgListReducer, []);
 
   const {
     onDragEnter,
@@ -21,7 +25,7 @@ const ImageUploadInput = ({imageOptions}: Props) => {
     onDragOver,
     onFileDrop,
     fileRemove,
-    files
+    files,
   } = useImageUploader(wrapperRef)
 
   return (
@@ -40,10 +44,26 @@ const ImageUploadInput = ({imageOptions}: Props) => {
           <div className="fw-bold">Drag your file here</div>
           <div>or</div>
           <div typeof="button" className="img-upload-btn mt-2">
-            <input {...imageOptions} type="file" onChange={onFileDrop} multiple accept='image/png , image/jpg, image/jpeg' />
+            <input
+              {...imageOptions}
+              value={value}
+              type="file"
+              onChange={(event) => {
+                if (event) {
+                  handleImagesUpload(event)
+                  onFileDrop(event)
+                }
+              }}
+              multiple
+              accept="image/png , image/jpg, image/jpeg"
+            />
             Browse
           </div>
         </div>
+
+        {errors?.images && (
+          <div className="input-error">{errors?.images.message}</div>
+        )}
 
         {files.map((file, index) => (
           <div key={index} className="uploaded-img-container flex-wrap">
@@ -54,7 +74,7 @@ const ImageUploadInput = ({imageOptions}: Props) => {
                 className="uploaded-img-preview"
                 alt="Preview"
               />
-              {file.name}
+              <div className="w-100">{file.name}</div>
             </div>
             <div className="d-flex align-items-center flex-wrap gap-2">
               <div
