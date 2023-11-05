@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import ProductPreviewCard from "../ProductPreviewCard/ProductPreviewCard"
 import { Product } from "../../Products"
 import usePriceInput from "../../Hooks/usePriceInput"
@@ -7,6 +7,14 @@ import { FieldValues, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import ImageUploadInput from "../ImageUploadInput/ImageUploadInput"
+                
+const MAX_FILE_SIZE = 1024 * 1024 * 5; //5MB
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+]
 
 const schema = z.object({
   title: z.string().min(1, { message: "Title field is required" }),
@@ -16,16 +24,16 @@ const schema = z.object({
     .max(1000),
   rating: z.number(),
   images: z
-  .array(
-    z.custom<File>((file) => file instanceof File)
-      .refine((file) => file.size <= 3 * 1024 * 1024, {
-        message: "File size should be less than 3MB",
-      })
-      .refine((file) => {
-        const acceptedTypes = ["image/jpeg", "image/png", "image/gif"];
-        return acceptedTypes.includes(file.type);
-      }, { message: "Only .jpg, .png, and .gif files are allowed" })
-  ),
+    .any()
+    .refine((files) => files?.length == 1, "Image is required.")
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      `Max file size is 5MB.`
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    ),
   description: z.string().min(1, { message: "Description field is required" }),
   numInStock: z
     .number({ invalid_type_error: "Number in stock field is required" })
@@ -57,18 +65,22 @@ const EditProduct = () => {
   const handleRatingsInputField = useRatingsInput(0, 5)
 
   const handleImagesUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
     if (event.target.files) {
-      const imageFiles = Array.from(event.target.files)
+      const image = event.target.files[0]
+      // setProduct({...product,images: image});
       setProduct({
         ...product,
-        images: [...(product.images || []), imageFiles[0]],
+        images: [...(product.images || []), image],
       })
       console.log(product)
     }
   }
 
   const onSubmit = (data: FieldValues) => {
-    console.log("hello world")
+    console.log(data)
+    console.log(product.images)
+    console.log("The errors are: ", errors)
   }
 
   return (
@@ -150,12 +162,11 @@ const EditProduct = () => {
               <div className="mb-3">
                 <label htmlFor="rating">Images</label>
                 <div className="input-container">
-                  <ImageUploadInput
-                    handleImagesUpload={handleImagesUpload}
-                    errors={errors}
+                  <ImageUploadInput 
                     imageOptions={{ ...register("images") }}
-                    value= {product.images?.map((file) => file)}
-                  />
+                    errors={errors}
+                    handlechange= {handleImagesUpload}
+                    />
                 </div>
               </div>
 

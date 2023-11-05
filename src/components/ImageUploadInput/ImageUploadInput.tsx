@@ -2,20 +2,15 @@ import "./ImageUploadInput.css"
 import { ChangeEvent, useRef } from "react"
 import { FaCloudUploadAlt } from "react-icons/fa"
 import useImageUploader from "../../Hooks/useImageUploader"
+import { UseFormRegisterReturn } from "react-hook-form"
 
 interface Props {
-  imageOptions?: any
-  handleImagesUpload: (event: ChangeEvent<HTMLInputElement>) => void
-  errors?: any
-  value?: any
+  imageOptions?: UseFormRegisterReturn<"images">
+  errors? : any
+  handlechange: (event: ChangeEvent<HTMLInputElement>)=>void
 }
 
-const ImageUploadInput = ({
-  imageOptions,
-  handleImagesUpload,
-  errors,
-  value,
-}: Props) => {
+const ImageUploadInput = ({ imageOptions, errors, handlechange}: Props) => {
   const wrapperRef = useRef<HTMLInputElement>(null)
 
   const {
@@ -23,10 +18,13 @@ const ImageUploadInput = ({
     onDragLeave,
     onDrop,
     onDragOver,
-    onFileDrop,
-    fileRemove,
-    files,
   } = useImageUploader(wrapperRef)
+
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    handlechange(event);
+    // onImagePicked(event)
+  }
 
   return (
     <>
@@ -46,14 +44,8 @@ const ImageUploadInput = ({
           <div typeof="button" className="img-upload-btn mt-2">
             <input
               {...imageOptions}
-              value={value}
               type="file"
-              onChange={(event) => {
-                if (event) {
-                  handleImagesUpload(event)
-                  onFileDrop(event)
-                }
-              }}
+              onChange={handleInputChange}
               multiple
               accept="image/png , image/jpg, image/jpeg"
             />
@@ -61,11 +53,11 @@ const ImageUploadInput = ({
           </div>
         </div>
 
-        {errors?.images && (
-          <div className="input-error">{errors?.images.message}</div>
+        {errors?.image && (
+          <div className="input-error">{errors?.image.message}</div>
         )}
 
-        {files.map((file, index) => (
+        {/* {files.map((file, index) => (
           <div key={index} className="uploaded-img-container flex-wrap">
             <div className="d-flex align-items-center flex-wrap gap-2">
               <img
@@ -85,7 +77,7 @@ const ImageUploadInput = ({
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </>
   )

@@ -25,15 +25,11 @@ const ProductPreviewCard = ({ data }: Props) => {
             align-items-center
             justify-content-center"
             >
-              {data?.images ? (
+              {data?.images[0] != null ? (
                 <img
                   className="w-100"
-                  src={
-                    data.images[0]?.type?.startsWith("image/")
-                      ? URL.createObjectURL(data.images[0])
-                      : noImage
-                  }
-                  alt=""
+                  src={URL.createObjectURL(data.images[0])}
+                  alt={data.title}
                 />
               ) : (
                 <img className="w-100" src={noImage} alt="" />
@@ -41,12 +37,39 @@ const ProductPreviewCard = ({ data }: Props) => {
             </div>
 
             <div
-              className="d-flex col-12 gap-2 mt-2"
-              style={{ height: "40px" }}
+              className="d-flex flex-wrap gap-2 mt-2"
+              style={{ minHeight: "40px" }}
             >
-              <img className="w-30" src={noImage} alt="" />
-              <img className="w-30" src={noImage} alt="" />
-              <img className="w-30" src={noImage} alt="" />
+              {data?.images[1] != null ? (
+                data.images
+                  .slice(1)
+                  .map((img, index) => (
+                    <img
+                      key={index}
+                      style={{  width: "60px", height:'40px', maxHeight: "100%", objectFit: 'cover'}}
+                      src={img ? URL.createObjectURL(img) : noImage}
+                      alt={data.title}
+                    />
+                  ))
+              ) : (
+                <>
+                  <img
+                    style={{ width: "60px", height:'40px', maxHeight: "100%", objectFit: 'cover' }}
+                    src={noImage}
+                    alt=""
+                  />
+                  <img
+                    style={{ width: "60px", height:'40px', maxHeight: "100%" , objectFit: 'cover'}}
+                    src={noImage}
+                    alt=""
+                  />
+                  <img
+                    style={{ width: "60px", height:'40px', maxHeight: "100%", objectFit: 'cover' }}
+                    src={noImage}
+                    alt=""
+                  />
+                </>
+              )}
             </div>
           </div>
 

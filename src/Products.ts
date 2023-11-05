@@ -15,7 +15,7 @@ export interface Product {
   price: number
   description?: string
   numInStock?: number
-  images? : File[]
+  images : File[]
 }
 
 const products: Product[] = [
@@ -25,14 +25,16 @@ const products: Product[] = [
     title: "The insect collection",
     rating: 4.5,
     price: 199.99,
+    images: []
   },
-  { id: 2, image: ProductImg2, title: "Concorde", rating: 2, price: 79.99 },
+  { id: 2, image: ProductImg2, title: "Concorde", rating: 2, price: 79.99, images: [] },
   {
     id: 3,
     image: ProductImg3,
     title: "Corusant Gaurd Gunship",
     rating: 3.5,
     price: 199.99,
+    images: []
   },
   {
     id: 4,
@@ -40,6 +42,7 @@ const products: Product[] = [
     title: "Lego Star Wars Calender 2023",
     rating: 1,
     price: 139.99,
+    images: []
   },
   {
     id: 5,
@@ -47,6 +50,7 @@ const products: Product[] = [
     title: "Lego Magnifier Marvel",
     rating: 3.5,
     price: 20,
+    images: []
   },
   {
     id: 6,
@@ -54,6 +58,7 @@ const products: Product[] = [
     title: "Gringotts Wizarding Bank- Collectors Edition",
     rating: 3.5,
     price: 44.99,
+    images: []
   },
   {
     id: 7,
@@ -61,6 +66,7 @@ const products: Product[] = [
     title: "Lego City Advent Calender 2023",
     rating: 3.5,
     price: 20,
+    images: []
   },
   {
     id: 8,
@@ -68,6 +74,7 @@ const products: Product[] = [
     title: "Hogwarts Castle and Grounds",
     rating: 3.5,
     price: 20,
+    images: []
   },
 ]
 
