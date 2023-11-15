@@ -1,14 +1,14 @@
-import { createBrowserRouter } from "react-router-dom"
-import Layout from "./pages/Layout"
-import HomePage from "./pages/HomePage"
-import RegisterationPage from "./pages/RegisterationPage"
-import LoginPage from "./pages/LoginPage"
-import ErrorPage from "./pages/ErrorPage"
-import AccountManagePage from "./pages/AccountManagePage"
-import AccountOverview from "./components/AccountOverview/AccountOverview"
-import ProductsTable from "./components/ProductsTable/ProductsTable"
-import EditProduct from "./components/EditProduct/EditProduct"
-import { ImageFilesContextProvider } from "./state-management/contexts/imageFilesContext"
+import { createBrowserRouter } from 'react-router-dom';
+
+import AccountOverview from './components/AccountOverview/AccountOverview';
+import EditProduct from './components/EditProduct/EditProduct';
+import ProductsTable from './components/ProductsTable/ProductsTable';
+import AccountManagePage from './pages/AccountManagePage';
+import ErrorPage from './pages/ErrorPage';
+import HomePage from './pages/HomePage';
+import Layout from './pages/Layout';
+import LoginPage from './pages/LoginPage';
+import RegisterationPage from './pages/RegisterationPage';
 
 const router = createBrowserRouter([
   {
@@ -34,11 +34,7 @@ const router = createBrowserRouter([
           },
           {
             path: "products/:id",
-            element: (
-              <ImageFilesContextProvider>
-                <EditProduct />
-              </ImageFilesContextProvider>
-            ),
+            element: <EditProduct />,
           },
         ],
       },

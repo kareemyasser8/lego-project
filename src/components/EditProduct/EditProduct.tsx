@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, useState } from "react"
 import ProductPreviewCard from "../ProductPreviewCard/ProductPreviewCard"
 import { Product } from "../../Products"
 import usePriceInput from "../../Hooks/usePriceInput"
@@ -7,41 +7,28 @@ import { FieldValues, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import ImageUploadInput from "../ImageUploadInput/ImageUploadInput"
-                
-const MAX_FILE_SIZE = 1024 * 1024 * 5; //5MB
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-]
-
-const schema = z.object({
-  title: z.string().min(1, { message: "Title field is required" }),
-  price: z
-    .number({ invalid_type_error: "Price field is required" })
-    .min(1)
-    .max(1000),
-  rating: z.number(),
-  images: z
-    .any()
-    .refine((files) => files?.length == 1, "Image is required.")
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, .jpeg, .png and .webp files are accepted."
-    ),
-  description: z.string().min(1, { message: "Description field is required" }),
-  numInStock: z
-    .number({ invalid_type_error: "Number in stock field is required" })
-    .min(1)
-    .max(1000),
-})
+import useImageValidation from "../../Hooks/useImageValidation"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import axios from "axios"
 
 const EditProduct = () => {
+  const url = "http://localhost:3000/api/products/"
+
+  const addProduct = useMutation({
+    mutationFn: (product: any) =>
+      axios.post<Product>(url, product, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then(res=>console.log(res)),
+    onSuccess: (savedProduct, newProduct) => {
+      console.log(savedProduct)
+    },
+    onError: (err: any) => {
+      console.log(err)
+    },
+  })
+
   const [product, setProduct] = useState<Product>({
     title: "",
     price: +"",
@@ -51,6 +38,7 @@ const EditProduct = () => {
     numInStock: +"",
   })
 
+  const schema = useImageValidation()
   type FormData = z.infer<typeof schema>
 
   const {
@@ -68,19 +56,40 @@ const EditProduct = () => {
     event.preventDefault()
     if (event.target.files) {
       const image = event.target.files[0]
-      // setProduct({...product,images: image});
       setProduct({
         ...product,
         images: [...(product.images || []), image],
       })
-      console.log(product)
     }
   }
 
+  const handleImageRemove = (file: File) => {
+    setProduct({
+      ...product,
+      images: product.images.filter((img) => img !== file),
+    })
+  }
+
   const onSubmit = (data: FieldValues) => {
-    console.log(data)
-    console.log(product.images)
-    console.log("The errors are: ", errors)
+    const formData = new FormData()
+    formData.append("title", product.title)
+    formData.append("price", product.price.toString())
+    formData.append("rating", product.rating.toString())
+    if (product.description)
+     formData.append("description", product.description)
+    if (product.numInStock)
+      formData.append("numInStock", product.numInStock.toString())
+
+    if (product.images) {
+      formData.append("images", product.images[0])
+    }
+
+    // product.images.map((image,index)=>{
+    //   formData.append(`image[${index}]`,image, `${product.title}-${index}`);
+    // })
+
+    console.log(formData)
+    addProduct.mutate(formData)
   }
 
   return (
@@ -89,7 +98,11 @@ const EditProduct = () => {
         <p className="h4">Edit Product</p>
         <div className="row">
           <div className="col-lg-7 col-sm-12 mb-3">
-            <form className="lego-form" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              className="lego-form"
+              onSubmit={handleSubmit(onSubmit)}
+              encType="multipart/form-data"
+            >
               <div className="mb-3">
                 <label htmlFor="title">Title</label>
                 <div className="input-container">
@@ -162,11 +175,13 @@ const EditProduct = () => {
               <div className="mb-3">
                 <label htmlFor="rating">Images</label>
                 <div className="input-container">
-                  <ImageUploadInput 
+                  <ImageUploadInput
                     imageOptions={{ ...register("images") }}
                     errors={errors}
-                    handlechange= {handleImagesUpload}
-                    />
+                    handleChange={handleImagesUpload}
+                    product={product}
+                    handleRemove={handleImageRemove}
+                  />
                 </div>
               </div>
 
