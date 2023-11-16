@@ -16,11 +16,13 @@ const EditProduct = () => {
 
   const addProduct = useMutation({
     mutationFn: (product: any) =>
-      axios.post<Product>(url, product, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).then(res=>console.log(res)),
+      axios
+        .post<Product>(url, product, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => console.log(res)),
     onSuccess: (savedProduct, newProduct) => {
       console.log(savedProduct)
     },
@@ -75,20 +77,14 @@ const EditProduct = () => {
     formData.append("title", product.title)
     formData.append("price", product.price.toString())
     formData.append("rating", product.rating.toString())
-    if (product.description)
-     formData.append("description", product.description)
+    if (product.description) formData.append("description", product.description)
     if (product.numInStock)
       formData.append("numInStock", product.numInStock.toString())
 
     if (product.images) {
-      formData.append("images", product.images[0])
+      product.images.forEach((image) => formData.append("images", image))
     }
 
-    // product.images.map((image,index)=>{
-    //   formData.append(`image[${index}]`,image, `${product.title}-${index}`);
-    // })
-
-    console.log(formData)
     addProduct.mutate(formData)
   }
 
