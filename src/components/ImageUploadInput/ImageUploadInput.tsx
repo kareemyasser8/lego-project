@@ -64,7 +64,7 @@ const ImageUploadInput = ({ imageOptions, errors, handleChange, product, handleR
             <div className="d-flex align-items-center flex-wrap gap-2">
               <img
                 id={`uploaded-img-preview-${index}`}
-                src={URL.createObjectURL(file)}
+                src={file? URL.createObjectURL(file): ''}
                 className="uploaded-img-preview"
                 alt="Preview"
               />
