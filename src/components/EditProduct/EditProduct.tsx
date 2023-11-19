@@ -10,34 +10,48 @@ import ImageUploadInput from "../ImageUploadInput/ImageUploadInput"
 import useImageValidation from "../../Hooks/useImageValidation"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
+import { useParams } from "react-router-dom"
 
 const EditProduct = () => {
   const url = "http://localhost:3000/api/products/"
 
-  const addProduct = useMutation({
-    mutationFn: (product: any) =>
-      axios
-        .post<Product>(url, product, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => console.log(res)),
-    onSuccess: (savedProduct, newProduct) => {
-      console.log(savedProduct)
-    },
-    onError: (err: any) => {
-      console.log(err)
-    },
-  })
+  const { id } = useParams();
+  const mode = id ? 'edit' : 'create';
+
+  console.log(mode)
 
   const [product, setProduct] = useState<Product>({
     title: "",
     price: +"",
     rating: +"",
     images: [],
-    description: "",
+    description: ``,
     numInStock: +"",
+  })
+
+  const addProduct = useMutation({
+    mutationFn: (product: any) =>
+      axios
+        .post<FormData>(url, product, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => console.log(res.data)),
+    onSuccess: (savedProduct, newProduct) => {
+      setProduct({
+        title: "",
+        price: +"",
+        rating: +"",
+        images: [],
+        description: ``,
+        numInStock: +"",
+      })
+      reset()
+    },
+    onError: (err: any) => {
+      console.log(err)
+    },
   })
 
   const schema = useImageValidation()
@@ -49,6 +63,7 @@ const EditProduct = () => {
     formState: { errors },
     setValue,
     trigger,
+    reset,
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
   const handlePriceInputField = usePriceInput(0, 1000)
@@ -93,6 +108,7 @@ const EditProduct = () => {
       <div className="col-12">
         <p className="h4">Edit Product</p>
         <div className="row">
+
           <div className="col-lg-7 col-sm-12 mb-3">
             <form
               className="lego-form"
@@ -190,6 +206,7 @@ const EditProduct = () => {
                     id="description"
                     {...register("description")}
                     onChange={(event) => {
+                      // handleDescriptionChange(event)
                       setProduct({
                         ...product,
                         description: event.target.value,

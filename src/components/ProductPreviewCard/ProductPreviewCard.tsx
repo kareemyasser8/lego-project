@@ -1,9 +1,7 @@
-import "./ProductPreviewCard.css"
-import noImage from "../../assets/no-image-placeholder.webp"
-import ProductRating from "../ProductRating/ProductRating"
-import { FieldValues } from "react-hook-form"
-import { useEffect, useState } from "react"
-import { Product } from "../../Products"
+import './ProductPreviewCard.css';
+import noImage from '../../assets/no-image-placeholder.webp';
+import { Product } from '../../Products';
+import ProductRating from '../ProductRating/ProductRating';
 
 interface Props {
   data: Product
@@ -81,7 +79,7 @@ const ProductPreviewCard = ({ data }: Props) => {
             <div className="product-price fs-5 fw-bold">
               <p>${data?.price || 0}</p>
             </div>
-            <p>{data?.description || ""}</p>
+            <p style={{whiteSpace: "pre-line", wordBreak: "break-word" }}>{data?.description || ""}</p>
           </div>
         </div>
       </div>
