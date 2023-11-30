@@ -33,6 +33,10 @@ const router = createBrowserRouter([
             element: <ProductsTable />,
           },
           {
+            path: "products/new",
+            element: <EditProduct />,
+          },
+          {
             path: "products/edit/:id",
             element: <EditProduct />,
           },

@@ -55,6 +55,16 @@ body {
   background-color: #083c63;
 }
 
+.loadingBlueBtn{
+  background-color: #99aab8;
+  padding: 15px;
+  color: rgb(39, 39, 39);
+  width: 100%;
+  min-width: 200px;
+  border-radius: 30px;
+  border: none;
+}
+
 .strokedBlueBtn {
   border: 2px solid var(--blue-color);
   padding: 15px;
@@ -177,4 +187,13 @@ input, textarea:focus {
   color: rgb(221, 26, 34);
 }
 
+.link-active{
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link{
+  color: var(--blue-color)
+}
 

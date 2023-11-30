@@ -1,26 +1,69 @@
-import { Link } from "react-router-dom";
-import useFetchProducts from "../../Hooks/useFetchProducts";
-import Spinner from "../Spinner/Spinner";
-import { useState } from "react";
-import { Product } from "../../Products";
+import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
+
+import useDeleteProduct from "../../Hooks/useDeleteProduct"
+import useProducts from "../../Hooks/useProducts"
+import { Product } from "../../Products"
+import Pagination from "../Pagination/Pagination"
+import Spinner from "../Spinner/Spinner"
+import AlertBox from "../AlertBox/AlertBox"
+import { useQueryClient } from "@tanstack/react-query"
 
 const ProductsTable = () => {
-  const pageSize = 4;
-  const [page, setPage] = useState(1);
-  const { data , error, isLoading } = useFetchProducts({ page, pageSize });
+  const queryClient = useQueryClient()
 
-  if (isLoading) {
-    return <Spinner color="text-warning" />;
+  const pageSize = 20
+  const [page, setPage] = useState(1)
+  const { data, error, isLoading } = useProducts(page, pageSize)
+  const {
+    error: deleteProductError,
+    mutate: deleteProductMutate,
+    isLoading: deleteProductIsLoading,
+    isSuccess: deleteProductIsSuccess,
+  } = useDeleteProduct()
+  const [alertVisibility, setAlertVisibility] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState({} as Product)
+
+  const deleteButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  const handleDelete = () => {
+    deleteProductMutate(selectedProduct.id)
+    if (deleteButtonRef.current) {
+      deleteButtonRef.current.setAttribute("data-bs-dismiss", "modal")
+    }
   }
 
-  if (error) {
+  useEffect(() => {
+    if (deleteProductIsLoading) {
+      if (deleteButtonRef.current) {
+        deleteButtonRef.current.textContent = "Deleting..."
+      }
+    }
+
+    if (deleteProductIsSuccess) {
+      if (deleteButtonRef.current && closeButtonRef.current) {
+        deleteButtonRef.current.textContent = "Delete Product"
+        closeButtonRef.current.click()
+        queryClient.invalidateQueries(["products", page, pageSize])
+      }
+    }
+  }, [deleteProductIsSuccess, deleteProductIsLoading])
+
+  if (isLoading) {
+    return <Spinner color="text-warning" />
+  }
+
+  if (error || deleteProductError) {
+    const errorMessage = error ? error.message : deleteProductError?.message
+
     return (
       <>
         <div className="alert alert-danger" role="alert">
-          <p>{error.message}</p>
+          <p>{errorMessage}</p>
         </div>
       </>
-    );
+    )
   }
 
   return (
@@ -28,12 +71,14 @@ const ProductsTable = () => {
       <div className="col-12">
         <p className="h4">Products</p>
 
-        <button
-          className="filledBlueBtn mb-3"
-          style={{ width: "10px", padding: "10px" }}
-        >
-          New Product
-        </button>
+        <Link to={`/user/products/new`}>
+          <button
+            className="filledBlueBtn mb-3"
+            style={{ width: "10px", padding: "10px" }}
+          >
+            New Product
+          </button>
+        </Link>
 
         <table className="table table-striped">
           <thead>
@@ -53,7 +98,16 @@ const ProductsTable = () => {
                 <td>{product.title}</td>
                 <td>{product.price}</td>
                 <td>{product.numInStock}</td>
-                <td className="text-danger" style={{ cursor: "pointer" }}>
+                <td
+                  className="text-danger"
+                  data-bs-toggle={alertVisibility ? "modal" : ""}
+                  data-bs-target="#alertModal"
+                  onClick={() => {
+                    setAlertVisibility(true)
+                    setSelectedProduct(product)
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
                   Delete
                 </td>
                 <td>
@@ -65,39 +119,17 @@ const ProductsTable = () => {
         </table>
       </div>
 
-      <div className="d-flex flex-row-reverse">
-        <ul className="pagination">
-          <li className={page === 1 ? "page-item disabled" : "page-item"}>
-            <span className="page-link" onClick={() => setPage(page - 1)}>
-              Previous
-            </span>
-          </li>
+      <Pagination page={page} totalPages={data.totalPages} setPage={setPage} />
 
-          {[...Array(Math.ceil(data.totalPages)).keys()].map((pageNum) => (
-            <li
-              key={pageNum + 1}
-              className={pageNum + 1 === page ? "page-item active" : "page-item"}
-            >
-              <span
-                className="page-link"
-                onClick={() => setPage(pageNum + 1)}
-              >
-                {pageNum + 1}
-              </span>
-            </li>
-          ))}
-
-          <li
-            className={page === data.totalPages ? "page-item disabled" : "page-item"}
-          >
-            <span className="page-link" onClick={() => setPage(page + 1)}>
-              Next
-            </span>
-          </li>
-        </ul>
-      </div>
+      <AlertBox
+        closeButtonRef={closeButtonRef}
+        deleteButtonRef={deleteButtonRef}
+        onDelete={handleDelete}
+      >
+        Are you sure you want to delete {selectedProduct.title}{" "}
+      </AlertBox>
     </>
-  );
-};
+  )
+}
 
-export default ProductsTable;
+export default ProductsTable
