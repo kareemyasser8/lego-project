@@ -2,6 +2,7 @@
   --primary-color: #fd8024;
   --secondary-color: #f6c903;
   --blue-color: #005595;
+  --gray-color: #383838;
 }
 
 @font-face {
@@ -15,6 +16,56 @@ body {
   color: black;
 }
 
+input,
+textarea:focus {
+  border: 2px solid var(--blue-color);
+}
+
+.link-active {
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link {
+  color: var(--blue-color);
+}
+
+.gray{
+  color: var(--gray-color);
+}
+
+.custom-checkbox {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #adb3c2;
+  cursor: pointer;
+  height: 25px; /* Adjust the height as needed */
+  margin-right: 5px;
+  outline: none;
+  width: 25px; /* Adjust the width as needed */
+}
+
+.custom-checkbox:checked::before {
+  content: '\2714';
+  margin-left: 5px;
+}
+
+.custom-checkbox:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.chevron-animate-down{
+  transform: rotate(180deg);
+}
+
+.chevron-animate-up{
+  transform: rotate(0);
+}
+
+
 .btn-light:hover {
   background-color: black;
   border: none;
@@ -25,11 +76,25 @@ body {
   border: none;
 }
 
-.blueBtn {
-  border: 2px solid var(--blue-color);
+.legoBtn{
   border-radius: 2rem;
-  font-size: 1rem;
   cursor: pointer;
+  font-size: 0.9rem;
+  width: max-content;
+  height: max-content;
+  padding: 7px 15px 7px 15px;
+}
+
+.legoBtnBlack{
+  background-color: black;
+  color: white;
+}
+
+.blueBtn {
+  border-radius: 2rem;
+  border: 2px solid var(--blue-color);
+  cursor: pointer;
+  font-size: 1rem;
   height: max-content;
   padding: 7px 15px 7px 15px;
 }
@@ -43,68 +108,68 @@ body {
 
 .filledBlueBtn {
   background-color: var(--blue-color);
-  padding: 15px;
-  color: white;
-  width: 100%;
-  min-width: 200px;
   border-radius: 30px;
   border: none;
+  color: white;
+  min-width: 200px;
+  padding: 15px;
+  width: 100%;
 }
 
-.filledBlueBtn:hover{
+.filledBlueBtn:hover {
   background-color: #083c63;
 }
 
-.loadingBlueBtn{
+.loadingBlueBtn {
   background-color: #99aab8;
-  padding: 15px;
-  color: rgb(39, 39, 39);
-  width: 100%;
-  min-width: 200px;
   border-radius: 30px;
   border: none;
+  color: rgb(39, 39, 39);
+  min-width: 200px;
+  padding: 15px;
+  width: 100%;
 }
 
 .strokedBlueBtn {
-  border: 2px solid var(--blue-color);
-  padding: 15px;
-  text-decoration: none;
-  text-align: center;
-  color: var(--blue-color);
-  width: 100%;
-  min-width: 200px;
   border-radius: 30px;
+  border: 2px solid var(--blue-color);
+  color: var(--blue-color);
+  min-width: 200px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
 }
 
-.strokedBlueBtn:hover{
+.strokedBlueBtn:hover {
   color: #083c63;
 }
 
 @media (min-width: 840px) {
-  .page{
-      margin-top: 100px;
-  }   
+  .page {
+    margin-top: 100px;
+  }
 }
 
 @media (max-width: 991px) {
-  .page{
-      margin-top: 30px;
-  }   
+  .page {
+    margin-top: 30px;
+  }
 }
 
-a{
+a {
   text-decoration: none;
 }
 
 .lego-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  z-index: 2;
-  gap: 5px;
   background-color: white;
   color: #282828;
+  display: flex;
+  flex-direction: column;
   font-size: clamp(0.9rem, -0.375rem + 2.8vw, 1rem);
+  gap: 5px;
+  width: 100%;
+  z-index: 2;
 }
 
 .lego-form label {
@@ -120,64 +185,62 @@ a{
 }
 
 .lego-form input {
-  padding: 8px;
-  width: 100%;
-  padding-inline-start: 20px;
-  color: #282828;
   border-radius: 7px;
   border: 2px solid #646464;
+  color: #282828;
   outline: none;
+  padding-inline-start: 20px;
+  padding: 8px;
   position: relative;
+  width: 100%;
 }
 
-.lego-form textarea{
+.lego-form textarea {
+  border-radius: 7px;
+  border: 2px solid #646464;
+  color: #282828;
   height: 150px;
-  resize: none;
-  padding: 8px;
-  width: 100%;
-  padding-inline-start: 20px;
-  color: #282828;
-  border-radius: 7px;
-  border: 2px solid #646464;
   outline: none;
+  padding-inline-start: 20px;
+  padding: 8px;
   position: relative;
+  resize: none;
+  width: 100%;
 }
 
-.lego-form input::placeholder, textarea::placeholder {
+.lego-form input::placeholder,
+textarea::placeholder {
   color: rgba(100, 100, 100, 0.5);
   font-style: italic;
 }
 
-.lego-form input[type="password"]{
+.lego-form input[type="password"] {
   letter-spacing: 4px;
 }
 
-.lego-form input[type="password"]::placeholder{
+.lego-form input[type="password"]::placeholder {
   letter-spacing: 0px;
 }
 
-input, textarea:focus {
-  border: 2px solid var(--blue-color);
-}
 
 .lego-form .input-danger {
   border: 2px solid rgb(221, 26, 34);
 }
 
 .input-icon {
-  font-size: 1.7rem;
-  background-color: white;
-  height: 80%;
-  width: 40px;
-  display: flex;
   align-items: center;
+  background-color: white;
+  color: rgba(100, 100, 100, 0.5);
+  display: flex;
+  font-size: 1.7rem;
+  height: 80%;
   justify-content: center;
   position: absolute;
-  color: rgba(100, 100, 100, 0.5);
   right: 10px;
+  width: 40px;
 }
 
-.input-icon.password:hover{
+.input-icon.password:hover {
   cursor: pointer;
   background-color: #ebf1f4;
   color: var(--blue-color);
@@ -187,13 +250,4 @@ input, textarea:focus {
   color: rgb(221, 26, 34);
 }
 
-.link-active{
-  color: black;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.link{
-  color: var(--blue-color)
-}
 

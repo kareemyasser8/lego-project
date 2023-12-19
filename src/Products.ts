@@ -22,6 +22,7 @@ export interface Product {
   description?: string
   numInStock?: number
   images: ProductImage[]
+  Images?: string[]
 }
 
 const products: Product[] = [

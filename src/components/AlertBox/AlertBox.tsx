@@ -3,12 +3,16 @@ import { ReactNode, RefObject, useEffect } from "react"
 interface Props {
   children: ReactNode
   onDelete: () => void
-  deleteButtonRef: RefObject<HTMLButtonElement>;
-  closeButtonRef: RefObject<HTMLButtonElement>;
+  deleteButtonRef: RefObject<HTMLButtonElement>
+  closeButtonRef: RefObject<HTMLButtonElement>
 }
 
-const AlertBox = ({ children, onDelete, deleteButtonRef, closeButtonRef}: Props) => {
-
+const AlertBox = ({
+  children,
+  onDelete,
+  deleteButtonRef,
+  closeButtonRef,
+}: Props) => {
   return (
     <>
       <div
@@ -17,10 +21,15 @@ const AlertBox = ({ children, onDelete, deleteButtonRef, closeButtonRef}: Props)
         tabIndex={-1}
         aria-labelledby="alertModalLabel"
         aria-hidden="true"
-        style={{backgroundColor: "rgba(0,0,0,0.5)"}}
+        style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
       >
         <div className="modal-dialog">
           <div className="modal-content">
+            <div className="modal-header bg-danger">
+              <h5 className="modal-title text-white ">
+                DELETE WARNING!
+              </h5>
+            </div>
             <div className="modal-body">{children}</div>
             <div className="modal-footer">
               <button

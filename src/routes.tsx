@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import Layout from './pages/Layout';
 import LoginPage from './pages/LoginPage';
 import RegisterationPage from './pages/RegisterationPage';
+import ShopPage from './pages/ShopPage';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             element: <EditProduct />,
           },
         ],
+      },
+      {
+        path: "shop",
+        element: <ShopPage />,
       },
     ],
   },

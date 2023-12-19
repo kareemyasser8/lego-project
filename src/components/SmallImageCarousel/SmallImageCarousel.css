@@ -1,0 +1,28 @@
+.small-carousel-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.small-carousel-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+}
+
+.small-carousel-container::-webkit-scrollbar {
+  height: 7px;
+  cursor: grabbing;
+}
+
+.small-carousel-container::-webkit-scrollbar-track {
+  background: #d9d9d9;
+}
+
+.small-carousel-container::-webkit-scrollbar-thumb {
+  background: #626262;
+}
+
+.small-carousel-container::-webkit-scrollbar-thumb:hover {
+  background: black;
+}

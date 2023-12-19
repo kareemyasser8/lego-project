@@ -40,7 +40,6 @@ const HomePage = () => {
           <div className="mt-5 px-5">
             <Articles />
           </div>
-          <LargeFooter />
         </div>
       </div>
     </>

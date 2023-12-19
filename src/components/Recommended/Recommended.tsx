@@ -17,34 +17,29 @@ const Recommended = () => {
     imageListRef.current?.scrollBy({ left: scrollAmount, behavior: "smooth" })
   }
 
-
   return (
     <>
       <div className="fs-2 mb-3">Recommended for you</div>
       <div className="slider-wrapper">
-        
-          <div
-            className="btn back-btn"
-            ref={prevButtonRef}
-            onClick={() => slideScroll(prevButtonRef)}
-          >
-            <div className="back-btn-circle">
-              <BsChevronLeft size={"20px"} />
-            </div>
+        <div
+          className="back-btn"
+          ref={prevButtonRef}
+          onClick={() => slideScroll(prevButtonRef)}
+        >
+          <div className="back-btn-circle">
+            <BsChevronLeft size={"20px"} />
           </div>
-        
+        </div>
 
-        {(
-          <div
-            className="btn forward-btn"
-            ref={nextButtonRef}
-            onClick={() => slideScroll(nextButtonRef)}
-          >
-            <div className="forward-btn-circle">
-              <BsChevronRight size={"20px"} />
-            </div>
+        <div
+          className="forward-btn"
+          ref={nextButtonRef}
+          onClick={() => slideScroll(nextButtonRef)}
+        >
+          <div className="forward-btn-circle">
+            <BsChevronRight size={"20px"} />
           </div>
-        )}
+        </div>
 
         <div
           className="

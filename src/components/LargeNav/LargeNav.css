@@ -10,6 +10,7 @@
 }
 
 .nav-item{
+    color: black;
     font-weight: 600;
     cursor: pointer;
 }
