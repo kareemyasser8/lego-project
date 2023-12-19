@@ -2,7 +2,69 @@
   --primary-color: #fd8024;
   --secondary-color: #f6c903;
   --blue-color: #005595;
+  --blue-dark-color: #003a71;
+  --gray-light-color: #757575;
   --gray-color: #383838;
+
+  --st-color-black-light: #191919;
+  --st-color-black: #000;
+  --st-color-blue-dark: #003a71;
+  --st-color-blue-extra-light: #e6f3ff;
+  --st-color-blue-kids-dark: #3055b5;
+  --st-color-blue-kids: #abd9ff;
+  --st-color-blue-light: #31a1e0;
+  --st-color-blue: #006db7;
+  --st-color-green-extra-light: #ccead8;
+  --st-color-green: #008537;
+  --st-color-grey-dark: #2c2c2c;
+  --st-color-grey-extra-extra-light: #f6f6f6;
+  --st-color-grey-extra-light: #f8f8f8;
+  --st-color-grey-light: #e0e0e0;
+  --st-color-grey-medium: #cacaca;
+  --st-color-grey: #757575;
+  --st-color-orange-dark: #e86902;
+  --st-color-orange: #fd8024;
+  --st-color-purple-dark: #18152d;
+  --st-color-purple: #201d48;
+  --st-color-red-dark: #9d1604;
+  --st-color-red-extra-light: #fff2f2;
+  --st-color-red: #d0021b;
+  --st-color-transparent: transparent;
+  --st-color-vip-blue: #0a4dad;
+  --st-color-white: #fff;
+  --st-color-yellow-extra-light: #fef6d2;
+  --st-color-yellow-light: #ffdb4b;
+  --st-color-yellow: #ffcf00;
+}
+
+:root {
+  --border-radius-xs: 0.125rem;
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-radius-xl: 2rem;
+  --border-radius-2xl: 3rem;
+  --border-radius-none: 0rem;
+  --border-radius-round: 62.4375rem;
+  --border-radius-base: 0.5rem;
+  --border-radius-default: 62.4375rem;
+  --border-width-none: 0;
+  --border-width-thin: 0.0625rem;
+  --border-width-subtle: 0.125rem;
+  --border-width-medium: 0.25rem;
+  --border-width-bold: 0.375rem;
+  --border-width-chunky: 0.5rem;
+  --border-width-default: 0.125rem;
+}
+
+:root {
+  --size-10: 0.0625rem;
+  --size-25: 0.125rem;
+  --size-40: clamp(0.125rem, 0.0816327vw + 0.105867rem, 0.1875rem);
+  --size-50: clamp(0.1875rem, 0.0816327vw + 0.168367rem, 0.25rem);
+  --size-65: clamp(0.25rem, 0.0816327vw + 0.230867rem, 0.3125rem);
+  --size-75: clamp(0.3125rem, 0.0816327vw + 0.293367rem, 0.375rem);
+  --size-85: clamp(0.375rem, 0.0816327vw + 0.355867rem, 0.4375rem);
 }
 
 @font-face {
@@ -15,6 +77,115 @@ body {
   overflow-x: hidden;
   color: black;
 }
+
+/* Modification */
+
+/* buttons */
+.btn{
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:10px;
+}
+
+.btn:focus {
+  outline: 2px solid #003a71;
+}
+
+.btn--small{
+  font-size: 1rem;
+}
+
+.btn--large{
+  padding: 15px;
+  min-width: 200px;
+}
+
+.btn--block{
+  width: 100%;
+  display: inline-block;
+}
+
+.btn--center{
+  align-self: center;
+}
+
+.btn--primary{
+  background-color: var(--primary-color);
+  color: #000;
+  transition: none;
+}
+
+.btn--primary:hover{
+  border: 2px solid var(--primary-color);
+  background-color: var(--st-color-transparent);
+}
+
+.btn--secondary{
+  background-color: var(--blue-color);
+  color: #fff;
+}
+
+.btn--secondary:hover{
+  background-color: var(--blue-dark-color);
+  color: #fff;
+}
+
+.btn--orange{
+  background-color: var(--primary-color);
+  color: #000;
+
+}
+
+.btn--orange:hover{
+  background-color: var(--st-color-orange-dark);
+}
+
+.btn--gray{
+  background-color: var(--gray-color);
+  color: #000;
+}
+
+.btn--black{
+  background-color: #000;
+  color: white
+}
+
+.btn--black:hover{
+  background-color: #3a3a3a;
+}
+
+.btn--rounded{
+  border-radius: var(--border-radius-xl);
+}
+
+.btn--outlined{
+  border: 2px solid;
+}
+
+.btn--outlined-blue{
+  border-color: var(--blue-color);
+  color: var(--blue-color);
+}
+
+.btn--outlined-blue:hover{
+  background-color: var(--blue-color);
+  color: #fff;
+}
+
+.btn--outlined-orange{
+  background-color: var(--primary-color);
+}
+
+/*-----------------------------------------*/
 
 input,
 textarea:focus {
@@ -31,7 +202,7 @@ textarea:focus {
   color: var(--blue-color);
 }
 
-.gray{
+.gray {
   color: var(--gray-color);
 }
 
@@ -49,7 +220,7 @@ textarea:focus {
 }
 
 .custom-checkbox:checked::before {
-  content: '\2714';
+  content: "\2714";
   margin-left: 5px;
 }
 
@@ -57,92 +228,12 @@ textarea:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.chevron-animate-down{
+.chevron-animate-down {
   transform: rotate(180deg);
 }
 
-.chevron-animate-up{
+.chevron-animate-up {
   transform: rotate(0);
-}
-
-
-.btn-light:hover {
-  background-color: black;
-  border: none;
-  color: white;
-}
-
-.btn-light {
-  border: none;
-}
-
-.legoBtn{
-  border-radius: 2rem;
-  cursor: pointer;
-  font-size: 0.9rem;
-  width: max-content;
-  height: max-content;
-  padding: 7px 15px 7px 15px;
-}
-
-.legoBtnBlack{
-  background-color: black;
-  color: white;
-}
-
-.blueBtn {
-  border-radius: 2rem;
-  border: 2px solid var(--blue-color);
-  cursor: pointer;
-  font-size: 1rem;
-  height: max-content;
-  padding: 7px 15px 7px 15px;
-}
-
-.blueBtn:hover {
-  border: 2px solid transparent;
-  background-color: var(--blue-color);
-  color: white;
-  text-decoration: underline;
-}
-
-.filledBlueBtn {
-  background-color: var(--blue-color);
-  border-radius: 30px;
-  border: none;
-  color: white;
-  min-width: 200px;
-  padding: 15px;
-  width: 100%;
-}
-
-.filledBlueBtn:hover {
-  background-color: #083c63;
-}
-
-.loadingBlueBtn {
-  background-color: #99aab8;
-  border-radius: 30px;
-  border: none;
-  color: rgb(39, 39, 39);
-  min-width: 200px;
-  padding: 15px;
-  width: 100%;
-}
-
-.strokedBlueBtn {
-  border-radius: 30px;
-  border: 2px solid var(--blue-color);
-  color: var(--blue-color);
-  min-width: 200px;
-  padding: 15px;
-  text-align: center;
-  text-decoration: none;
-  width: 100%;
-}
-
-.strokedBlueBtn:hover {
-  color: #083c63;
 }
 
 @media (min-width: 840px) {
@@ -222,7 +313,6 @@ textarea::placeholder {
   letter-spacing: 0px;
 }
 
-
 .lego-form .input-danger {
   border: 2px solid rgb(221, 26, 34);
 }
@@ -249,5 +339,3 @@ textarea::placeholder {
 .input-error {
   color: rgb(221, 26, 34);
 }
-
-

@@ -73,8 +73,7 @@ const ProductsTable = () => {
 
         <Link to={`/user/products/new`}>
           <button
-            className="filledBlueBtn mb-3"
-            style={{ width: "10px", padding: "10px" }}
+            className="btn btn--rounded btn--secondary btn--large mb-3"
           >
             New Product
           </button>

@@ -1,25 +1,27 @@
-import ArticleCard, { ArticleCardData }  from "../ArticleCard/ArticleCard"
-import articleImage1 from '../../assets/article1.webp';
-import articleImage2 from '../../assets/article2.webp';
-import articleImage3 from '../../assets/article3.webp';
+import ArticleCard, { ArticleCardData } from "../ArticleCard/ArticleCard"
+import articleImage1 from "../../assets/article1.webp"
+import articleImage2 from "../../assets/article2.webp"
+import articleImage3 from "../../assets/article3.webp"
 
 const Articles = () => {
-
-  let articles: ArticleCardData[] =[
+  let articles: ArticleCardData[] = [
     {
       image: articleImage3,
-      title: 'Best Halloween Gifts for Kids & Adults',
-      description: 'Explore haunted hideouts and face fearsome creatures with the very best LEGO® Halloween gifts for kids and adults!'
+      title: "Best Halloween Gifts for Kids & Adults",
+      description:
+        "Explore haunted hideouts and face fearsome creatures with the very best LEGO® Halloween gifts for kids and adults!",
     },
     {
       image: articleImage2,
-      title: 'Why the new LEGO® Ideas Viking Village was worth the wait',
-      description: 'Step into a world of Nordic legends and myths with our latest LEGO® Ideas set. Our LEGO designers tell you everything you need to know...'
+      title: "Why the new LEGO® Ideas Viking Village was worth the wait",
+      description:
+        "Step into a world of Nordic legends and myths with our latest LEGO® Ideas set. Our LEGO designers tell you everything you need to know...",
     },
     {
       image: articleImage1,
-      title: 'How to decorate your house for Halloween',
-      description: 'Love Halloween? Get ready for the scary season with our frightening decorations...'
+      title: "How to decorate your house for Halloween",
+      description:
+        "Love Halloween? Get ready for the scary season with our frightening decorations...",
     },
   ]
 
@@ -34,16 +36,17 @@ const Articles = () => {
         mb-3"
       >
         <div className="fs-2">Read All About It</div>
-        <div className="blueBtn">View all articles</div>
+        <div className="btn btn--rounded btn--outlined btn--outlined-blue">
+          View all articles
+        </div>
       </div>
 
       <div className="article-cards-wrapper row mb-5">
-        {articles.map((article, index)=>
-           <div key={index} className="col-lg-4 col-md-6">
-                <ArticleCard  article={article}/>
-            </div>
-        )}
-
+        {articles.map((article, index) => (
+          <div key={index} className="col-lg-4 col-md-6">
+            <ArticleCard article={article} />
+          </div>
+        ))}
       </div>
     </>
   )

@@ -68,7 +68,10 @@ const LoginPopup = () => {
             </div>
             <div className="w-100 p-3">
               <Link to="/login">
-                <button className="w-100 signInBtn" style={{ height: "50px" }}>
+                <button
+                  className="btn btn--outlined btn--outlined-blue btn--block"
+                  style={{ height: "50px" }}
+                >
                   Sign In
                 </button>
               </Link>

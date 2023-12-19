@@ -131,7 +131,7 @@ const RegisterationPage = () => {
               <div className="input-error">{errors.password.message}</div>
             )}
           </div>
-          <button className="filledBlueBtn btn-submit">
+          <button className="btn btn--rounded btn--secondary btn--large btn--center">
             Yes! Create my account
           </button>
         </form>

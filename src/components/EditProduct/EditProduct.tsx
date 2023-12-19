@@ -309,8 +309,8 @@ const EditProduct = () => {
               <button
                 className={
                   addProductLoading || editProductLoading
-                    ? "loadingBlueBtn"
-                    : "filledBlueBtn"
+                    ? "btn btn--gray btn--rounded btn--large"
+                    : "btn btn--secondary btn--rounded btn--large"
                 }
                 disabled={addProductLoading || editProductLoading}
                 style={{ width: "max-content" }}

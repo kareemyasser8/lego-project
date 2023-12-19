@@ -73,7 +73,9 @@ const LoginPage = () => {
           )}
         </div>
 
-        <button className="filledBlueBtn btn-submit">Sign in</button>
+        <button className="btn btn--rounded btn--secondary btn--large btn--center">
+          Sign in
+        </button>
         <p className="align-self-center" style={{ marginBottom: "-1px" }}>
           or
         </p>
@@ -81,7 +83,7 @@ const LoginPage = () => {
         <Link
           to="/registeration"
           type="button"
-          className="strokedBlueBtn btn-submit"
+          className="btn btn--rounded btn--large btn--outlined btn--outlined-blue btn--center"
         >
           Create account
         </Link>

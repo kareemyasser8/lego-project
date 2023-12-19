@@ -27,8 +27,9 @@ const ProductInGridCard = ({ product }: Props) => {
             <p>{product.price}</p>
           </div>
 
-          <button type="button" className="addToBag2">
-            <HiOutlineShoppingBag fontSize={"1.3rem"} />
+          {/* <button type="button" className="addToBag2"> */}
+          <button type="button" className="btn btn--orange btn--rounded">
+            <HiOutlineShoppingBag fontSize={"1.3rem"}/>
             Add to Bag
           </button>
         </div>
