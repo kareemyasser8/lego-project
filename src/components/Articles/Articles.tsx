@@ -35,7 +35,7 @@ const Articles = () => {
         justify-content-between
         mb-3"
       >
-        <div className="fs-2">Read All About It</div>
+        <h2>Read All About It</h2>
         <div className="btn btn--rounded btn--outlined btn--outlined-blue">
           View all articles
         </div>

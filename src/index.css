@@ -78,6 +78,26 @@ body {
   color: black;
 }
 
+h1{
+  font-size: 2rem;
+}
+
+h2{
+  font-size: 1.7rem;
+}
+
+h3{
+  font-size: 1.2rem;
+}
+
+h4{
+  font-size: 1rem
+}
+
+p{
+  font-size: 1rem;
+}
+
 /* Modification */
 
 /* buttons */
@@ -96,12 +116,8 @@ body {
   gap:10px;
 }
 
-.btn:focus {
-  outline: 2px solid #003a71;
-}
-
-.btn--small{
-  font-size: 1rem;
+.btn:focus-within{
+  border: 0;
 }
 
 .btn--large{

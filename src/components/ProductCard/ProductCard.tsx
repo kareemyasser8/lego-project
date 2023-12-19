@@ -34,9 +34,6 @@ const ProductCard = ({ product }: Props) => {
         <div className="product-price fs-5 fw-bold">
           <p> ${product.price}</p>
         </div>
-        {/* <button type="button" className="addToBag w-100">
-          Add to Bag
-        </button> */}
 
         <button type="button" className="btn btn--primary btn--block" style={{height: '55px'}}>
           Add to Bag

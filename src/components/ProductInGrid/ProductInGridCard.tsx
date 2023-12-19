@@ -1,4 +1,3 @@
-import "./ProductInGridCard.css"
 import { HiOutlineShoppingBag } from "react-icons/hi"
 import yellowStar from "../../assets/yellowStar.svg"
 import SmallImageCarousel from "../SmallImageCarousel/SmallImageCarousel"

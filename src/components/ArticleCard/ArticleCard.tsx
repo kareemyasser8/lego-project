@@ -26,12 +26,19 @@ const ArticleCard = ({article}: Props) => {
       <div className="article-card-image w-100 mb-4">
         <img className="w-100" src={article.image} alt="" />
       </div>
-      <div className="fs-5 fw-bold  article-card-title lh-sm text-center mb-4">
+  
+      <h3 className="fw-bold mb-4 text-center">
         {article.title}
-      </div>
-      <div className="article-card-description text-center mb-4" style={{fontSize:'0.9rem'}}>
+      </h3>
+
+      {/* <div className="article-card-description text-center mb-4" style={{fontSize:'0.9rem'}}>
         {article.description}
-      </div>
+      </div> */}
+
+      <p className="text-center mb-4">
+        {article.description}
+      </p>
+
 
       <div className="fs-6 fw-bold text-center read-more-btn">
             Read More <BsChevronRight fontWeight={700}/>
