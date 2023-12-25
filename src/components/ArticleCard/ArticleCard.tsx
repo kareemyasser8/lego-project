@@ -31,14 +31,9 @@ const ArticleCard = ({article}: Props) => {
         {article.title}
       </h3>
 
-      {/* <div className="article-card-description text-center mb-4" style={{fontSize:'0.9rem'}}>
-        {article.description}
-      </div> */}
-
       <p className="text-center mb-4">
         {article.description}
       </p>
-
 
       <div className="fs-6 fw-bold text-center read-more-btn">
             Read More <BsChevronRight fontWeight={700}/>

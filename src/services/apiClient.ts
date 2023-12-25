@@ -16,9 +16,9 @@ class APIClient<T> {
     return axiosInstance.get<T[]>(this.endpoint).then((res) => res.data)
   }
 
-  getAllPaginated(page: number, pageSize: number) {
+  getAllPaginated(page: number, pageSize: number, filters? : any) {
     return axiosInstance
-      .get<T>(this.endpoint, { params: { page: page, pageSize: pageSize } })
+      .get<T>(this.endpoint, { params: { page: page, pageSize: pageSize, ...filters } })
       .then((res) => res.data)
   }
 

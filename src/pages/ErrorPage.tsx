@@ -47,7 +47,7 @@ const ErrorPage = () => {
         </p>
 
         <Link to="/">
-          <button className="filledBlueBtn">Go back</button>
+          <button className="butn btn--rounded btn--secondary btn--large">Go back</button>
         </Link>
       </div>
     </div>

@@ -1,0 +1,38 @@
+.filterOption {
+    padding-bottom: 15px;
+}
+
+.filterOption .collapsible__header {
+    text-transform: capitalize;
+    /* border: 1px solid red; */
+    padding: 0.3rem 0rem;
+    color: var(--gray-color);
+}
+
+.filterOption .collapsible__content {
+    max-height: 0px;
+    /* padding-bottom: 0.8rem; */
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+}
+
+.filterOption.collapsible--expanded .collapsible__content {
+    max-height: 100vh;
+}
+
+.filterOption .collapsible__content--col {
+    gap: 0.3rem;
+    padding-bottom: 0.8rem;
+}
+
+.filterOption__checkbox-option {
+    display: flex;
+    align-items: center;
+    color: var(--gray-color)
+    /* border: 1px solid gold; */
+}
+
+.filterOption__separator{
+    /* margin: 1rem 0rem; */
+    border-bottom: 1px solid var(--gray-lighter-color);
+}

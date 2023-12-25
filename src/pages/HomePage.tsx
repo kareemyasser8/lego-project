@@ -1,11 +1,9 @@
 import Articles from "../components/Articles/Articles"
 import HomeBanner from "../components/HomeBanner"
-import LargeFooter from "../components/LargeFooter/LargeFooter"
 import Recommended from "../components/Recommended/Recommended"
 import { BannerData } from "../components/HomeBanner/HomeBanner"
 import banner from "../assets/banner.webp"
 import banner2 from "../assets/banner2.webp"
-import Products from "../components/Products"
 
 let bannerData: BannerData[] = [
   {

@@ -35,7 +35,7 @@ const ProductCard = ({ product }: Props) => {
           <p> ${product.price}</p>
         </div>
 
-        <button type="button" className="btn btn--primary btn--block" style={{height: '55px'}}>
+        <button type="button" className="butn btn--primary btn--block" style={{height: '55px'}}>
           Add to Bag
         </button>
       </div>

@@ -19,7 +19,6 @@ const Recommended = () => {
 
   return (
     <>
-      {/* <div className="fs-2 mb-3">Recommended for you</div> */}
       <h2 className="mb-3">Recommended for you</h2>
       <div className="slider-wrapper">
         <div

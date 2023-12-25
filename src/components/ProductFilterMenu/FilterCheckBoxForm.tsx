@@ -1,5 +1,6 @@
-import React, { FormEvent } from "react"
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { FieldValues, useForm } from "react-hook-form"
+import useFilterStore from "../../state-management/useFilterStore"
 
 interface Props {
   options: string[]
@@ -7,12 +8,26 @@ interface Props {
 }
 
 const FilterCheckBoxForm = ({ options, idOfMenu }: Props) => {
+  const { register, getValues, setValue, reset, trigger } = useForm()
+  const { addFilter, removeFilter, removedFilter, filters, changed } =
+    useFilterStore()
 
-  const { register, getValues } = useForm()
+  useEffect(() => {
+    if (removedFilter !== "all") {
+      if (getValues(removedFilter) == true) {
+        setValue(removedFilter, false)
+      }
+    } else {
+      Object.keys(getValues()).forEach((key) => {
+        setValue(key, false)
+      })
+    }
+  }, [removedFilter, changed])
 
-  const handleValueChange = (data: FormEvent) => {
-    const values = getValues();
-    console.log(values);
+  const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target
+    if (checked) addFilter(name)
+    else removeFilter(name)
   }
 
   return (

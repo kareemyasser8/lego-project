@@ -4,6 +4,7 @@
   --blue-color: #005595;
   --blue-dark-color: #003a71;
   --gray-light-color: #757575;
+  --gray-lighter-color: #bfbfbf;
   --gray-color: #383838;
 
   --st-color-black-light: #191919;
@@ -101,28 +102,45 @@ p{
 /* Modification */
 
 /* buttons */
+
 .btn{
-  padding: 0.5rem 1rem;
-  border: 0;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  white-space: nowrap;
-  text-align: center;
-  box-sizing: border-box;
-  width: max-content;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  border-radius: var(--border-radius-sm);
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
   gap:10px;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  white-space: nowrap;
+  width: max-content;
 }
 
-.btn:focus-within{
+.butn{
+  align-items: center;
+  border-radius: var(--border-radius-sm);
   border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  gap:10px;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  white-space: nowrap;
+  width: max-content;
 }
 
 .btn--large{
   padding: 15px;
   min-width: 200px;
+}
+
+.btn--small{
+  height: max-content;
+  padding: 4px 10px;
 }
 
 .btn--block{
@@ -177,6 +195,7 @@ p{
 
 .btn--black:hover{
   background-color: #3a3a3a;
+  color: white
 }
 
 .btn--rounded{
@@ -190,6 +209,11 @@ p{
 .btn--outlined-blue{
   border-color: var(--blue-color);
   color: var(--blue-color);
+}
+
+.btn--outlined-gray{
+  border-color: var(--gray-light-color);
+  color: var(--gray-light-color);
 }
 
 .btn--outlined-blue:hover{
@@ -222,7 +246,9 @@ textarea:focus {
   color: var(--gray-color);
 }
 
-.custom-checkbox {
+/* ---------------Check boxes----------------- */
+
+.checkbox {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -235,22 +261,64 @@ textarea:focus {
   width: 25px; /* Adjust the width as needed */
 }
 
-.custom-checkbox:checked::before {
+.checkbox:checked::before {
   content: "\2714";
   margin-left: 5px;
 }
 
-.custom-checkbox:focus {
+.checkbox:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.chevron-animate-down {
+
+/* Collapsible */
+
+.collapsible__header{
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.collapsible__heading{
+  margin-top: 0px;
+  font-size: 1rem;
+}
+
+.collapsible--bold{
+  font-weight: bold;
+}
+
+.collapsible__chevron{
+  transition: transform 0.2s;
+  font-size: 1.5rem;
+}
+
+.collapsible__chevron--large{
+  font-size: 2.5rem;
+}
+
+.collapsible--expanded .collapsible__chevron{
   transform: rotate(180deg);
 }
 
-.chevron-animate-up {
-  transform: rotate(0);
+.collapsible__content{
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s;
 }
+
+.collapsible--expanded .collapsible__content{
+  max-height: 100vh;
+  opacity: 1;
+}
+
+.collapsible__content--col{
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------------------------- */
 
 @media (min-width: 840px) {
   .page {
