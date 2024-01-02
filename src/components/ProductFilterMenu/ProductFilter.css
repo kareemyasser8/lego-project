@@ -32,6 +32,11 @@
     /* border: 1px solid gold; */
 }
 
+.checkbox-option__count{
+    color: var(--gray-light-color);
+    margin-inline-start: 0.3rem;
+}
+
 .filterOption__separator{
     /* margin: 1rem 0rem; */
     border-bottom: 1px solid var(--gray-lighter-color);

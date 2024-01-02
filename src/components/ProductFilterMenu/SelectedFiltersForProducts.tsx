@@ -14,15 +14,15 @@ const SelectedFiltersForProducts = () => {
           Clear All Filters
         </div>
 
-        {filters.map((filter, index) => (
+        {/* {filters.map((filter, index) => (
           <div
             key={index}
             className="butn btn--rounded btn--outlined btn--outlined-gray btn--small"
           >
-            {filter}
+            {filter.price}
             <IoClose onClick={()=> removeFilter(filter)} fontSize={"1.3rem"} />
           </div>
-        ))}
+        ))} */}
       </div>
 
       <hr className="hr hr-blurry" />

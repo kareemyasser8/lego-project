@@ -10,7 +10,7 @@ interface Props {
 const ProductInGridCard = ({ product }: Props) => {
   return (
     <>
-      <div className="p-2">
+      <div className="p-2 ruled-grid__card">
         <SmallImageCarousel product={product} />
         <div className="col-12">
           <div className="d-flex align-items-center gap-1 mt-2">
@@ -23,7 +23,7 @@ const ProductInGridCard = ({ product }: Props) => {
           </div>
 
           <div className="fw-bold" style={{ marginTop: "-10px" }}>
-            <p>{product.price}</p>
+            <p>${product.price}</p>
           </div>
 
           {/* <button type="button" className="addToBag2"> */}
