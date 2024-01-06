@@ -1,21 +1,14 @@
 import { useState } from "react"
 import useProducts from "../../Hooks/useProducts"
-import productService from "../../services/productService"
 import ProductInGridCard from "../ProductInGrid/ProductInGridCard"
 import Spinner from "../Spinner/Spinner"
-import useFilterStore, {productQuery} from "../../state-management/useFilterStore"
+import useFilterStore from "../../state-management/useFilterStore"
 
 const ProductsGrid = () => {
   const pageSize = 20
   const [page, setPage] = useState(1)
-
   const { filters } = useFilterStore()
-
-  const { data, error, isLoading } = useProducts(
-    page,
-    pageSize,
-    filters 
-  )
+  const { data, error, isLoading } = useProducts(page, pageSize, filters)
 
   if (isLoading) {
     return <Spinner color="text-warning" />

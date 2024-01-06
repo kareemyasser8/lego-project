@@ -116,9 +116,12 @@ const ProductsTable = () => {
             ))}
           </tbody>
         </table>
+
+        <Pagination page={page} totalPages={data.totalPages} setPage={setPage} />
+
       </div>
 
-      <Pagination page={page} totalPages={data.totalPages} setPage={setPage} />
+     
 
       <AlertBox
         closeButtonRef={closeButtonRef}

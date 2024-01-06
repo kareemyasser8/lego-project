@@ -27,26 +27,27 @@ const Articles = () => {
 
   return (
     <>
-      <div
-        className="
-        read-wrapper
+      <div className="page-layout">
+        <div
+          className="
         d-flex
         flex-wrap
         justify-content-between
         mb-3"
-      >
-        <h2>Read All About It</h2>
-        <div className="btn btn--rounded btn--outlined btn--outlined-blue">
-          View all articles
-        </div>
-      </div>
-
-      <div className="article-cards-wrapper row mb-5">
-        {articles.map((article, index) => (
-          <div key={index} className="col-lg-4 col-md-6">
-            <ArticleCard article={article} />
+        >
+          <h2>Read All About It</h2>
+          <div className="btn btn--rounded btn--outlined btn--outlined-blue">
+            View all articles
           </div>
-        ))}
+        </div>
+
+        <div className="article-cards-wrapper row mb-5">
+          {articles.map((article, index) => (
+            <div key={index} className="col-lg-4 col-md-6">
+              <ArticleCard article={article} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )

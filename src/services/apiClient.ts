@@ -1,6 +1,6 @@
 import axios from "axios"
 import { APILink } from "../constants/APILink"
-import { productQuery } from "../state-management/useFilterStore"
+import { productQuerytoSend } from "../Hooks/useProducts"
 
 const axiosInstance = axios.create({
   baseURL: APILink,
@@ -17,9 +17,11 @@ class APIClient<T> {
     return axiosInstance.get<T[]>(this.endpoint).then((res) => res.data)
   }
 
-  getAllPaginated(page: number, pageSize: number, filters? : productQuery) {
+  getAllPaginated(page: number, pageSize: number, filters: productQuerytoSend) {
     return axiosInstance
-      .get<T>(this.endpoint, { params: { page: page, pageSize: pageSize, ...filters } })
+      .get<T>(this.endpoint, {
+        params: { page: page, pageSize: pageSize, ...filters },
+      })
       .then((res) => res.data)
   }
 

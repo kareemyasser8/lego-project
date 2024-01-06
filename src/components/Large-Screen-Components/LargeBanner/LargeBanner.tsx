@@ -7,7 +7,7 @@ interface Props {
 
 const LargeBanner = ({ data }: Props) => {
   return (
-    <div className=" lg-banner">
+    <>
       <div
         className="
           col-12
@@ -42,7 +42,7 @@ const LargeBanner = ({ data }: Props) => {
         </div>
         <img className="w-100" src={data.imageCover} alt="" />
       </div>
-    </div>
+    </>
   )
 }
 

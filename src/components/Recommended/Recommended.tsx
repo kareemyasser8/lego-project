@@ -19,44 +19,46 @@ const Recommended = () => {
 
   return (
     <>
-      <h2 className="mb-3">Recommended for you</h2>
-      <div className="slider-wrapper">
-        <div
-          className="back-btn"
-          ref={prevButtonRef}
-          onClick={() => slideScroll(prevButtonRef)}
-        >
-          <div className="back-btn-circle">
-            <BsChevronLeft size={"20px"} />
+      <div className="page-layout">
+        <h2 className="mb-3">Recommended for you</h2>
+        <div className="slider-wrapper">
+          <div
+            className="back-btn"
+            ref={prevButtonRef}
+            onClick={() => slideScroll(prevButtonRef)}
+          >
+            <div className="back-btn-circle">
+              <BsChevronLeft size={"20px"} />
+            </div>
           </div>
-        </div>
 
-        <div
-          className="forward-btn"
-          ref={nextButtonRef}
-          onClick={() => slideScroll(nextButtonRef)}
-        >
-          <div className="forward-btn-circle">
-            <BsChevronRight size={"20px"} />
+          <div
+            className="forward-btn"
+            ref={nextButtonRef}
+            onClick={() => slideScroll(nextButtonRef)}
+          >
+            <div className="forward-btn-circle">
+              <BsChevronRight size={"20px"} />
+            </div>
           </div>
-        </div>
 
-        <div
-          className="
+          <div
+            className="
           d-flex
           gap-4
           card-list
           flex-no-wrap
           "
-          ref={imageListRef}
-        >
-          {products.map((p) => {
-            return (
-              <div key={p.id} className="p-card">
-                <ProductCard product={p} />
-              </div>
-            )
-          })}
+            ref={imageListRef}
+          >
+            {products.map((p) => {
+              return (
+                <div key={p.id} className="p-card">
+                  <ProductCard product={p} />
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </>

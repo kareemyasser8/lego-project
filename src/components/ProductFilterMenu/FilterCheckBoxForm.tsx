@@ -9,7 +9,7 @@ interface Props {
 
 const FilterCheckBoxForm = ({ options, idOfMenu }: Props) => {
   const { register, getValues, setValue, reset, trigger } = useForm()
-  const { addFilter, removeFilter, removedFilter, filters, changed } =
+  const { addFilter, removeFilter, filterToBeRemoved: removedFilter, filters, changed } =
     useFilterStore()
 
   useEffect(() => {

@@ -1,45 +1,76 @@
 import { create } from "zustand"
+import produce from "immer"
+
+export const queryType = ["price", "theme", "interest"]
+
+export interface query {
+  type: string
+  value: string
+}
 
 export interface productQuery {
-  price: string | null
-  theme: string | null
-  interest: string | null
+  price: string[] | null
+  theme: string[] | null
+  interest: string[] | null
 }
 
 interface FilterStore {
   filters: productQuery
-  removedFilter: productQuery
+  filterToBeRemoved: query
   changed: boolean
-  addFilter: (filter: productQuery) => void;
-  removeFilter: (filter: productQuery) => void;
+  addFilter: (query: query) => void
+  removeFilter: (query: query) => void
   resetFilters: () => void
 }
 
 const useFilterStore = create<FilterStore>((set) => ({
-  filters: {} as productQuery,
-  removedFilter: {} as productQuery,
+  filters: { price: [], interest: [], theme: [] },
+  filterToBeRemoved: { type: "", value: "" },
   changed: false,
-  addFilter: (filter: productQuery) =>
-    set((store) => ({
-      filters: {...store.filters, ...filter},
-      changed: !store.changed,
-    })),
-  removeFilter: (filter: productQuery) => {
-    set((store) => ({
-      filters: {
-        price: store.filters.price !== filter.price ? store.filters.price : null,
-        theme: store.filters.theme !== filter.theme ? store.filters.theme : null,
-        interest: store.filters.interest !== filter.interest ? store.filters.interest : null,
-      },
-      removedFilter: filter,
-      changed: !store.changed,
-    }));
-    // console.log("removed filter is: ", filter)
+  addFilter: (query: query) =>
+    set(
+      produce((draft: FilterStore) => {
+        if (query.type === "price") {
+          draft.filters.price?.push(query.value)
+        } else if (query.type === "theme") {
+          draft.filters.price?.push(query.value)
+        } else if (query.type === "interest") {
+          draft.filters.price?.push(query.value)
+        }
+        !draft.changed
+      })
+    ),
+  // set((store) => ({
+  //   filters: {...store.filters, ...filter},
+  //   changed: !store.changed,
+  // })),
+  removeFilter: (query: query) => {
+    set(
+      produce((draft: FilterStore) => {
+        if (query.type === "price") {
+          draft.filters.price =
+            draft.filters.price?.filter((item) => item !== query.value) ||
+            []
+        } else if (query.type === "theme") {
+          draft.filters.theme =
+            draft.filters.theme?.filter((item) => item !== query.value) ||
+            []
+        } else if (query.type === "interest") {
+          draft.filters.interest =
+            draft.filters.interest?.filter(
+              (item) => item !== query.value
+            ) || []
+        }
+        draft.filterToBeRemoved = query
+        console.log("filter to be removed is : ", draft.filterToBeRemoved)
+        !draft.changed
+      })
+    )
   },
   resetFilters: () =>
     set((store) => ({
       filters: {} as productQuery,
-      removedFilter: {} as productQuery,
+      filterToBeRemoved: {} as query,
       changed: !store.changed,
     })),
 }))

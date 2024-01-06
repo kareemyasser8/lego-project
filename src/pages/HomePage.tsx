@@ -28,14 +28,11 @@ const HomePage = () => {
       <div className=" row justify-content-center">
         <div className="col-12">
           <HomeBanner bannerData={bannerData[0]} />
-          {/* <div className="mt-5 px-5">
-            <Products />
-          </div> */}
-          <div className="mt-5 px-5">
+          <div className="mt-5">
             <Recommended />
           </div>
           <HomeBanner bannerData={bannerData[1]} />
-          <div className="mt-5 px-5">
+          <div className="mt-5 ">
             <Articles />
           </div>
         </div>

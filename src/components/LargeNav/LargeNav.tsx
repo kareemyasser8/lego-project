@@ -4,20 +4,21 @@ import { LuSearch } from "react-icons/lu"
 import Logo from "../../assets/LegoLogo.png"
 import MiniNav from "../MiniNav"
 import "./LargeNav.css"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 
 const LargeNav = () => {
   const navbar = useRef<HTMLDivElement>(null)
+
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
   let scrollTopPosition = 0
 
   const handleScrollUp = () => {
     scrollTopPosition = window.scrollY || document.documentElement.scrollTop
-
     if (scrollTopPosition > lastScrollTop) {
       //scroll down
       if (navbar.current) {
+        navbar.current.classList.remove('top-0')
         navbar.current.style.top = "-300px"
         navbar.current.style.transition = "0.8s ease-out"
       }
@@ -41,32 +42,43 @@ const LargeNav = () => {
 
   return (
     <>
-      <div className="position-fixed mb-5 col-12 z-2" ref={navbar}>
+      <div className="navbar-down-space"></div>
+      <div
+        className={`position-fixed col-12 z-2 top-0`}
+        ref={navbar}
+      >
         <MiniNav />
-        <nav className="navbar navbar-expand-lg px-3">
-          <div className="container-fluid">
-            <div className="navbar-brand">
+        {/* navbar-expand-lg */}
+
+        <nav className="nav">
+          <div className="nav__menu">
+            <div className="nav__menu__logo">
               <Link to="/">
-              <img className="nav-logo" src={Logo}></img>
+                <img className="nav-logo" src={Logo}></img>
               </Link>
             </div>
-            <ul className="navbar-nav ms-5 me-auto gap-5 mb-2 mb-lg-0">
-              <Link to="/shop">
-                <li className="nav-item">SHOP</li>
-              </Link>
-              <li className="nav-item">DISCOVER</li>
-              <li className="nav-item">HELP</li>
-            </ul>
 
-            <div className="navbar-nav me-3 gap-4 mb-2 mb-lg-0">
-              <div className="search-bg rounded-circle">
-                <LuSearch className="search-icon" />
+            <ul className="list nav__menu__list">
+              <Link to="/shop">
+                <li className="list__item">SHOP</li>
+              </Link>
+              <li className="list__item">DISCOVER</li>
+              <li className="list__item">HELP</li>
+            </ul>
+          </div>
+
+          {/*-------------------------------------------------  */}
+
+          <div className="nav__actions-menu">
+            <div className="nav__actions-menu-content">
+              <div className="menu-content__icon icon-container">
+                <LuSearch />
               </div>
-              <div className="nav-right-item">
-                <FiHeart className="heart-icon" />
+              <div className="menu-content__icon mb-1">
+                <FiHeart />
               </div>
-              <div className="nav-right-item">
-                <HiOutlineShoppingBag className="cart-icon" />
+              <div className="menu-content__icon d-flex align-items-center">
+                <HiOutlineShoppingBag fontSize={"1.5rem"} />
                 <div className="cart-counter">(0)</div>
               </div>
             </div>

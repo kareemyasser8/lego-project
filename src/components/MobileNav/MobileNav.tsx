@@ -50,6 +50,7 @@ const MobileNav = () => {
           mobile-nav
           py-2
           w-100
+          top-0
           m-0
           row
           z-3
