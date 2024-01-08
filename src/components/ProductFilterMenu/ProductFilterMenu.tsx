@@ -1,9 +1,7 @@
-import React from "react"
-import ProductFilter from "./ProductFilter"
-import CategoryFilter from "./CategoryFilter"
-import SelectedFiltersForProducts from "./SelectedFiltersForProducts"
 import useProductsFilterOptions from "../../Hooks/userProductsFilterOptions"
 import { filterOption } from "../../services/filterOptionsService"
+import ProductFilter from "./ProductFilter"
+import SelectedFiltersForProducts from "./SelectedFiltersForProducts"
 
 interface response {
   name: string
@@ -27,10 +25,7 @@ const ProductFilterMenu = () => {
             )
           })
         : ""}
-
-      {/* <ProductFilter options={priceRanges} optionName="price" />
-      <ProductFilter options={priceRanges} optionName="category" /> */}
-      {/* <CategoryFilter/> */}
+        
     </div>
   )
 }

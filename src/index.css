@@ -6,6 +6,7 @@
   --gray-light-color: #757575;
   --gray-lighter-color: #bfbfbf;
   --gray-color: #383838;
+  --gray-extra-light-color: #e2e1e1;
 
   --st-color-black-light: #191919;
   --st-color-black: #000;
@@ -69,6 +70,8 @@
   --miniNavBannerHeight: 55px;
   --largeNavHeight: 75px;
   --titleBarHeight: 90px;
+  --selectorHeight: 40px;
+  --selectorWidth: 260px;
   --page-horizontal-padding: 1.8rem;
   --nav-logo-dimensions: 55px;
   --titleBarColor: black;
@@ -239,6 +242,38 @@ p {
 
 /*-----------------------------------------*/
 
+.outlined{
+  border: 1px solid;
+}
+
+.outlined-gray{
+  border-color: var(--gray-lighter-color);
+}
+
+/* ------------------------------------------------- */
+
+.summary-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.product-select__collapsible__container{
+  width: var(--selectorWidth);
+}
+
+.summary__selector_header{
+  height: var(--selectorHeight);
+  max-width: var(--selectorWidth);
+  width: 100%;
+  border-radius: calc(var(--selectorWidth)*0.5);
+  align-items: center;
+  padding: 0rem 1rem;
+  /* border: 1px solid red; */
+  display: flex;
+}
+
 input,
 textarea:focus {
   border: 2px solid var(--blue-color);
@@ -358,6 +393,7 @@ textarea:focus {
   display: flex;
   flex-direction: column;
 }
+
 
 /* ---------------------------------- */
 

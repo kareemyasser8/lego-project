@@ -1,11 +1,14 @@
-import React from "react"
+import React, { useEffect } from "react"
 import useFilterStore from "../../state-management/useFilterStore"
 import { IoClose } from "react-icons/io5"
 
 const SelectedFiltersForProducts = () => {
-  const { filters, removeFilter, resetFilters } = useFilterStore()
+  const { filters, removeFilter, resetFilters, setIsChanged, resetAll} = useFilterStore()
 
-  // console.log(filters);
+  useEffect(()=>{
+    console.log(filters);
+  },[filters])
+
 
   return (
     <>
@@ -27,7 +30,10 @@ const SelectedFiltersForProducts = () => {
             >
               {value}
               <IoClose
-                onClick={() => removeFilter({ type, value })}
+                onClick={() =>{ 
+                  removeFilter({ type, value })
+                  setIsChanged()
+                }}
                 fontSize={"1.3rem"}
               />
             </div>
