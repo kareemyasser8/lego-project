@@ -1,3 +1,8 @@
+.collapsibleSelect{
+  position: relative;
+  width: 100%;
+}
+
 .collapsibleSelect__header {
   display: flex;
   border: 1px solid var(--gray-light-color);
@@ -42,7 +47,7 @@
   max-height: 1px;
   padding: 0.9rem 0.7rem;
   position: absolute;
-  width: calc(var(--selectorWidth));
+  width: 100%;
   z-index: 2;
   overflow: hidden;
   transition: max-height ease 0.4s, opacity ease-in-out 0.2s;
@@ -54,7 +59,6 @@
 
 .collapsibleSelect--expanded .collapsibleSelect__options__list {
   max-height: 100vh;
-  /* padding: 0.9rem 0.7rem; */
   opacity: 1;
 }
 

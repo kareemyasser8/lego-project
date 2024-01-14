@@ -16,9 +16,11 @@ export interface productQuery {
 
 interface FilterStore {
   filters: productQuery
+  ordering: string
   filterToBeRemoved: query
   changed: boolean
   resetAll: boolean
+  setOrdering: (sortQuery: string)=> void
   setIsChanged: () => void
   addFilter: (query: query) => void
   removeFilter: (query: query) => void
@@ -28,8 +30,14 @@ interface FilterStore {
 const useFilterStore = create<FilterStore>((set) => ({
   filters: { price: [], interest: [], theme: [] },
   filterToBeRemoved: { type: "", value: "" },
+  ordering: "",
   changed: false,
   resetAll: false,
+  setOrdering: (sortQuery: string)=>{
+    set(produce((draft: FilterStore)=>{
+      draft.ordering = sortQuery
+    }))
+  },
   addFilter: (query: query) =>
     set(
       produce((draft: FilterStore) => {
@@ -66,10 +74,10 @@ const useFilterStore = create<FilterStore>((set) => ({
       })
     )
   },
-  resetFilters: () =>{
+  resetFilters: () => {
     set((store) => ({
-      filters: {price: [], interest: [], theme: []},
-      filterToBeRemoved: {type: "", value: ""},
+      filters: { price: [], interest: [], theme: []},
+      filterToBeRemoved: { type: "", value: "" },
       // changed: true,
       resetAll: true,
     }))

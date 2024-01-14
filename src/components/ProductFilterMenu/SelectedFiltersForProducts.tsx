@@ -3,12 +3,7 @@ import useFilterStore from "../../state-management/useFilterStore"
 import { IoClose } from "react-icons/io5"
 
 const SelectedFiltersForProducts = () => {
-  const { filters, removeFilter, resetFilters, setIsChanged, resetAll} = useFilterStore()
-
-  useEffect(()=>{
-    console.log(filters);
-  },[filters])
-
+  const { filters, removeFilter, resetFilters, setIsChanged} = useFilterStore()
 
   return (
     <>

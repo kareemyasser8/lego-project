@@ -5,7 +5,12 @@ const capitalize = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-const BreadCrumb = () => {
+interface Props{
+  productName?: string
+}
+
+
+const BreadCrumb = ({productName}: Props) => {
   const location = useLocation()
 
   let currentLink = ""
@@ -14,7 +19,15 @@ const BreadCrumb = () => {
     .filter((item) => item != "")
     .map((crumb, index) => {
       currentLink += `/${crumb}`
-      crumb = capitalize(crumb);
+      crumb = capitalize(decodeURIComponent(crumb));
+      if(!isNaN(+crumb)){
+        crumb = productName || "productName"
+      }
+
+      if(crumb == "Edit"){
+        return
+      }
+
       return (
         <Link key={index} to={currentLink} className="link">
           {crumb == "User" ? "account overview" : crumb}

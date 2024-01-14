@@ -10,6 +10,7 @@ import Layout from './pages/Layout';
 import LoginPage from './pages/LoginPage';
 import RegisterationPage from './pages/RegisterationPage';
 import ShopPage from './pages/ShopPage';
+import ProductDetailsPage from './pages/ProductDetailsPage/ProductDetailsPage';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "shop",
         element: <ShopPage />,
+      },
+      {
+        path: "shop/:id",
+        element: <ProductDetailsPage />,
       },
     ],
   },

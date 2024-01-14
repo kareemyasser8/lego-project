@@ -7,6 +7,7 @@ import { AiOutlineHeart } from "react-icons/ai"
 import { AiFillHeart } from "react-icons/ai"
 import { Product, ProductImage } from "../../Products"
 import { APILink } from "../../constants/APILink"
+import { Link } from "react-router-dom"
 
 interface Props {
   product: Product
@@ -85,12 +86,14 @@ const SmallImageCarousel = ({ product }: Props) => {
               if (index < 2) {
                 return (
                   <div key={index}>
+                    <Link to={`/shop/${product.id}`}>
                     <img
                       className="w-100 object-fit-contain"
                       style={{height: '300px'}}
                       src={APILink + "/" + img.url}
                       // alt={img.preview}
                     />
+                    </Link>
                   </div>
                 )
               }

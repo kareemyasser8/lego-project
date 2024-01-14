@@ -37,23 +37,6 @@ const ProductFilter = ({ options, optionName }: Props) => {
     }
   }, [changed, resetAll])
 
-  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const { name, checked } = event.target
-  //   let query: query
-  //   if (queryType.includes(optionName)) {
-  //     query = {
-  //       type: optionName,
-  //       value: name,
-  //     }
-
-  //     if (checked) {
-  //       addFilter(query)
-  //     } else {
-  //       removeFilter(query)
-  //     }
-  //   }
-  // }
-
   const handleChange = (
     index: number,
     event: ChangeEvent<HTMLInputElement>

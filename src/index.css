@@ -71,7 +71,7 @@
   --largeNavHeight: 75px;
   --titleBarHeight: 90px;
   --selectorHeight: 40px;
-  --selectorWidth: 260px;
+  --selectorWidth: 200px;
   --page-horizontal-padding: 1.8rem;
   --nav-logo-dimensions: 55px;
   --titleBarColor: black;
@@ -260,7 +260,7 @@ p {
 }
 
 .product-select__collapsible__container{
-  width: var(--selectorWidth);
+  min-width: var(--selectorWidth);
 }
 
 .summary__selector_header{
@@ -440,33 +440,6 @@ a {
 
 /* --------------------------------------------- */
 
-/* .ruled-grid > .ruled-grid__card::before,
-.ruled-grid > .ruled-grid__card::after {
-  background-color: var(--line-color);
-  content: "";
-  position: absolute;
-} */
-
-/* rows */
-
-/* .ruled-grid > .ruled-grid__card::before {
-  height: var(--line-thickness);
-  left: 0px;
-  top: calc(var(--line-offset) * -1);
-  width: 100vw;
-} */
-
-/* cols */
-
-/* .ruled-grid > .ruled-grid__card::after {
-  height: 200vh;
-  left: calc(var(--line-offset) * -1);
-  top: 0px;
-  width: var(--line-thickness);
-} */
-
-/* --------------------------------------------- */
-
 .lego-form {
   background-color: white;
   color: #282828;
@@ -570,6 +543,10 @@ textarea::placeholder {
   .grid--1x2 {
     grid-template-columns: 250px 1fr;
     gap: 1rem;
+  }
+
+  .grid--1x3{
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 

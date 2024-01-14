@@ -17,10 +17,10 @@ class APIClient<T> {
     return axiosInstance.get<T[]>(this.endpoint).then((res) => res.data)
   }
 
-  getAllPaginated(page: number, pageSize: number, filters: productQuerytoSend) {
+  getAllPaginated(page: number, pageSize: number, filters: productQuerytoSend, ordering?: string) {
     return axiosInstance
       .get<T>(this.endpoint, {
-        params: { page: page, pageSize: pageSize, ...filters },
+        params: { page: page, pageSize: pageSize, ...filters, ordering: ordering},
       })
       .then((res) => res.data)
   }

@@ -1,10 +1,20 @@
-import { BsChevronDown } from "react-icons/bs"
-import "./CollapsibleSelect.css"
-import { ChangeEvent, useEffect, useRef, useState } from "react"
+import './CollapsibleSelect.css';
+import { useEffect, useRef, useState } from 'react';
+import { BsChevronDown } from 'react-icons/bs';
+import useProductSortOptions from '../../Hooks/useProductSortOptions';
+import useFilterStore from '../../state-management/useFilterStore';
 
 const CollapsibleSelect = () => {
+  const { data, isLoading, isError } = useProductSortOptions()
   const [expanded, setIsExpanded] = useState<boolean>(false)
   const collapsibleRef = useRef<HTMLDivElement>(null)
+  const { setOrdering, ordering } = useFilterStore()
+  const [sortOptionSelected, setSortOptionSelected] = useState<string>(ordering || 'Recommended')
+
+  const handleSortClick = (item: string) => {
+    setSortOptionSelected(item)
+    setOrdering(item)
+  }
 
   const handleOutsideClick = (event: MouseEvent) => {
     // Check if the clicked element is outside the collapsibleSelect component
@@ -38,17 +48,17 @@ const CollapsibleSelect = () => {
         <h4 className="collapsibleSelect__header__heading">
           Sort by:{" "}
           <span className="collapsibleSelect__header__selected-option">
-            Recommended
+            {sortOptionSelected}
           </span>
         </h4>
         <BsChevronDown className="collapsibleSelect__header__chevron" />
       </header>
       <ul className="list collapsibleSelect__options__list">
-        <li>Recommended</li>
-        <li>Recommended</li>
-        <li>Recommended</li>
-        <li>Recommended</li>
-        <li>Recommended</li>
+        {data?.map((item, index) => (
+          <li onClick={() => handleSortClick(item)} key={index}>
+            {item}
+          </li>
+        ))}
       </ul>
     </div>
   )

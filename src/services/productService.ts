@@ -8,6 +8,7 @@ export interface ResponseProduct {
     hasNextPage: boolean
     hasPrevPage: boolean
     products: Product[]
+    count: number
   }
 
 export default new APIClient<any>("/products")

@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import productService, { ResponseProduct } from '../services/productService';
+import productService from '../services/productService';
+import {FetchedProduct} from '../entities/FetchedProduct';
 
 const useSingleProduct = (id: string) => {
-  return useQuery<ResponseProduct,Error>({
+  return useQuery<FetchedProduct,Error>({
     queryKey: ['product', id],
     queryFn: ()=> productService.getOne(id),
     staleTime: 10 * (60 * 1000), // 10 mins,

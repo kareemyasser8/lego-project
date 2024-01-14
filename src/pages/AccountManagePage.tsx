@@ -7,7 +7,7 @@ import TitleBar from "../components/TitleBar"
 const AccountManagePage = () => {
   return (
     <>
-      {/* <PageContent> */}
+
       <BreadCrumb/>
       {/* <TitleBar>admin</TitleBar> */}
       <div className="grid grid--1x2 page-layout mt-4 mb-4">
