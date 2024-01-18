@@ -1,6 +1,13 @@
-import axios from "axios"
+import axios, { AxiosRequestConfig } from "axios"
 import { APILink } from "../constants/APILink"
 import { productQuerytoSend } from "../Hooks/useProducts"
+
+
+export interface FetchResponse<T> {
+  count: number
+  next: string | null
+  results: T[]
+}
 
 const axiosInstance = axios.create({
   baseURL: APILink,
@@ -13,8 +20,8 @@ class APIClient<T> {
     this.endpoint = endpoint
   }
 
-  getAll() {
-    return axiosInstance.get<T[]>(this.endpoint).then((res) => res.data)
+  getAll(config: AxiosRequestConfig) {
+    return axiosInstance.get<T[]>(this.endpoint, config).then((res) => res.data)
   }
 
   getAllPaginated(page: number, pageSize: number, filters: productQuerytoSend, ordering?: string) {

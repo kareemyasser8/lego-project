@@ -3,6 +3,7 @@
   --secondary-color: #f6c903;
   --blue-color: #005595;
   --blue-dark-color: #003a71;
+  --blue-lighter-color: #427cb3;
   --gray-light-color: #757575;
   --gray-lighter-color: #bfbfbf;
   --gray-color: #383838;
@@ -150,6 +151,7 @@ p {
 }
 
 .btn--large {
+  box-sizing: border-box;
   padding: 15px;
   min-width: 200px;
 }
@@ -238,6 +240,16 @@ p {
 
 .btn--outlined-orange {
   background-color: var(--primary-color);
+}
+
+.btn--loading{
+  background-color: var(--blue-lighter-color);
+  color: white;
+}
+
+.btn--loading:hover{
+  background-color: var(--blue-lighter-color);
+  color: white;
 }
 
 /*-----------------------------------------*/

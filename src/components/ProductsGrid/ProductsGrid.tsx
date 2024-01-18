@@ -4,6 +4,7 @@ import ProductInGridCard from "../ProductInGrid/ProductInGridCard"
 import Spinner from "../Spinner/Spinner"
 import useFilterStore from "../../state-management/useFilterStore"
 import ProductInGridSkeleton from "../ProductInGridSkeleton/ProductInGridSkeleton"
+import React from "react"
 
 interface Props {
   count: (count: string) => void
@@ -13,12 +14,11 @@ const ProductsGrid = ({ count }: Props) => {
   const pageSize = 20
   const [page, setPage] = useState(1)
   const { filters, ordering } = useFilterStore()
-  const { data, error, isLoading } = useProducts(
-    page,
-    pageSize,
-    filters,
-    ordering
-  )
+  const {
+    data,
+    error,
+    isLoading,
+  } = useProducts(page, pageSize, filters, ordering)
   const skeletons = [1, 2, 3, 4, 5, 6]
 
   useEffect(() => {
@@ -27,7 +27,11 @@ const ProductsGrid = ({ count }: Props) => {
 
   if (error) {
     return (
-      <div className="alert alert-danger" role="alert" style={{maxHeight: "100px"}}>
+      <div
+        className="alert alert-danger"
+        role="alert"
+        style={{ maxHeight: "100px" }}
+      >
         <p>Unknown error from devtools</p>
       </div>
     )
@@ -39,12 +43,14 @@ const ProductsGrid = ({ count }: Props) => {
         {isLoading &&
           skeletons.map((skeleton) => <ProductInGridSkeleton key={skeleton} />)}
 
+
         {data?.products.map((product, index) => (
           <div key={index} className="ruled-grid__card">
             <ProductInGridCard product={product} />
           </div>
         ))}
       </div>
+
     </>
   )
 }

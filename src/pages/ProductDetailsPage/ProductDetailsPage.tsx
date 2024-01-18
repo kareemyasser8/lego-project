@@ -1,4 +1,4 @@
-import {useState} from "react"
+import { useEffect, useState } from "react"
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb"
 import "./ProductDetailsPage.css"
 import noImage from "../../assets/no-image-placeholder.webp"
@@ -14,6 +14,7 @@ import {
   FetchedProduct,
   FetchedProductImage,
 } from "../../entities/FetchedProduct"
+import Recommended from "../../components/Recommended/Recommended"
 
 const ProductDetailsPage = () => {
   const { id } = useParams()
@@ -38,6 +39,9 @@ const ProductDetailsPage = () => {
     setCurrentImgIndex(currentImgIndex - 1)
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   return (
     <>
@@ -47,7 +51,7 @@ const ProductDetailsPage = () => {
           {singleProductData?.Images?.map(
             (img: FetchedProductImage, index: number) => (
               <div
-                onClick={()=> setCurrentImgIndex(index)}
+                onClick={() => setCurrentImgIndex(index)}
                 key={index}
                 className={`images-col__thumbnail ${
                   index == currentImgIndex
@@ -59,7 +63,6 @@ const ProductDetailsPage = () => {
               </div>
             )
           )}
-
         </div>
 
         <div className="product-content__image-preview">
@@ -121,7 +124,7 @@ const ProductDetailsPage = () => {
         </div>
       </div>
 
-      <section className="product-specification page-layout mb-5">
+      <section className="product-specification page-layout">
         <h2>Specifications</h2>
         <div className="product-specification__content">
           <p>{singleProductData?.description}</p>
@@ -140,6 +143,10 @@ const ProductDetailsPage = () => {
             />
           )}
         </div>
+      </section>
+
+      <section className="">
+        <Recommended/>
       </section>
     </>
   )

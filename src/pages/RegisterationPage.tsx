@@ -6,6 +6,7 @@ import { MdOutlineMail } from "react-icons/md"
 import AuthLayout from "../components/AuthLayout/AuthLayout"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import useCreateUser from "../Hooks/useCreateUser"
 
 const schema = z.object({
   fname: z
@@ -32,6 +33,13 @@ type FormData = z.infer<typeof schema>
 
 const RegisterationPage = () => {
   const [isPassVisible, setIsPassVisible] = useState(false)
+  const {
+    error: errorCreatingUser,
+    mutate: createUserMutate,
+    isSuccess,
+    isLoading: loadingCreatingUser,
+    isError: isErrorCreatingUser,
+  } = useCreateUser()
 
   const togglePassVisibility = () => {
     setIsPassVisible(!isPassVisible)
@@ -43,11 +51,21 @@ const RegisterationPage = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
-  const onSubmit = (data: FieldValues) => console.log(data)
+  const onSubmit = (data: FormData) => {
+    if (data) {
+      createUserMutate({ ...data })
+    }
+  }
 
   return (
     <>
       <AuthLayout type={"registeration"}>
+        {isErrorCreatingUser && (
+          <div className="alert alert-danger" role="alert">
+            {errorCreatingUser.response?.data}
+          </div>
+        )}
+
         <form action="" className="auth-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <label htmlFor="firstName">first name</label>
@@ -131,8 +149,22 @@ const RegisterationPage = () => {
               <div className="input-error">{errors.password.message}</div>
             )}
           </div>
-          <button className="btn btn--rounded btn--secondary btn--large btn--center">
-            Yes! Create my account
+          <button
+            className={`btn btn--rounded btn--large btn--center ${
+              loadingCreatingUser ? "btn--loading" : "btn--secondary"
+            }`}
+          >
+            {loadingCreatingUser == true ? (
+              <>
+                Creating Account...{" "}
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                ></div>
+              </>
+            ) : (
+              "Yes! Create my account"
+            )}
           </button>
         </form>
       </AuthLayout>

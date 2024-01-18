@@ -1,11 +1,12 @@
 import AuthLayout from "../components/AuthLayout/AuthLayout"
 import { MdOutlineMail } from "react-icons/md"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia"
 import { FieldValues, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Link } from "react-router-dom"
+import useLogin from "../Hooks/useLogin"
 
 const LoginPage = () => {
   const [isPassVisible, setIsPassVisible] = useState(false)
@@ -27,10 +28,33 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
-  const onSubmit = (data: FieldValues) => console.log(data)
+  const { data, isError, isLoading, error, mutate: mutateLogin } = useLogin()
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+
+    return () => {}
+  }, [data])
+
+  const onSubmit = (data: FieldValues) => {
+    if (data) {
+      mutateLogin({
+        email: data.email,
+        password: data.password,
+      })
+    }
+  }
 
   return (
     <AuthLayout type={"login"}>
+      {isError && (
+        <div className="alert alert-danger" role="alert">
+          {error.response?.data}
+        </div>
+      )}
+
       <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label htmlFor="email">Email</label>
@@ -73,9 +97,24 @@ const LoginPage = () => {
           )}
         </div>
 
-        <button className="btn btn--rounded btn--secondary btn--large btn--center">
-          Sign in
+        <button
+          className={`btn btn--rounded btn--large btn--center ${
+            isLoading ? "btn--loading" : "btn--secondary"
+          }`}
+        >
+          {isLoading == true ? (
+            <>
+              Signing in...{" "}
+              <div
+                className="spinner-border text-light spinner-border-sm"
+                role="status"
+              ></div>
+            </>
+          ) : (
+            "Sign in"
+          )}
         </button>
+
         <p className="align-self-center" style={{ marginBottom: "-1px" }}>
           or
         </p>
