@@ -2,7 +2,6 @@ import axios, { AxiosRequestConfig } from "axios"
 import { APILink } from "../constants/APILink"
 import { productQuerytoSend } from "../Hooks/useProducts"
 
-
 export interface FetchResponse<T> {
   count: number
   next: string | null
@@ -13,6 +12,14 @@ const axiosInstance = axios.create({
   baseURL: APILink,
 })
 
+axiosInstance.interceptors.request.use((req) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    req.headers.authorization = `Bearer ${token}`;
+  }
+  return req;
+},)
+
 class APIClient<T> {
   endpoint: string = ""
 
@@ -20,14 +27,24 @@ class APIClient<T> {
     this.endpoint = endpoint
   }
 
-  getAll(config: AxiosRequestConfig) {
-    return axiosInstance.get<T[]>(this.endpoint, config).then((res) => res.data)
+  getAll() {
+    return axiosInstance.get<T[]>(this.endpoint).then((res) => res.data)
   }
 
-  getAllPaginated(page: number, pageSize: number, filters: productQuerytoSend, ordering?: string) {
+  getAllPaginated(
+    page: number,
+    pageSize: number,
+    filters: productQuerytoSend,
+    ordering?: string
+  ) {
     return axiosInstance
       .get<T>(this.endpoint, {
-        params: { page: page, pageSize: pageSize, ...filters, ordering: ordering},
+        params: {
+          page: page,
+          pageSize: pageSize,
+          ...filters,
+          ordering: ordering,
+        },
       })
       .then((res) => res.data)
   }
