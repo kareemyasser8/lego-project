@@ -9,15 +9,18 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import router from "./routes"
 import { RouterProvider } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
+import { AuthContextProvider } from "./state-management/contexts/authContext"
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <AuthContextProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <Toaster position="top-right" reverseOrder={true} />
         <ReactQueryDevtools />
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 )
