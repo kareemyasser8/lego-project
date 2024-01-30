@@ -18,7 +18,7 @@ const LargeNav = () => {
     if (scrollTopPosition > lastScrollTop) {
       //scroll down
       if (navbar.current) {
-        navbar.current.classList.remove('top-0')
+        navbar.current.classList.remove("top-0")
         navbar.current.style.top = "-300px"
         navbar.current.style.transition = "0.8s ease-out"
       }
@@ -43,10 +43,7 @@ const LargeNav = () => {
   return (
     <>
       <div className="navbar-down-space"></div>
-      <div
-        className={`position-fixed col-12 z-2 top-0`}
-        ref={navbar}
-      >
+      <div className={`position-fixed col-12 z-2 top-0`} ref={navbar}>
         <MiniNav />
         {/* navbar-expand-lg */}
 
@@ -77,10 +74,12 @@ const LargeNav = () => {
               <div className="menu-content__icon mb-1">
                 <FiHeart />
               </div>
-              <div className="menu-content__icon d-flex align-items-center">
-                <HiOutlineShoppingBag fontSize={"1.5rem"} />
-                <div className="cart-counter">(0)</div>
-              </div>
+              <Link to="/cart" className="text-black">
+                <div className="menu-content__icon d-flex align-items-center">
+                  <HiOutlineShoppingBag fontSize={"1.5rem"} />
+                  <div className="cart-counter">(0)</div>
+                </div>
+              </Link>
             </div>
           </div>
         </nav>

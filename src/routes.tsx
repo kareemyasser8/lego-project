@@ -15,6 +15,8 @@ import PrivateRoutes from "./pages/PrivateRoutes"
 import AdminRoutes from "./pages/AdminRoutes"
 import UnAuthorizedPage from "./pages/UnAuthorizedPage"
 import Cart from "./components/Cart/Cart"
+import WishList from "./components/WishList/WishList"
+import CartPage from "./pages/CartPage"
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
               {
                 path:"cart",
                 element: <Cart/>
+              },
+              {
+                path:"wishList",
+                element: <WishList/>
               }
             ],
           },
@@ -65,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "shop",
         element: <ShopPage />,
+      },
+      {
+        path: "cart",
+        element: <CartPage/>
       },
       {
         path: "shop/:id",

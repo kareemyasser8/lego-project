@@ -7,21 +7,22 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 interface Props{
     image: string,
     title: string,
-    price: string
+    price: number
 }
 
-const ProductInCart = () => {
+const ProductInCart = ({image, title, price}: Props) => {
+
   return (
     <div className="productInCart-Container">
     <div className="productInCart-Container__productImg">
-      <img src={noImage} alt="" />
+      <img src={image ? image : noImage} alt={title} />
     </div>
     <div className="productInCart-Container__productTitlePrice">
       <div className="productTitlePrice__title">
-        Gingerbread Ornaments
+        {title}
       </div>
 
-      <div className="productTitlePrice__price">$12.99</div>
+      <div className="productTitlePrice__price">${price}</div>
     </div>
     <div className="productInCart-Container__counter">
       <AddToCartCounter />
