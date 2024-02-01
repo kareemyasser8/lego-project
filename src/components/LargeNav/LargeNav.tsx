@@ -11,6 +11,20 @@ import useTempCartProducts from "../../Hooks/useTempCartProducts"
 const LargeNav = () => {
   const navbar = useRef<HTMLDivElement>(null)
   const { data, isLoading, isError } = useTempCartProducts()
+  const [shoppingCartItemCount, setShoppingCartItemCount] = useState(0)
+
+  useEffect(() => {
+    setShoppingCartItemCount(0);
+  
+    if (data?.TemporaryCartItems) {
+      setShoppingCartItemCount((prevCount) =>
+        data.TemporaryCartItems.reduce(
+          (totalCount, product) => totalCount + product.quantity,
+          prevCount
+        )
+      );
+    }
+  }, [data]);
 
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
   let scrollTopPosition = 0
@@ -79,7 +93,9 @@ const LargeNav = () => {
               <Link to="/cart" className="text-black">
                 <div className="menu-content__icon d-flex align-items-center">
                   <HiOutlineShoppingBag fontSize={"1.5rem"} />
-                  <div className="cart-counter">{data?.TemporaryCartItems.length || 0}</div>
+                  <div className="cart-counter">
+                    {shoppingCartItemCount || 0}
+                  </div>
                 </div>
               </Link>
             </div>
