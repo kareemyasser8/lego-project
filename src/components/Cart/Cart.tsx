@@ -2,13 +2,18 @@ import useTempCartProducts, {
   TempCartResponseProduct,
 } from "../../Hooks/useTempCartProducts"
 import { APILink } from "../../constants/APILink"
+import EmptyCart from "../EmptyCart/EmptyCart"
 import OrderSummary from "../OrderSummary/OrderSummary"
 import ProductInCart from "../ProductInCart/ProductInCart"
 import "./Cart.css"
 
 const Cart = () => {
   const { data, isLoading, isError } = useTempCartProducts()
-  // console.log(data)
+  // console.log(data?.id)
+
+  if (data && data?.TemporaryCartItems.length == 0) {
+     return <EmptyCart />
+  }
 
   return (
     <div className="col-12">
@@ -22,6 +27,9 @@ const Cart = () => {
                 image={APILink + "/" + value.Product.Images[0].url}
                 price={value.unit_price}
                 title={value.Product.title}
+                tempCartId={data.id}
+                productId={value.Product.id}
+                quantity={value.quantity}
               />
             )
           )}

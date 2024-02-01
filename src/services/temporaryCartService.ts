@@ -1,9 +1,16 @@
-import APIClient from "./apiClient";
+import APIClient from "./apiClient"
 
-export interface productToBeSentForTemporaryCart{
-    temporaryCartId: string | null,
-    productId: string,
-    quantity: number
+export interface productToBeSentForTemporaryCart {
+  temporaryCartId: string | null
+  productId: string
+  change: number //either positive or negative number
 }
 
-export default new APIClient<productToBeSentForTemporaryCart>("/temporaryCart")
+export interface ProductToBeDeletedFromTempCart {
+  temporaryCartId: string
+  productId: string
+}
+
+export default new APIClient<
+  productToBeSentForTemporaryCart | ProductToBeDeletedFromTempCart
+>("/temporaryCart")

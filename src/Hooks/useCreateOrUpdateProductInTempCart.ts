@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useTempCartStore from "../state-management/useTempCartStore"
 import toast from "react-hot-toast"
 
-const useAddProductToTempCart = () => {
+const useCreateOrUpdateProductInTempCart = () => {
   const { setTempCart } = useTempCartStore()
   const queryClient = useQueryClient()
 
@@ -29,4 +29,4 @@ const useAddProductToTempCart = () => {
   })
 }
 
-export default useAddProductToTempCart
+export default useCreateOrUpdateProductInTempCart

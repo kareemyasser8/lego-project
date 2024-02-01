@@ -9,19 +9,20 @@ export interface TempCartResponseImage {
 }
 
 export interface TempCartResponseProduct {
-  Product: { title: string; Images: TempCartResponseImage[] }
+  Product: { id: string, title: string; Images: TempCartResponseImage[] }
   quantity: number
   unit_price: number
 }
 
 interface TempCartResponse {
   TemporaryCartItems: TempCartResponseProduct[]
+  id: string
 }
 
 const useTempCartProducts = () => {
   const { temporaryCartId } = useTempCartStore()
 
-  return useQuery<productToBeSentForTemporaryCart, Error, TempCartResponse>({
+  return useQuery<productToBeSentForTemporaryCart, Error, TempCartResponse, any>({
     queryKey: ["temporaryCart", temporaryCartId],
     queryFn: () => temporaryCartService.getOne(temporaryCartId || ""),
     staleTime: 10 * (60 * 1000), // 10 mins,

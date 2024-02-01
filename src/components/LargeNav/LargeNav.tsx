@@ -6,9 +6,11 @@ import MiniNav from "../MiniNav"
 import "./LargeNav.css"
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
+import useTempCartProducts from "../../Hooks/useTempCartProducts"
 
 const LargeNav = () => {
   const navbar = useRef<HTMLDivElement>(null)
+  const { data, isLoading, isError } = useTempCartProducts()
 
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
   let scrollTopPosition = 0
@@ -77,7 +79,7 @@ const LargeNav = () => {
               <Link to="/cart" className="text-black">
                 <div className="menu-content__icon d-flex align-items-center">
                   <HiOutlineShoppingBag fontSize={"1.5rem"} />
-                  <div className="cart-counter">(0)</div>
+                  <div className="cart-counter">{data?.TemporaryCartItems.length || 0}</div>
                 </div>
               </Link>
             </div>

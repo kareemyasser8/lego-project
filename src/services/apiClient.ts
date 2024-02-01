@@ -13,12 +13,12 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use((req) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token")
   if (token) {
-    req.headers.authorization = `Bearer ${token}`;
+    req.headers.authorization = `Bearer ${token}`
   }
-  return req;
-},)
+  return req
+})
 
 class APIClient<T> {
   endpoint: string = ""
@@ -69,6 +69,12 @@ class APIClient<T> {
     return axiosInstance
       .delete<T>(this.endpoint.concat(`/${id}`))
       .then((res) => res.data)
+  }
+
+  deleteByProduct(data: T) {
+    return axiosInstance.delete<T>(this.endpoint, {
+     data: data
+    }).then((res) => res.data)
   }
 }
 
