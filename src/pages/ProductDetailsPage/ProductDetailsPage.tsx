@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb"
 import "./ProductDetailsPage.css"
 import noImage from "../../assets/no-image-placeholder.webp"
@@ -7,41 +7,33 @@ import ProductRating from "../../components/ProductRating/ProductRating"
 import { HiOutlineShoppingBag } from "react-icons/hi"
 import { AiOutlineHeart } from "react-icons/ai"
 import AddToCartCounter from "../../components/AddToCartCounter/AddToCartCounter"
-import { useSingleProduct } from "../../Hooks"
-import { useParams } from "react-router-dom"
 import { APILink } from "../../constants/APILink"
-import {
-  FetchedProduct,
-  FetchedProductImage,
-} from "../../entities/FetchedProduct"
+import { FetchedProductImage } from "../../entities/FetchedProduct"
 import Recommended from "../../components/Recommended/Recommended"
+import useProductDetails from "../../Hooks/useProductDetails"
+import Spinner from "../../components/Spinner/Spinner"
+import useImageGalleryBtns from "../../Hooks/useImageGalleryBtns"
 
 const ProductDetailsPage = () => {
-  const { id } = useParams()
+  const {
+    temporaryCartId,
+    displayedQuantity,
+    singleProductData,
+    singleProductLoading,
+    numOfImages,
+  } = useProductDetails()
 
-  const [currentImgIndex, setCurrentImgIndex] = useState(0)
+  const { setCurrentImgIndex, currentImgIndex, handleNextImg, handlePrevImg } =
+    useImageGalleryBtns(numOfImages)
 
-  let singleProductData: FetchedProduct | undefined
-  let numOfImages: number = 0
-
-  if (id) {
-    ;({ data: singleProductData } = useSingleProduct(id))
-    numOfImages = singleProductData?.Images.length || 0
-  }
-
-  const handleNextImg = () => {
-    if (currentImgIndex + 1 > numOfImages - 1) return
-    setCurrentImgIndex(currentImgIndex + 1)
-  }
-
-  const handlePrevImg = () => {
-    if (currentImgIndex - 1 < 0) return
-    setCurrentImgIndex(currentImgIndex - 1)
-  }
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
+  if (singleProductLoading)
+    return (
+      <>
+        <div className="page-loading">
+          <Spinner color="text-warning"></Spinner>
+        </div>
+      </>
+    )
 
   return (
     <>
@@ -103,7 +95,11 @@ const ProductDetailsPage = () => {
 
           <div className="product-details__counter-section">
             <div className="counter-section__counter">
-              <AddToCartCounter />
+              <AddToCartCounter
+                cartId={temporaryCartId || ""}
+                productId={singleProductData?.id.toString() || ""}
+                quantity={displayedQuantity}
+              />
             </div>
             <small>Limit 5</small>
           </div>
@@ -146,7 +142,7 @@ const ProductDetailsPage = () => {
       </section>
 
       <section className="">
-        <Recommended/>
+        <Recommended />
       </section>
     </>
   )

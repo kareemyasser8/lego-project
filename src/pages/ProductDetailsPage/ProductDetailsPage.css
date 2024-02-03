@@ -4,9 +4,12 @@
   }
 }
 
-
 :root {
   --chevron-btn-size: 3rem;
+}
+
+.page-loading{
+  height: 60vh;
 }
 
 .product-content__images-col {

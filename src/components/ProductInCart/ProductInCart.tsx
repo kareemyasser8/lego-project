@@ -6,6 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri"
 import useDeleteProductFromTempCart from "../../Hooks/useDeleteProductFromTempCart"
 import Spinner from "../Spinner/Spinner"
 import { ProductToBeDeletedFromTempCart } from "../../services/temporaryCartService"
+import { Link } from "react-router-dom"
 
 interface Props {
   image: string
@@ -22,7 +23,7 @@ const ProductInCart = ({
   price,
   tempCartId,
   productId,
-  quantity
+  quantity,
 }: Props) => {
   const { mutate, error, isLoading } = useDeleteProductFromTempCart()
 
@@ -32,6 +33,11 @@ const ProductInCart = ({
       productId: productId,
     }
     mutate(removedProduct)
+  }
+
+  const calculatePrice = (price: number, quantity: number) => {
+    const result = price * quantity
+    return parseFloat(result.toFixed(2))
   }
 
   if (error) {
@@ -56,16 +62,20 @@ const ProductInCart = ({
         <img src={image ? image : noImage} alt={title} />
       </div>
       <div className="productInCart-Container__productTitlePrice">
-        <div className="productTitlePrice__title">{title}</div>
+        <Link to={`/shop/${productId}`}>
+          <div className="productTitlePrice__title text-black">{title}</div>
+        </Link>
 
-        <div className="productTitlePrice__price">${price}</div>
+        <div className="productTitlePrice__price">
+          ${calculatePrice(price, quantity)}
+        </div>
       </div>
       <div className="productInCart-Container__counter">
         <AddToCartCounter
-          cartId={tempCartId} 
+          cartId={tempCartId}
           productId={productId}
           quantity={quantity}
-         />
+        />
       </div>
       <div className="productInCart-Container__wishList">
         <div className="wishList__heart-product">
