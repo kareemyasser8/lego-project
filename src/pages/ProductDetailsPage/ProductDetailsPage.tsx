@@ -20,11 +20,28 @@ const ProductDetailsPage = () => {
     displayedQuantity,
     singleProductData,
     singleProductLoading,
+    singleProductError,
     numOfImages,
   } = useProductDetails()
 
   const { setCurrentImgIndex, currentImgIndex, handleNextImg, handlePrevImg } =
     useImageGalleryBtns(numOfImages)
+
+  // if (singleProductError) {
+  //   return (
+  //     <>
+  //       <div className="page-loading">
+  //         <div
+  //           className="alert alert-danger"
+  //           role="alert"
+  //           style={{ maxHeight: "100px" }}
+  //         >
+  //           <p>Error</p>
+  //         </div>
+  //       </div>
+  //     </>
+  //   )
+  // }
 
   if (singleProductLoading)
     return (

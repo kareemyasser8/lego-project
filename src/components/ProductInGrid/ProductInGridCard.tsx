@@ -12,11 +12,11 @@ interface Props {
 
 const ProductInGridCard = ({ product }: Props) => {
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
-  const {temporaryCartId} = useTempCartStore();
+  // const {temporaryCartId} = useTempCartStore();
 
   const addProductToCart = (productId: string) => {
     const productTobeSent: productToBeSentForTemporaryCart = {
-      temporaryCartId: temporaryCartId,
+      temporaryCartId: localStorage.getItem("temporaryCartId"),
       productId: productId,
       change: 1
     }
