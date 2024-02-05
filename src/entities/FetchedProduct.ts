@@ -3,6 +3,7 @@ export interface FetchedProductImage{
 }
 
 export interface FetchedProduct{
+    limit: number,
     Images: FetchedProductImage[],
     description: string,
     id: number,

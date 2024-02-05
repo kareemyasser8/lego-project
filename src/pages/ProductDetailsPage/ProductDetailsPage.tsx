@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb"
 import "./ProductDetailsPage.css"
 import noImage from "../../assets/no-image-placeholder.webp"
@@ -13,6 +13,9 @@ import Recommended from "../../components/Recommended/Recommended"
 import useProductDetails from "../../Hooks/useProductDetails"
 import Spinner from "../../components/Spinner/Spinner"
 import useImageGalleryBtns from "../../Hooks/useImageGalleryBtns"
+import useMaxLimit from "../../Hooks/useMaxLimit"
+import useCreateOrUpdateProductInTempCart from "../../Hooks/useCreateOrUpdateProductInTempCart"
+import { productToBeSentForTemporaryCart } from "../../services/temporaryCartService"
 
 const ProductDetailsPage = () => {
   const {
@@ -27,21 +30,33 @@ const ProductDetailsPage = () => {
   const { setCurrentImgIndex, currentImgIndex, handleNextImg, handlePrevImg } =
     useImageGalleryBtns(numOfImages)
 
-  // if (singleProductError) {
-  //   return (
-  //     <>
-  //       <div className="page-loading">
-  //         <div
-  //           className="alert alert-danger"
-  //           role="alert"
-  //           style={{ maxHeight: "100px" }}
-  //         >
-  //           <p>Error</p>
-  //         </div>
-  //       </div>
-  //     </>
-  //   )
-  // }
+  const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
+
+  const addProductToCart = (productId: string) => {
+    const productTobeSent: productToBeSentForTemporaryCart = {
+      temporaryCartId: localStorage.getItem("temporaryCartId"),
+      productId: productId,
+      change: 1,
+    }
+
+    mutate(productTobeSent)
+  }
+
+  if (singleProductError) {
+    return (
+      <>
+        <div className="page-loading page-layout">
+          <div
+            className="alert alert-danger mt-3"
+            role="alert"
+            style={{ maxHeight: "100px" }}
+          >
+            <p>{singleProductError.message}</p>
+          </div>
+        </div>
+      </>
+    )
+  }
 
   if (singleProductLoading)
     return (
@@ -112,24 +127,40 @@ const ProductDetailsPage = () => {
 
           <div className="product-details__counter-section">
             <div className="counter-section__counter">
-              <AddToCartCounter
-                cartId={temporaryCartId || ""}
-                productId={singleProductData?.id.toString() || ""}
-                quantity={displayedQuantity}
-              />
+              {singleProductData && (
+                <AddToCartCounter
+                  cartId={temporaryCartId || ""}
+                  productId={singleProductData.id.toString() || ""}
+                  quantity={displayedQuantity}
+                  limit={singleProductData.limit}
+                />
+              )}
             </div>
-            <small>Limit 5</small>
+
+            {singleProductData && (
+              <small>Limit {singleProductData.limit}</small>
+            )}
           </div>
 
           <div className="product-details__addToCartSection">
-            <button
-              type="button"
-              className="butn btn--block btn--orange btn--large btn--rounded"
-            >
-              <HiOutlineShoppingBag fontSize={"1.3rem"} />
-              Add to Bag
-            </button>
-
+            {singleProductData && (
+              <button
+                type="button"
+                className="butn btn--block btn--orange btn--large btn--rounded"
+                onClick={() =>
+                  addProductToCart(singleProductData.id.toString())
+                }
+              >
+                {isLoading ? (
+                  "Loading ..."
+                ) : (
+                  <>
+                    <HiOutlineShoppingBag fontSize={"1.3rem"} /> Add to Bag{" "}
+                  </>
+                )}
+                
+              </button>
+            )}
             <div className="heart-product">
               <AiOutlineHeart size={20} color={"#006DB7"} />
             </div>

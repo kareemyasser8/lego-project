@@ -48,13 +48,13 @@ const LargeNav = () => {
     lastScrollTop = scrollTopPosition <= 0 ? 0 : scrollTopPosition
   }
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScrollUp)
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollUp)
 
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScrollUp)
-  //   }
-  // }, [])
+    return () => {
+      window.removeEventListener("scroll", handleScrollUp)
+    }
+  }, [])
 
   return (
     <>

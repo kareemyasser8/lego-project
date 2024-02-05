@@ -7,13 +7,13 @@ interface Props {
   quantity: number
   productId: string
   cartId: string
+  limit: number
 }
 
-const AddToCartCounter = ({ quantity, productId, cartId }: Props) => {
+const AddToCartCounter = ({ quantity, productId, cartId, limit }: Props) => {
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
-
   const [counter, setCounter] = useState(quantity)
-  const maxLimit = 5
+  const maxLimit = limit || 1
   const minLimit = 1
 
   useEffect(() => {
@@ -27,7 +27,6 @@ const AddToCartCounter = ({ quantity, productId, cartId }: Props) => {
       productId: productId,
       temporaryCartId: cartId,
     })
-    // setCounter(counter + 1)
   }
 
   const handleDecrementClick = () => {
@@ -52,7 +51,11 @@ const AddToCartCounter = ({ quantity, productId, cartId }: Props) => {
           -
         </div>
         <div className="container__counter-number">
-          {isLoading == true ? <Spinner size="1.5rem" borderWidth="0.2rem" color="text-warning" /> : counter}
+          {isLoading == true ? (
+            <Spinner size="1.5rem" borderWidth="0.2rem" color="text-warning" />
+          ) : (
+            counter
+          )}
         </div>
         <div
           className={`container__btn ${

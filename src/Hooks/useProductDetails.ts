@@ -13,12 +13,13 @@ const useProductDetails = () => {
 
   let singleProductData: FetchedProduct | undefined
   let singleProductLoading: boolean = false
-  let singleProductError: Error = {} as Error
+  let singleProductError: Error | null = {} as Error
   let numOfImages: number = 0
 
   if (id) {
-    ;({ data: singleProductData, isLoading: singleProductLoading } =
+    ;({ data: singleProductData, isLoading: singleProductLoading, error: singleProductError } =
       useSingleProduct(id))
+    // console.log(singleProductData)
     numOfImages = singleProductData?.Images.length || 0
   }
 
@@ -45,7 +46,6 @@ const useProductDetails = () => {
       }
     }
   }, [singleProductLoading, id, data])
-  // }, [singleProductLoading, id, data])
 
   return {
     temporaryCartId,

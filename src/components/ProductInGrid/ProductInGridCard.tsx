@@ -4,7 +4,6 @@ import SmallImageCarousel from "../SmallImageCarousel/SmallImageCarousel"
 import { Product } from "../../Products"
 import useCreateOrUpdateProductInTempCart from "../../Hooks/useCreateOrUpdateProductInTempCart"
 import { productToBeSentForTemporaryCart } from "../../services/temporaryCartService"
-import useTempCartStore from "../../state-management/useTempCartStore"
 
 interface Props {
   product: Product
@@ -12,7 +11,6 @@ interface Props {
 
 const ProductInGridCard = ({ product }: Props) => {
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
-  // const {temporaryCartId} = useTempCartStore();
 
   const addProductToCart = (productId: string) => {
     const productTobeSent: productToBeSentForTemporaryCart = {

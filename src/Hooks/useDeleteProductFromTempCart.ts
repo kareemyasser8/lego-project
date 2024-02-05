@@ -11,7 +11,6 @@ const useDeleteProductFromTempCart = () => {
       temporaryCartService.deleteByProduct(p),
     onSuccess: (response: any) => {
       queryClient.invalidateQueries(["temporaryCart"])
-      console.log(response)
     },
   })
 }

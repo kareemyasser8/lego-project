@@ -7,6 +7,7 @@ import useDeleteProductFromTempCart from "../../Hooks/useDeleteProductFromTempCa
 import Spinner from "../Spinner/Spinner"
 import { ProductToBeDeletedFromTempCart } from "../../services/temporaryCartService"
 import { Link } from "react-router-dom"
+import useSingleProduct from "../../Hooks/useSingleProduct"
 
 interface Props {
   image: string
@@ -26,6 +27,8 @@ const ProductInCart = ({
   quantity,
 }: Props) => {
   const { mutate, error, isLoading } = useDeleteProductFromTempCart()
+
+  const { data } = useSingleProduct(productId)
 
   const removeProductFromCart = () => {
     let removedProduct: ProductToBeDeletedFromTempCart = {
@@ -71,11 +74,14 @@ const ProductInCart = ({
         </div>
       </div>
       <div className="productInCart-Container__counter">
-        <AddToCartCounter
-          cartId={tempCartId}
-          productId={productId}
-          quantity={quantity}
-        />
+        {data && (
+          <AddToCartCounter
+            cartId={tempCartId}
+            productId={productId}
+            quantity={quantity}
+            limit={data.limit}
+          />
+        )}
       </div>
       <div className="productInCart-Container__wishList">
         <div className="wishList__heart-product">

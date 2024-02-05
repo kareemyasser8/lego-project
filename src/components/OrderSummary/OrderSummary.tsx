@@ -1,7 +1,11 @@
 import "./OrderSummary.css"
 import bankTypes from "../../assets/bank-types.jpg"
 
-const OrderSummary = () => {
+interface Props{
+  totalPrice: number
+}
+
+const OrderSummary = ({totalPrice}: Props) => {
   return (
     <section className="OrderSummary">
       <header className="OrderSummary__header">
@@ -10,7 +14,7 @@ const OrderSummary = () => {
       <div className="OrderSummary__container">
         <div className="container__priceLine mt-3">
           <span className="priceLine__text">Subtotal</span>
-          <span className="priceLine__number">$59.99</span>
+          <span className="priceLine__number">${totalPrice}</span>
         </div>
 
         <div className="container__priceLine">
@@ -20,7 +24,7 @@ const OrderSummary = () => {
 
         <div className="container__priceLine priceLine--total">
           <span className="priceLine__text">Subtotal</span>
-          <span className="priceLine__number">$59.99</span>
+          <span className="priceLine__number">${totalPrice}</span>
         </div>
 
         <button className="butn btn--orange btn--rounded btn--block ">

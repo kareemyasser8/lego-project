@@ -15,6 +15,7 @@ export interface TempCartResponseProduct {
 
 interface TempCartResponse {
   TemporaryCartItems: TempCartResponseProduct[]
+  totalPrice: number
   id: string
 }
 

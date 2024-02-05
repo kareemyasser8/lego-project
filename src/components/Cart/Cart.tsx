@@ -9,10 +9,10 @@ import "./Cart.css"
 
 const Cart = () => {
   const { data, isLoading, isError } = useTempCartProducts()
-  // console.log(data?.id)
+  // console.log(data)
 
   if (data && data?.TemporaryCartItems.length == 0) {
-     return <EmptyCart />
+    return <EmptyCart />
   }
 
   return (
@@ -34,8 +34,9 @@ const Cart = () => {
             )
           )}
         </div>
+
         <div className="col-lg-4 col-sm-12">
-          <OrderSummary />
+          <OrderSummary totalPrice={data?.totalPrice || 0} />
         </div>
       </div>
     </div>

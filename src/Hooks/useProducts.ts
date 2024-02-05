@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import productService, { ResponseProduct } from "../services/productService"
 import { productQuery } from "../state-management/useFilterStore"
 export interface productQuerytoSend {
@@ -16,6 +16,8 @@ const convertArrayToString = (filter: string[] | null): string => {
 }
 
 const useProducts = (page: number, pageSize: number, filters?: productQuery, ordering?: string) => {
+  const querr = useQueryClient();
+
   const productQueryToSend: productQuerytoSend = {
     price: convertArrayToString(filters?.price || []),
     theme: convertArrayToString(filters?.theme || []),
@@ -28,8 +30,8 @@ const useProducts = (page: number, pageSize: number, filters?: productQuery, ord
     queryKey: ["products", page, pageSize, filters, ordering],
     queryFn: () =>
       productService.getAllPaginated(page, pageSize, productQueryToSend, ordering),
-    staleTime: 10 * (60 * 1000), // 10 mins,
-    cacheTime: 15 * (60 * 1000), // 15 mins
+    // staleTime: 10 * (60 * 1000), // 10 mins,
+    // cacheTime: 15 * (60 * 1000), // 15 mins
   })
 }
 
