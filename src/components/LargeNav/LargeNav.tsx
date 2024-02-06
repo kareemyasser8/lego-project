@@ -14,17 +14,17 @@ const LargeNav = () => {
   const [shoppingCartItemCount, setShoppingCartItemCount] = useState(0)
 
   useEffect(() => {
-    setShoppingCartItemCount(0);
-  
+    setShoppingCartItemCount(0)
+
     if (data?.TemporaryCartItems) {
       setShoppingCartItemCount((prevCount) =>
         data.TemporaryCartItems.reduce(
           (totalCount, product) => totalCount + product.quantity,
           prevCount
         )
-      );
+      )
     }
-  }, [data]);
+  }, [data])
 
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
   let scrollTopPosition = 0
@@ -88,7 +88,9 @@ const LargeNav = () => {
                 <LuSearch />
               </div>
               <div className="menu-content__icon mb-1">
-                <FiHeart />
+                <Link to="/wishList" className="text-black">
+                  <FiHeart />
+                </Link>
               </div>
               <Link to="/cart" className="text-black">
                 <div className="menu-content__icon d-flex align-items-center">

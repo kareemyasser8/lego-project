@@ -17,6 +17,7 @@ import UnAuthorizedPage from "./pages/UnAuthorizedPage"
 import Cart from "./components/Cart/Cart"
 import WishList from "./components/WishList/WishList"
 import CartPage from "./pages/CartPage"
+import WishListPage from "./pages/WishListPage/WishListPage"
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: <CartPage/>
+      },
+      {
+        path: "wishList",
+        element: <WishListPage/>
       },
       {
         path: "shop/:id",

@@ -1,13 +1,13 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react"
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
-import product1 from "../../assets/Product1.webp"
-import product2 from "../../assets/Product2.webp"
 import "./SmallImageCarousel.css"
-import { AiOutlineHeart } from "react-icons/ai"
-import { AiFillHeart } from "react-icons/ai"
-import { Product, ProductImage } from "../../Products"
-import { APILink } from "../../constants/APILink"
+import { MutableRefObject, useRef, useState } from "react"
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
 import { Link } from "react-router-dom"
+
+import { APILink } from "../../constants/APILink"
+import useAddOrDeleteProductToWishList from "../../Hooks/useAddOrDeleteProductToWishList"
+import { Product } from "../../Products"
+import { elementToBeSentOrRemovedFromWishList } from "../../services/wishListService"
 
 interface Props {
   product: Product
@@ -30,6 +30,18 @@ const SmallImageCarousel = ({ product }: Props) => {
     setScrollPosition((prevScrollPosition) => prevScrollPosition + scrollAmount)
   }
 
+  const { mutate } = useAddOrDeleteProductToWishList()
+
+  const addOrRemoveProductInWishList = (productId: string) => {
+    setIsHeartClicked(!isHeartClicked)
+    const elementTobeSent: elementToBeSentOrRemovedFromWishList = {
+      wishListId: localStorage.getItem("wishListId"),
+      productId: productId,
+    }
+
+    mutate(elementTobeSent)
+  }
+
   return (
     <>
       <div
@@ -42,7 +54,7 @@ const SmallImageCarousel = ({ product }: Props) => {
           <div
             className="heart-product z-1 "
             style={{ top: "0px", left: "0px" }}
-            onClick={() => setIsHeartClicked(!isHeartClicked)}
+            onClick={() => addOrRemoveProductInWishList(product.id)}
           >
             {isHeartClicked ? (
               <AiFillHeart size={20} color={"#006DB7"} />
@@ -87,12 +99,12 @@ const SmallImageCarousel = ({ product }: Props) => {
                 return (
                   <div key={index}>
                     <Link to={`/shop/${product.id}`}>
-                    <img
-                      className="w-100 object-fit-contain"
-                      style={{height: '300px'}}
-                      src={APILink + "/" + img.url}
-                      // alt={img.preview}
-                    />
+                      <img
+                        className="w-100 object-fit-contain"
+                        style={{ height: "300px" }}
+                        src={APILink + "/" + img.url}
+                        // alt={img.preview}
+                      />
                     </Link>
                   </div>
                 )

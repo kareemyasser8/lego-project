@@ -13,7 +13,6 @@ import Recommended from "../../components/Recommended/Recommended"
 import useProductDetails from "../../Hooks/useProductDetails"
 import Spinner from "../../components/Spinner/Spinner"
 import useImageGalleryBtns from "../../Hooks/useImageGalleryBtns"
-import useMaxLimit from "../../Hooks/useMaxLimit"
 import useCreateOrUpdateProductInTempCart from "../../Hooks/useCreateOrUpdateProductInTempCart"
 import { productToBeSentForTemporaryCart } from "../../services/temporaryCartService"
 

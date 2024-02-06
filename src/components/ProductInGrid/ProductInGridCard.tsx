@@ -1,9 +1,10 @@
-import { HiOutlineShoppingBag } from "react-icons/hi"
-import yellowStar from "../../assets/yellowStar.svg"
-import SmallImageCarousel from "../SmallImageCarousel/SmallImageCarousel"
-import { Product } from "../../Products"
-import useCreateOrUpdateProductInTempCart from "../../Hooks/useCreateOrUpdateProductInTempCart"
-import { productToBeSentForTemporaryCart } from "../../services/temporaryCartService"
+import { HiOutlineShoppingBag } from 'react-icons/hi';
+
+import yellowStar from '../../assets/yellowStar.svg';
+import useCreateOrUpdateProductInTempCart from '../../Hooks/useCreateOrUpdateProductInTempCart';
+import { Product } from '../../Products';
+import { productToBeSentForTemporaryCart } from '../../services/temporaryCartService';
+import SmallImageCarousel from '../SmallImageCarousel/SmallImageCarousel';
 
 interface Props {
   product: Product
@@ -12,11 +13,12 @@ interface Props {
 const ProductInGridCard = ({ product }: Props) => {
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
 
+
   const addProductToCart = (productId: string) => {
     const productTobeSent: productToBeSentForTemporaryCart = {
       temporaryCartId: localStorage.getItem("temporaryCartId"),
       productId: productId,
-      change: 1
+      change: 1,
     }
 
     mutate(productTobeSent)
