@@ -3,11 +3,12 @@ import { FetchedProduct } from "../entities/FetchedProduct"
 import useSingleProduct from "./useSingleProduct"
 import { useEffect, useState } from "react"
 import useTempCartProducts from "./useTempCartProducts"
+import useIsProductInWishList from "./useIsProductInWishList"
 
 const useProductDetails = () => {
   const { id } = useParams()
 
-  const temporaryCartId = localStorage.getItem("temporaryCartId");
+  const temporaryCartId = localStorage.getItem("temporaryCartId")
   const { data } = useTempCartProducts()
   const [displayedQuantity, setDisplayedQuantity] = useState(0)
 
@@ -15,12 +16,18 @@ const useProductDetails = () => {
   let singleProductLoading: boolean = false
   let singleProductError: Error | null = {} as Error
   let numOfImages: number = 0
+  let isProductInWishList = false
 
   if (id) {
-    ;({ data: singleProductData, isLoading: singleProductLoading, error: singleProductError } =
-      useSingleProduct(id))
+    ;({
+      data: singleProductData,
+      isLoading: singleProductLoading,
+      error: singleProductError,
+    } = useSingleProduct(id))
     // console.log(singleProductData)
     numOfImages = singleProductData?.Images.length || 0
+    const { data } = useIsProductInWishList(id)
+    isProductInWishList = data?.isProductInWishList || false
   }
 
   const checkProductInCart = (productId: string) => {
@@ -54,6 +61,7 @@ const useProductDetails = () => {
     singleProductLoading,
     singleProductError,
     numOfImages,
+    isProductInWishList
   }
 }
 

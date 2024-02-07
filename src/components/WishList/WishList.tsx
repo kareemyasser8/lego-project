@@ -1,11 +1,15 @@
 import "./WishList.css"
 import ProductInWishList from "../ProductInWishList/ProductInWishList"
 import useProductsInWishList from "../../Hooks/useProductsInWishList"
+import EmptyCartOrWishList from "../EmptyCartOrWishlist/EmptyCartOrWishList"
 
 const WishList = () => {
-
   let id = localStorage.getItem('wishListId')
   const {data, isLoading, error} = useProductsInWishList(id || "");
+
+  if (data && data?.WishList_Products.length == 0) {
+    return <EmptyCartOrWishList type="WishList" />
+  }
 
   return (
     <div className="col-12">

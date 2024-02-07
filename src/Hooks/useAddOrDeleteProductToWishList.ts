@@ -22,6 +22,7 @@ const useAddOrDeleteProductToWishList = () => {
       }
       
       queryClient.invalidateQueries(["WishList"])
+      // queryClient.invalidateQueries(["products"])
       
     },
     onError(error) {

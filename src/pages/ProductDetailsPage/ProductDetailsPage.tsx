@@ -5,7 +5,7 @@ import noImage from "../../assets/no-image-placeholder.webp"
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
 import ProductRating from "../../components/ProductRating/ProductRating"
 import { HiOutlineShoppingBag } from "react-icons/hi"
-import { AiOutlineHeart } from "react-icons/ai"
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import AddToCartCounter from "../../components/AddToCartCounter/AddToCartCounter"
 import { APILink } from "../../constants/APILink"
 import { FetchedProductImage } from "../../entities/FetchedProduct"
@@ -15,6 +15,8 @@ import Spinner from "../../components/Spinner/Spinner"
 import useImageGalleryBtns from "../../Hooks/useImageGalleryBtns"
 import useCreateOrUpdateProductInTempCart from "../../Hooks/useCreateOrUpdateProductInTempCart"
 import { productToBeSentForTemporaryCart } from "../../services/temporaryCartService"
+import useAddOrDeleteProductToWishList from "../../Hooks/useAddOrDeleteProductToWishList"
+import { elementToBeSentOrRemovedFromWishList } from "../../services/wishListService"
 
 const ProductDetailsPage = () => {
   const {
@@ -24,12 +26,28 @@ const ProductDetailsPage = () => {
     singleProductLoading,
     singleProductError,
     numOfImages,
+    isProductInWishList
   } = useProductDetails()
 
   const { setCurrentImgIndex, currentImgIndex, handleNextImg, handlePrevImg } =
     useImageGalleryBtns(numOfImages)
 
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
+  const { mutate: handleAddOrRemove } = useAddOrDeleteProductToWishList()
+
+
+  const [isHeartClicked, setIsHeartClicked] = useState(false)
+
+
+  const addOrRemoveProductInWishList = (productId: string) => {
+    setIsHeartClicked(!isHeartClicked)
+    const elementTobeSent: elementToBeSentOrRemovedFromWishList = {
+      wishListId: localStorage.getItem("wishListId"),
+      productId: productId,
+    }
+
+    handleAddOrRemove(elementTobeSent)
+  }
 
   const addProductToCart = (productId: string) => {
     const productTobeSent: productToBeSentForTemporaryCart = {
@@ -40,6 +58,10 @@ const ProductDetailsPage = () => {
 
     mutate(productTobeSent)
   }
+
+  useEffect(() => {
+    setIsHeartClicked(isProductInWishList)
+  }, [isProductInWishList])
 
   if (singleProductError) {
     return (
@@ -143,26 +165,40 @@ const ProductDetailsPage = () => {
 
           <div className="product-details__addToCartSection">
             {singleProductData && (
-              <button
-                type="button"
-                className="butn btn--block btn--orange btn--large btn--rounded"
-                onClick={() =>
-                  addProductToCart(singleProductData.id.toString())
-                }
-              >
-                {isLoading ? (
-                  "Loading ..."
-                ) : (
-                  <>
-                    <HiOutlineShoppingBag fontSize={"1.3rem"} /> Add to Bag{" "}
-                  </>
-                )}
-                
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="butn btn--block btn--orange btn--large btn--rounded"
+                  onClick={() =>
+                    addProductToCart(singleProductData.id.toString())
+                  }
+                >
+                  {isLoading ? (
+                    "Loading ..."
+                  ) : (
+                    <>
+                      <HiOutlineShoppingBag fontSize={"1.3rem"} /> Add to Bag{" "}
+                    </>
+                  )}
+                </button>
+                <div className="product-details__addToCartSection__heart">
+                  <div
+                    className="heart-product-container"
+                    onClick={() =>
+                      addOrRemoveProductInWishList(
+                        singleProductData.id.toString()
+                      )
+                    }
+                  >
+                    {isHeartClicked ? (
+                      <AiFillHeart size={30} color={"#006DB7"} />
+                    ) : (
+                      <AiOutlineHeart size={30} color={"#006DB7"} />
+                    )}
+                  </div>
+                </div>
+              </>
             )}
-            <div className="heart-product">
-              <AiOutlineHeart size={20} color={"#006DB7"} />
-            </div>
           </div>
         </div>
       </div>

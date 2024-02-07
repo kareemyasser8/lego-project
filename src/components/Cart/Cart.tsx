@@ -2,7 +2,7 @@ import useTempCartProducts, {
   TempCartResponseProduct,
 } from "../../Hooks/useTempCartProducts"
 import { APILink } from "../../constants/APILink"
-import EmptyCart from "../EmptyCart/EmptyCart"
+import EmptyCartOrWishList from "../EmptyCartOrWishlist/EmptyCartOrWishList"
 import OrderSummary from "../OrderSummary/OrderSummary"
 import ProductInCart from "../ProductInCart/ProductInCart"
 import "./Cart.css"
@@ -12,7 +12,7 @@ const Cart = () => {
   // console.log(data)
 
   if (data && data?.TemporaryCartItems.length == 0) {
-    return <EmptyCart />
+    return <EmptyCartOrWishList type="Cart" />
   }
 
   return (

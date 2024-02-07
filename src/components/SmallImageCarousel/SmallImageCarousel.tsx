@@ -1,5 +1,5 @@
 import "./SmallImageCarousel.css"
-import { MutableRefObject, useRef, useState } from "react"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
 import { Link } from "react-router-dom"
@@ -8,6 +8,7 @@ import { APILink } from "../../constants/APILink"
 import useAddOrDeleteProductToWishList from "../../Hooks/useAddOrDeleteProductToWishList"
 import { Product } from "../../Products"
 import { elementToBeSentOrRemovedFromWishList } from "../../services/wishListService"
+import useIsProductInWishList from "../../Hooks/useIsProductInWishList"
 
 interface Props {
   product: Product
@@ -19,7 +20,7 @@ const SmallImageCarousel = ({ product }: Props) => {
   const nextButtonRef = useRef<HTMLDivElement>(null)
   const [isBtnShown, setIsBtnShown] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
-  const [isHeartClicked, setIsHeartClicked] = useState(false)
+
 
   const slideScroll = (ref: MutableRefObject<any>) => {
     const direction = ref === prevButtonRef ? -1 : 1
@@ -30,8 +31,15 @@ const SmallImageCarousel = ({ product }: Props) => {
     setScrollPosition((prevScrollPosition) => prevScrollPosition + scrollAmount)
   }
 
+  const [isHeartClicked, setIsHeartClicked] = useState(false)
+  const {data} = useIsProductInWishList(product.id)
   const { mutate } = useAddOrDeleteProductToWishList()
+  
 
+  useEffect(()=>{
+    setIsHeartClicked(data?.isProductInWishList || false)
+  },[data])
+  
   const addOrRemoveProductInWishList = (productId: string) => {
     setIsHeartClicked(!isHeartClicked)
     const elementTobeSent: elementToBeSentOrRemovedFromWishList = {
@@ -41,6 +49,7 @@ const SmallImageCarousel = ({ product }: Props) => {
 
     mutate(elementTobeSent)
   }
+
 
   return (
     <>

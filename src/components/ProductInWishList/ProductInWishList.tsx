@@ -3,6 +3,7 @@ import { RiDeleteBin6Line } from "react-icons/ri"
 import { APILink } from "../../constants/APILink"
 import useAddOrDeleteProductToWishList from "../../Hooks/useAddOrDeleteProductToWishList"
 import { elementToBeSentOrRemovedFromWishList } from "../../services/wishListService"
+import { Link } from "react-router-dom"
 
 interface Props {
   productTitle: string
@@ -33,7 +34,9 @@ const ProductInWishList = ({
     <div className="wishlist-container page-layout">
       <div className="wishlist-container__details">
         <div className="details__section">
-          <div className="wishlist-details__header">{productTitle}</div>
+          <Link to={`/shop/${productId}`}>
+            <div className="wishlist-details__header">{productTitle}</div>
+          </Link>
           <div className="wishlist-details__footer">
             Last updated: {formattedDate}
           </div>
@@ -43,10 +46,7 @@ const ProductInWishList = ({
         </div>
       </div>
 
-      <div
-        className="wishlist-container__removeProduct"
-        onClick={handleRemove}
-      >
+      <div className="wishlist-container__removeProduct" onClick={handleRemove}>
         <RiDeleteBin6Line size={25} color={"#005595"} />
       </div>
     </div>

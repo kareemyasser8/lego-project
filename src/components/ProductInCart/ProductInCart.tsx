@@ -84,10 +84,10 @@ const ProductInCart = ({
         )}
       </div>
       <div className="productInCart-Container__wishList">
-        <div className="wishList__heart-product">
+        {/* <div className="wishList__heart-product">
           <AiOutlineHeart size={18} color={"black"} />
-        </div>
-        Add to wish list
+        </div> */}
+        {/* Add to wish list */}
       </div>
       <div
         className="productInCart-Container__delete"
