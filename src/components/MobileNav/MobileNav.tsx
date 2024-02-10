@@ -44,6 +44,7 @@ const MobileNav = () => {
 
   return (
     <>
+      <div className="navbar-down-space"></div>
       <div
         ref={navbar}
         className="

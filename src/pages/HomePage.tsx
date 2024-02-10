@@ -5,6 +5,7 @@ import { BannerData } from "../components/HomeBanner/HomeBanner"
 import banner from "../assets/banner.webp"
 import banner2 from "../assets/banner2.webp"
 
+
 let bannerData: BannerData[] = [
   {
     imageCover: banner,

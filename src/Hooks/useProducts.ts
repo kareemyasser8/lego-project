@@ -30,8 +30,8 @@ const useProducts = (page: number, pageSize: number, filters?: productQuery, ord
     queryKey: ["products", page, pageSize, filters, ordering],
     queryFn: () =>
       productService.getAllPaginated(page, pageSize, productQueryToSend, ordering),
-    // staleTime: 10 * (60 * 1000), // 10 mins,
-    // cacheTime: 15 * (60 * 1000), // 15 mins
+    staleTime: 10 * (60 * 1000), // 10 mins,
+    cacheTime: 15 * (60 * 1000), // 15 mins
   })
 }
 

@@ -24,7 +24,7 @@ const ArticleCard = ({article}: Props) => {
         justify-content-center"
     >
       <div className="article-card-image w-100 mb-4">
-        <img className="w-100" src={article.image} alt="" />
+        <img className="w-100" src={article.image} loading="lazy" />
       </div>
   
       <h3 className="fw-bold mb-4 text-center">

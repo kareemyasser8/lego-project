@@ -2,6 +2,7 @@ import ArticleCard, { ArticleCardData } from "../ArticleCard/ArticleCard"
 import articleImage1 from "../../assets/article1.webp"
 import articleImage2 from "../../assets/article2.webp"
 import articleImage3 from "../../assets/article3.webp"
+import AnimatedDiv from "../AnimatedDiv"
 
 const Articles = () => {
   let articles: ArticleCardData[] = [
@@ -44,7 +45,9 @@ const Articles = () => {
         <div className="article-cards-wrapper row mb-5">
           {articles.map((article, index) => (
             <div key={index} className="col-lg-4 col-md-6">
-              <ArticleCard article={article} />
+              <AnimatedDiv index={index * 3}>
+                <ArticleCard article={article} />
+              </AnimatedDiv>
             </div>
           ))}
         </div>

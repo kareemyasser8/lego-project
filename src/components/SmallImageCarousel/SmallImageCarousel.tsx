@@ -112,7 +112,8 @@ const SmallImageCarousel = ({ product }: Props) => {
                         className="w-100 object-fit-contain"
                         style={{ height: "300px" }}
                         src={APILink + "/" + img.url}
-                        // alt={img.preview}
+                        loading="lazy"
+                        alt={img.preview}
                       />
                     </Link>
                   </div>

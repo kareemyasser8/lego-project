@@ -1,9 +1,9 @@
-import ProductCard from "../ProductCard/ProductCard"
-import { BsChevronRight } from "react-icons/bs"
-import { BsChevronLeft } from "react-icons/bs"
-import "./Recommended.css"
-import { MutableRefObject, useEffect, useRef, useState } from "react"
-import products from "../../Products"
+import './Recommended.css';
+import { MutableRefObject, useRef } from 'react';
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import products from '../../Products';
+import AnimatedDiv from '../AnimatedDiv';
+import ProductCard from '../ProductCard/ProductCard';
 
 const Recommended = () => {
   const imageListRef = useRef<HTMLDivElement>(null)
@@ -18,7 +18,9 @@ const Recommended = () => {
   }
 
   return (
-    <>
+    <AnimatedDiv
+      index={3}
+    >
       <div className="page-layout">
         <h2 className="mb-3">Recommended for you</h2>
         <div className="slider-wrapper">
@@ -61,7 +63,7 @@ const Recommended = () => {
           </div>
         </div>
       </div>
-    </>
+    </AnimatedDiv>
   )
 }
 

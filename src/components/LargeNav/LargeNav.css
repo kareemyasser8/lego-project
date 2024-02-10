@@ -19,6 +19,13 @@
   height: calc(var(--largeNavHeight) + var(--miniNavBannerHeight));
 }
 
+@media screen and (max-width: 990px) {
+  .navbar-down-space{
+    height: var(--mobileNavHeight);
+  }
+}
+
+
 .nav__menu {
   display: grid;
   grid-template-columns: 120px 1fr;

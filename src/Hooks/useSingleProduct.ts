@@ -7,8 +7,8 @@ const useSingleProduct = (id: string) => {
   return useQuery<FetchedProduct,Error>({
     queryKey: ['product', id],
     queryFn: ()=> productService.getOne(id),
-    // staleTime: 10 * (60 * 1000), // 10 mins,
-    // cacheTime: 15 * (60 * 1000), // 15 mins 
+    staleTime: 10 * (60 * 1000), // 10 mins,
+    cacheTime: 15 * (60 * 1000), // 15 mins 
   })
 }
 

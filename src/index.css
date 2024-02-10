@@ -70,6 +70,7 @@
   --size-85: clamp(0.375rem, 0.0816327vw + 0.355867rem, 0.4375rem);
   --miniNavBannerHeight: 55px;
   --largeNavHeight: 75px;
+  --mobileNavHeight: 55px;
   --titleBarHeight: 90px;
   --selectorHeight: 40px;
   --selectorWidth: 200px;

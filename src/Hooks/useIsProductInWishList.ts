@@ -14,6 +14,8 @@ const useIsProductInWishList = (productId: string) => {
   return useQuery<any,Error,InWishList>({
     queryKey: ["productInWishList", productId],
     queryFn: () => wishListService.getOne(queryString),
+    staleTime: 5 * (60 * 1000), // 5 mins,
+    cacheTime: 15 * (60 * 1000), // 15 mins
   })
 }
 
