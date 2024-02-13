@@ -25,8 +25,10 @@ const ProductsGrid = ({ count }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6]
 
   useEffect(() => {
-    count(data?.count.toString() || "")
-  }, [data])
+    if (data && data.count) {
+      count(data.count.toString());
+    }
+  }, [data, count]);
 
   if (error) {
     return (
@@ -46,19 +48,19 @@ const ProductsGrid = ({ count }: Props) => {
         {isLoading &&
           skeletons.map((skeleton) => <ProductInGridSkeleton key={skeleton} />)}
 
-        {data?.products.map((product, index) => (
-          <motion.div
-            variants={fadeInAnimationVariants}
-            initial={"initial"}
-            whileInView={"animate"}
-            viewport={{ once: true }}
-            custom={index}
-            key={index}
-            className="ruled-grid__card"
-          >
-            <ProductInGridCard product={product} />
-          </motion.div>
-        ))}
+        {data?.products?.map((product, index) => (
+            <motion.div
+              variants={fadeInAnimationVariants}
+              initial={"initial"}
+              whileInView={"animate"}
+              viewport={{ once: true }}
+              custom={index}
+              key={index}
+              className="ruled-grid__card"
+            >
+              <ProductInGridCard product={product} />
+            </motion.div>
+          ))}
       </div>
     </>
   )

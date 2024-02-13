@@ -8,7 +8,7 @@ const WishList = () => {
   let id = localStorage.getItem("wishListId")
   const { data, isLoading, error } = useProductsInWishList(id || "")
 
-  if (data && data?.WishList_Products.length == 0) {
+  if (data && data?.WishList_Products?.length == 0) {
     return <EmptyCartOrWishList type="WishList" />
   }
 
@@ -16,7 +16,7 @@ const WishList = () => {
     <div className="col-12">
       <p className="h4">Wish List</p>
       <div className="productsInWishList-container mb-4">
-        {data?.WishList_Products.map((value: any, index: number) => (
+        {data?.WishList_Products?.map((value: any, index: number) => (
           <AnimatedDiv key={index} index={index}>
             <ProductInWishList
               key={index}

@@ -9,25 +9,23 @@ interface response {
 }
 
 const ProductFilterMenu = () => {
-  const { data, isLoading } = useProductsFilterOptions()
+  const { data, isLoading } = useProductsFilterOptions();
+
+  if (!data || !Array.isArray(data)) return null;
+
   return (
     <div>
       <SelectedFiltersForProducts />
-
-      {data != undefined
-        ? data.map((filter: filterOption, index: number) => {
-            return (
-              <ProductFilter
-                key={index}
-                options={filter.value}
-                optionName={filter.name}
-              />
-            )
-          })
-        : ""}
-        
+      {data.map((filter: filterOption, index: number) => (
+        <ProductFilter
+          key={index}
+          options={filter.value}
+          optionName={filter.name}
+        />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default ProductFilterMenu
+export default ProductFilterMenu;
+
