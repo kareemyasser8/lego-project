@@ -32,6 +32,7 @@ const LoginPage = () => {
 
   const onSubmit = (data: FieldValues) => {
     if (data) {
+      console.log("data sent to API: ", data)
       mutateLogin({
         email: data.email,
         password: data.password,

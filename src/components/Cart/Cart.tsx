@@ -12,8 +12,8 @@ const Cart = () => {
   const { data, isLoading, isError } = useTempCartProducts()
   // console.log(data)
 
-  if (data && data?.TemporaryCartItems.length == 0) {
-    return <EmptyCartOrWishList type="Cart" />
+  if (data?.TemporaryCartItems?.length === 0) {
+    return <EmptyCartOrWishList type="Cart" />;
   }
 
   return (
@@ -21,7 +21,7 @@ const Cart = () => {
       <p className="h4">My Cart</p>
       <div className="row">
         <div className="col-lg-8 col-sm-12 mb-3 cartProducts-container">
-          {data?.TemporaryCartItems.map(
+          {data?.TemporaryCartItems?.map(
             (value: TempCartResponseProduct, index: number) => (
               <AnimatedDiv key={index} index={index}>
                 <ProductInCart
