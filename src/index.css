@@ -453,6 +453,11 @@ a {
 
 /* --------------------------------------------- */
 
+.nav-item--disabled{
+  color: rgb(56, 55, 42);
+  cursor: default;
+}
+
 .lego-form {
   background-color: white;
   color: #282828;

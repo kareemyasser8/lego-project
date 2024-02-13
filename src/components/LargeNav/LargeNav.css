@@ -49,10 +49,10 @@
 }
 
 .list__item {
-  color: black;
+  /* color: black; */
   font-weight: 600;
   margin-bottom: 1px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .list__item:hover {

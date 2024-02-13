@@ -74,7 +74,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     if (mode == "edit" && singleProductData) {
-      console.log(singleProductData)
+      // console.log(singleProductData)
 
       singleProductData.Images.forEach((image: any) => {
         updateImages(APILink + "/" + image.url)

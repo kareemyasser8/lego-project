@@ -14,7 +14,7 @@ const AccountMenu = () => {
   ]
 
   return (
-    <ul className="list-group list">
+    <ul className="list-group list mb-3">
       {accountMenuOptions.map((option, index) =>
         option.adminPage ? (
           isAdmin && (

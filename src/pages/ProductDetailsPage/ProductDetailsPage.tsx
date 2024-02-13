@@ -227,7 +227,7 @@ const ProductDetailsPage = () => {
         </AnimatedDiv>
       </section>
 
-      <section className="">
+      <section className="mt-3">
         <Recommended />
       </section>
     </>

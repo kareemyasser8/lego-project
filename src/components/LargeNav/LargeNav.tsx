@@ -4,27 +4,13 @@ import { LuSearch } from "react-icons/lu"
 import Logo from "../../assets/LegoLogo.png"
 import MiniNav from "../MiniNav"
 import "./LargeNav.css"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import useTempCartProducts from "../../Hooks/useTempCartProducts"
+import useShoppingCartItemsCount from "../../Hooks/useShoppingCartItemsCount"
 
 const LargeNav = () => {
   const navbar = useRef<HTMLDivElement>(null)
-  const { data, isLoading, isError } = useTempCartProducts()
-  const [shoppingCartItemCount, setShoppingCartItemCount] = useState(0)
-
-  useEffect(() => {
-    setShoppingCartItemCount(0)
-
-    if (data?.TemporaryCartItems) {
-      setShoppingCartItemCount((prevCount) =>
-        data.TemporaryCartItems.reduce(
-          (totalCount, product) => totalCount + product.quantity,
-          prevCount
-        )
-      )
-    }
-  }, [data])
+  const {shoppingCartItemCount} = useShoppingCartItemsCount();
 
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
   let scrollTopPosition = 0
@@ -73,10 +59,10 @@ const LargeNav = () => {
 
             <ul className="list nav__menu__list">
               <Link to="/shop">
-                <li className="list__item">SHOP</li>
+                <li className="list__item text-black">SHOP</li>
               </Link>
-              <li className="list__item">DISCOVER</li>
-              <li className="list__item">HELP</li>
+              <li className="list__item nav-item--disabled">DISCOVER</li>
+              <li className="list__item nav-item--disabled">HELP</li>
             </ul>
           </div>
 

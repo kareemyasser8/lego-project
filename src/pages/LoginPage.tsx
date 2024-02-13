@@ -1,15 +1,12 @@
 import AuthLayout from "../components/AuthLayout/AuthLayout"
 import { MdOutlineMail } from "react-icons/md"
-import { useContext, useEffect, useState } from "react"
+import { useState } from "react"
 import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia"
 import { FieldValues, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Link } from "react-router-dom"
 import useLogin from "../Hooks/useLogin"
-import AuthContext from "../state-management/contexts/authContext"
-import { useNavigate } from "react-router-dom"
-import { jwtDecode } from "jwt-decode"
 
 const LoginPage = () => {
   const [isPassVisible, setIsPassVisible] = useState(false)
@@ -32,20 +29,6 @@ const LoginPage = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
   const { data, isError, isLoading, error, mutate: mutateLogin } = useLogin()
-  const authCtx = useContext(AuthContext)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    let decoded: any
-
-    if (data) {
-      decoded = jwtDecode(data)
-      authCtx.login(data, decoded.exp)
-      navigate("/")
-    }
-
-    return () => {}
-  }, [data])
 
   const onSubmit = (data: FieldValues) => {
     if (data) {

@@ -9,7 +9,7 @@ const CartPage = () => {
     <>
     {/* <BreadCrumb/>
     <TitleBar>Cart</TitleBar> */}
-    <div className='page-layout mt-3 page-height'>
+    <div className='page-layout mt-3 page-height mb-3'>
         <Cart></Cart>
     </div>
     <Recommended/>
