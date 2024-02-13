@@ -1,9 +1,9 @@
-import ProductCard from "../ProductCard/ProductCard"
-import { BsChevronRight } from "react-icons/bs"
-import { BsChevronLeft } from "react-icons/bs"
-import "./Recommended.css"
-import { MutableRefObject, useEffect, useRef, useState } from "react"
-import products from "../../Products"
+import './Recommended.css';
+import { MutableRefObject, useRef } from 'react';
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import products from '../../Products';
+import AnimatedDiv from '../AnimatedDiv';
+import ProductCard from '../ProductCard/ProductCard';
 
 const Recommended = () => {
   const imageListRef = useRef<HTMLDivElement>(null)
@@ -17,14 +17,15 @@ const Recommended = () => {
     imageListRef.current?.scrollBy({ left: scrollAmount, behavior: "smooth" })
   }
 
-
   return (
-    <>
-      <div className="fs-2 mb-3">Recommended for you</div>
-      <div className="slider-wrapper">
-        
+    <AnimatedDiv
+      index={3}
+    >
+      <div className="page-layout">
+        <h2 className="mb-3">Recommended for you</h2>
+        <div className="slider-wrapper">
           <div
-            className="btn back-btn"
+            className="back-btn"
             ref={prevButtonRef}
             onClick={() => slideScroll(prevButtonRef)}
           >
@@ -32,11 +33,9 @@ const Recommended = () => {
               <BsChevronLeft size={"20px"} />
             </div>
           </div>
-        
 
-        {(
           <div
-            className="btn forward-btn"
+            className="forward-btn"
             ref={nextButtonRef}
             onClick={() => slideScroll(nextButtonRef)}
           >
@@ -44,27 +43,27 @@ const Recommended = () => {
               <BsChevronRight size={"20px"} />
             </div>
           </div>
-        )}
 
-        <div
-          className="
+          <div
+            className="
           d-flex
           gap-4
           card-list
           flex-no-wrap
           "
-          ref={imageListRef}
-        >
-          {products.map((p) => {
-            return (
-              <div key={p.id} className="p-card">
-                <ProductCard product={p} />
-              </div>
-            )
-          })}
+            ref={imageListRef}
+          >
+            {products.map((p) => {
+              return (
+                <div key={p.id} className="p-card">
+                  <ProductCard product={p} />
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
-    </>
+    </AnimatedDiv>
   )
 }
 

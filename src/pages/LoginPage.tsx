@@ -6,6 +6,7 @@ import { FieldValues, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Link } from "react-router-dom"
+import useLogin from "../Hooks/useLogin"
 
 const LoginPage = () => {
   const [isPassVisible, setIsPassVisible] = useState(false)
@@ -27,10 +28,25 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
-  const onSubmit = (data: FieldValues) => console.log(data)
+  const { data, isError, isLoading, error, mutate: mutateLogin } = useLogin()
+
+  const onSubmit = (data: FieldValues) => {
+    if (data) {
+      mutateLogin({
+        email: data.email,
+        password: data.password,
+      })
+    }
+  }
 
   return (
     <AuthLayout type={"login"}>
+      {isError && (
+        <div className="alert alert-danger" role="alert">
+          {error.response?.data}
+        </div>
+      )}
+
       <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label htmlFor="email">Email</label>
@@ -73,7 +89,24 @@ const LoginPage = () => {
           )}
         </div>
 
-        <button className="filledBlueBtn btn-submit">Sign in</button>
+        <button
+          className={`btn btn--rounded btn--large btn--center ${
+            isLoading ? "btn--loading" : "btn--secondary"
+          }`}
+        >
+          {isLoading == true ? (
+            <>
+              Signing in...{" "}
+              <div
+                className="spinner-border text-light spinner-border-sm"
+                role="status"
+              ></div>
+            </>
+          ) : (
+            "Sign in"
+          )}
+        </button>
+
         <p className="align-self-center" style={{ marginBottom: "-1px" }}>
           or
         </p>
@@ -81,7 +114,7 @@ const LoginPage = () => {
         <Link
           to="/registeration"
           type="button"
-          className="strokedBlueBtn btn-submit"
+          className="btn btn--rounded btn--large btn--outlined btn--outlined-blue btn--center"
         >
           Create account
         </Link>

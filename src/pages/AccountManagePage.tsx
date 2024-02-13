@@ -1,45 +1,22 @@
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet, useNavigate } from "react-router-dom"
 import AccountMenu from "../components/AccountMenu/AccountMenu"
+import PageContent from "./PageContent"
 import BreadCrumb from "../components/BreadCrumb/BreadCrumb"
-import LargeFooter from "../components/LargeFooter/LargeFooter"
+import TitleBar from "../components/TitleBar"
 
 const AccountManagePage = () => {
+
   return (
-    <>
-      <div className=" row justify-content-center">
-        <div className="col-12 px-4 page">
-          <div className="
-            d-sm-flex
-            flex-wrap
-            mt-5
-            mx-3
-            mb-4">
-            <div className="col-12">
-              <BreadCrumb/>
-            </div>
-            <div className="
-              col-lg-3
-              col-md-12
-              col-sm-12
-              mb-3
-               ">
-              <AccountMenu />
-            </div>
-            <div className="
-              col-lg-9
-              col-md-12
-              col-sm-12
-              px-lg-4
-              "
-              > 
-                <Outlet/>
-              </div>
-          </div>
+      <>
+        <BreadCrumb />
+        {/* <TitleBar>admin</TitleBar> */}
+        <div className="grid grid--1x2 page-layout mt-4 mb-4">
+          <AccountMenu />
+          <Outlet />
         </div>
-        <LargeFooter />
-      </div>
-    </>
-  )
+        {/* </PageContent> */}
+      </>
+    )
 }
 
 export default AccountManagePage

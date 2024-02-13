@@ -1,0 +1,42 @@
+.OrderSummary{
+    border: 1px solid var(--gray-lighter-color);
+    padding: 1.2rem 1rem;
+}
+
+.OrderSummary__header{
+    padding: 0rem 0rem 0.5rem 0rem;
+    border-bottom: 1px solid var(--gray-lighter-color);
+}
+
+.OrderSummary__header h4{
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.OrderSummary__container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.container__priceLine{
+    display: flex;
+    justify-content: space-between;
+}
+
+.priceLine--total{
+    font-weight: bold;
+    font-size: 1.15rem;
+}
+
+.creditCardOptions{
+    height: 45px;
+    margin-top: 1rem;
+    max-width: 300px;
+    width: 100%;
+}
+
+.creditCardOptions img{
+    height: 100%;
+    width: 100%;
+}

@@ -4,7 +4,6 @@ import MobileNav from "../MobileNav/MobileNav"
 
 const Nav = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 991)
-  const navbar = useRef<HTMLDivElement>(null)
 
   // const handleWindowScroll = () => {
   //   if (document.body.scrollTop > -100) {

@@ -1,15 +1,11 @@
 import "./ProductPreviewCard.css"
 import noImage from "../../assets/no-image-placeholder.webp"
+import useProductStore from "../../state-management/useProductStore"
 import ProductRating from "../ProductRating/ProductRating"
-import { FieldValues } from "react-hook-form"
-import { useEffect, useState } from "react"
-import { Product } from "../../Products"
 
-interface Props {
-  data: Product
-}
+const ProductPreviewCard = () => {
+  const { product } = useProductStore()
 
-const ProductPreviewCard = ({ data }: Props) => {
   return (
     <div className="row">
       <div className="col-12">
@@ -25,46 +21,74 @@ const ProductPreviewCard = ({ data }: Props) => {
             align-items-center
             justify-content-center"
             >
-              {data?.images[0] != null ? (
+              {product.images[0] != null ? (
                 <img
                   className="w-100"
-                  src={URL.createObjectURL(data.images[0])}
-                  alt={data.title}
+                  src={product.images[0].preview}
+                  alt={product.title}
                 />
               ) : (
                 <img className="w-100" src={noImage} alt="" />
               )}
+
+              {/* {product.imagesURLS[0] != null ? (
+                <img
+                  className="w-100"
+                  src={product.imagesURLS[0]}
+                  alt={product.title}
+                />
+              ) : (
+                <img className="w-100" src={noImage} alt="" />
+              )} */}
             </div>
 
             <div
               className="d-flex flex-wrap gap-2 mt-2"
               style={{ minHeight: "40px" }}
             >
-              {data?.images[1] != null ? (
-                data.images
-                  .slice(1)
-                  .map((img, index) => (
-                    <img
-                      key={index}
-                      style={{  width: "60px", height:'40px', maxHeight: "100%", objectFit: 'cover'}}
-                      src={img ? URL.createObjectURL(img) : noImage}
-                      alt={data.title}
-                    />
-                  ))
+              {product.images[1] != null ? (
+                product.images.slice(1).map(({preview}, index) => (
+                  <img
+                    key={index}
+                    style={{
+                      width: "60px",
+                      height: "40px",
+                      maxHeight: "100%",
+                      objectFit: "cover",
+                    }}
+                    src={preview ? preview : noImage}
+                    alt={product.title}
+                  />
+                ))
               ) : (
                 <>
                   <img
-                    style={{ width: "60px", height:'40px', maxHeight: "100%", objectFit: 'cover' }}
+                    style={{
+                      width: "60px",
+                      height: "40px",
+                      maxHeight: "100%",
+                      objectFit: "cover",
+                    }}
                     src={noImage}
                     alt=""
                   />
                   <img
-                    style={{ width: "60px", height:'40px', maxHeight: "100%" , objectFit: 'cover'}}
+                    style={{
+                      width: "60px",
+                      height: "40px",
+                      maxHeight: "100%",
+                      objectFit: "cover",
+                    }}
                     src={noImage}
                     alt=""
                   />
                   <img
-                    style={{ width: "60px", height:'40px', maxHeight: "100%", objectFit: 'cover' }}
+                    style={{
+                      width: "60px",
+                      height: "40px",
+                      maxHeight: "100%",
+                      objectFit: "cover",
+                    }}
                     src={noImage}
                     alt=""
                   />
@@ -75,13 +99,15 @@ const ProductPreviewCard = ({ data }: Props) => {
 
           <div className="col-lg-12 col-md-7 col-sm-12">
             <div className="mt-2 fw-bold">
-              <p>{data?.title}</p>
+              <p>{product?.title}</p>
             </div>
-            <ProductRating ratings={data?.rating || 0} />
+            <ProductRating ratings={product?.rating || 0} />
             <div className="product-price fs-5 fw-bold">
-              <p>${data?.price || 0}</p>
+              <p>${product?.price || 0}</p>
             </div>
-            <p>{data?.description || ""}</p>
+            <p style={{ whiteSpace: "pre-line", wordBreak: "break-word" }}>
+              {product?.description || ""}
+            </p>
           </div>
         </div>
       </div>

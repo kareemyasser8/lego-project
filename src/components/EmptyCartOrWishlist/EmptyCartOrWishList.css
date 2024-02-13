@@ -1,0 +1,21 @@
+.emptyCart-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    /* border: 1px solid red; */
+}
+
+.emptyCart-container-link{
+    display: flex;
+    align-items: center;
+}
+
+.emptyCart-container-link::after{
+    content: '\203A';
+    font-size: 1.9rem;
+    margin-bottom: 0.2rem;
+    margin-left: 0.4rem;
+}

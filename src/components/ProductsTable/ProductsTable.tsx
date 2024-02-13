@@ -1,15 +1,83 @@
-import React from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 
+import useDeleteProduct from "../../Hooks/useDeleteProduct"
+import useProducts from "../../Hooks/useProducts"
+import { Product } from "../../Products"
+import Pagination from "../Pagination/Pagination"
+import Spinner from "../Spinner/Spinner"
+import AlertBox from "../AlertBox/AlertBox"
+import { useQueryClient } from "@tanstack/react-query"
+
 const ProductsTable = () => {
+  const queryClient = useQueryClient()
+
+  const pageSize = 20
+  const [page, setPage] = useState(1)
+  const { data, error, isLoading } = useProducts(page, pageSize)
+  const {
+    error: deleteProductError,
+    mutate: deleteProductMutate,
+    isLoading: deleteProductIsLoading,
+    isSuccess: deleteProductIsSuccess,
+  } = useDeleteProduct()
+  const [alertVisibility, setAlertVisibility] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState({} as Product)
+
+  const deleteButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  const handleDelete = () => {
+    deleteProductMutate(selectedProduct.id)
+    if (deleteButtonRef.current) {
+      deleteButtonRef.current.setAttribute("data-bs-dismiss", "modal")
+    }
+  }
+
+  useEffect(() => {
+    if (deleteProductIsLoading) {
+      if (deleteButtonRef.current) {
+        deleteButtonRef.current.textContent = "Deleting..."
+      }
+    }
+
+    if (deleteProductIsSuccess) {
+      if (deleteButtonRef.current && closeButtonRef.current) {
+        deleteButtonRef.current.textContent = "Delete Product"
+        closeButtonRef.current.click()
+        queryClient.invalidateQueries(["products", page, pageSize])
+      }
+    }
+  }, [deleteProductIsSuccess, deleteProductIsLoading])
+
+  if (isLoading) {
+    return <Spinner color="text-warning" />
+  }
+
+  if (error || deleteProductError) {
+    const errorMessage = error ? error.message : deleteProductError?.message
+
+    return (
+      <>
+        <div className="alert alert-danger" role="alert">
+          <p>{errorMessage}</p>
+        </div>
+      </>
+    )
+  }
+
   return (
     <>
       <div className="col-12">
         <p className="h4">Products</p>
 
-        <button className="filledBlueBtn mb-3" style={{width:'10px', padding: '10px'}}>
-          New Product
-        </button>
+        <Link to={`/user/products/new`}>
+          <button
+            className="btn btn--rounded btn--secondary btn--large mb-3"
+          >
+            New Product
+          </button>
+        </Link>
 
         <table className="table table-striped">
           <thead>
@@ -19,61 +87,49 @@ const ProductsTable = () => {
               <th scope="col">Price</th>
               <th scope="col">Number in Stock</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>3</td>
-              <td><Link to={'/user/products/1'}>Edit</Link></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>2</td>
-              <td><Link to={'/user/products/1'}>Edit</Link></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-              <td>1</td>
-              <td><Link to={'/user/products/1'}>Edit</Link></td>
-            </tr>
+            {data.products?.map((product: Product, index: number) => (
+              <tr key={index}>
+                <th scope="row">{index + 1}</th>
+                <td>{product.title}</td>
+                <td>{product.price}</td>
+                <td>{product.numInStock}</td>
+                <td
+                  className="text-danger"
+                  data-bs-toggle={alertVisibility ? "modal" : ""}
+                  data-bs-target="#alertModal"
+                  onClick={() => {
+                    setAlertVisibility(true)
+                    setSelectedProduct(product)
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  Delete
+                </td>
+                <td>
+                  <Link to={`/user/products/edit/${product.id}`}>Edit</Link>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
+
+        <Pagination page={page} totalPages={data.totalPages} setPage={setPage} />
+
       </div>
 
-      <div className="d-flex flex-row-reverse">
-        
-          <ul className="pagination">
-            <li className="page-item disabled">
-              <span className="page-link">Previous</span>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item active" aria-current="page">
-              <span className="page-link z-0">2</span>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                Next
-              </a>
-            </li>
-          </ul>
      
-      </div>
+
+      <AlertBox
+        closeButtonRef={closeButtonRef}
+        deleteButtonRef={deleteButtonRef}
+        onDelete={handleDelete}
+      >
+        Are you sure you want to delete {selectedProduct.title}{" "}
+      </AlertBox>
     </>
   )
 }

@@ -114,9 +114,4 @@ input:focus {
   color: rgb(221, 26, 34);
 }
 
-.btn-submit{
-  width: max-content;
-  align-self: center;
-  padding-inline: 20px;
-}
 

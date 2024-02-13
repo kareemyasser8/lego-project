@@ -1,55 +1,96 @@
-.navbar{
-    background-color: var(--secondary-color);
-    width: 100%;
-    font-family: 'CeraPro', 'sans-serif'; 
+.nav {
+  background-color: var(--secondary-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "CeraPro", "sans-serif";
+  padding: 0rem var(--page-horizontal-padding);
+  height: var(--largeNavHeight);
+  width: 100%;
+  transition: all 0.3s ease-in-out;
 }
 
-.nav-logo{
-    height: 50px;
-    width: 50px;
+.navbar-down-space {
+  z-index: 0;
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: calc(var(--largeNavHeight) + var(--miniNavBannerHeight));
 }
 
-.nav-item{
-    font-weight: 600;
-    cursor: pointer;
+@media screen and (max-width: 990px) {
+  .navbar-down-space{
+    height: var(--mobileNavHeight);
+  }
 }
 
-.nav-item:hover{
-    text-decoration: underline;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 5px;
+
+.nav__menu {
+  display: grid;
+  grid-template-columns: 120px 1fr;
 }
 
-.search-bg{
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    
+.nav__menu__logo {
+  margin-right: 2rem;
 }
 
-.search-icon{
-    font-size: 1.3rem;
+.nav-logo {
+  height: var(--nav-logo-dimensions);
+  width: var(--nav-logo-dimensions);
 }
 
-.nav-right-item{
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+.nav__menu__list {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  gap: 3rem;
+  height: 100%;
 }
 
-.heart-icon{
-    font-size: 1.3rem;
+.list__item {
+  /* color: black; */
+  font-weight: 600;
+  margin-bottom: 1px;
+  /* cursor: pointer; */
 }
 
-.cart-icon{
-    font-size: 1.4rem;
+.list__item:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
 }
 
-.cart-counter{
-    font-size: 0.8rem;
+/*  */
+
+.nav__actions-menu {
+  display: flex;
+  /* border: 1px solid red; */
+  justify-content: flex-end;
 }
 
+.nav__actions-menu-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.icon-container {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.menu-content__icon {
+  font-size: 1.3rem;
+}
+
+.cart-counter {
+  font-size: 0.8rem;
+}

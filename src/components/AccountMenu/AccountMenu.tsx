@@ -1,23 +1,49 @@
-import { Link, NavLink, useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import "./AccountMenu.css"
+import useAuth from "../../Hooks/useAuth"
 
 const AccountMenu = () => {
- 
-  const location = useLocation();
-   
+  const location = useLocation()
+  const { logout, isAdmin } = useAuth()
+
+  const accountMenuOptions = [
+    { optionName: "Account Overview", path: "/user", adminPage: false },
+    { optionName: "Products", path: "/user/products", adminPage: true },
+    { optionName: "My Cart", path: "/user/cart", adminPage: false },
+    { optionName: "Wish List", path: "/user/wishList", adminPage: false },
+  ]
+
   return (
-    <ul className="list-group list">
-      <Link
-        to={"/user"}
-      >
-        <li className={location.pathname === '/user'? "list-group-item active" : "list-group-item"}>Account Overview</li>
-      </Link>
-      <Link to={"/user/products"}>
-        <li className={location.pathname.includes('/user/products') ? "list-group-item active" : "list-group-item"}>Products</li>
-      </Link>
-      <li className="list-group-item">Orders</li>
-      <li className="list-group-item">Users</li>
-      <li className="list-group-item">Logout</li>
+    <ul className="list-group list mb-3">
+      {accountMenuOptions.map((option, index) =>
+        option.adminPage ? (
+          isAdmin && (
+            <Link key={index} to={option.path}>
+              <li
+                className={`list-group-item ${
+                  location.pathname == option.path ? "active" : ""
+                }`}
+              >
+                {option.optionName}
+              </li>
+            </Link>
+          )
+        ) : (
+          <Link key={index} to={option.path}>
+            <li
+              className={`list-group-item ${
+                location.pathname == option.path ? "active" : ""
+              }`}
+            >
+              {option.optionName}
+            </li>
+          </Link>
+        )
+      )}
+
+      <li className="list-group-item cursor-pointer" onClick={() => logout()}>
+        Logout
+      </li>
     </ul>
   )
 }

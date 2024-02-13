@@ -5,19 +5,22 @@ import Logo from "../../assets/LegoLogo.png"
 import MiniNav from "../MiniNav"
 import "./LargeNav.css"
 import { useEffect, useRef } from "react"
+import { Link } from "react-router-dom"
+import useShoppingCartItemsCount from "../../Hooks/useShoppingCartItemsCount"
 
 const LargeNav = () => {
   const navbar = useRef<HTMLDivElement>(null)
+  const {shoppingCartItemCount} = useShoppingCartItemsCount();
+
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
-  let scrollTopPosition = 0;
+  let scrollTopPosition = 0
 
   const handleScrollUp = () => {
-     scrollTopPosition =
-      window.scrollY || document.documentElement.scrollTop
-
-    if (scrollTopPosition > lastScrollTop ) {
+    scrollTopPosition = window.scrollY || document.documentElement.scrollTop
+    if (scrollTopPosition > lastScrollTop) {
       //scroll down
       if (navbar.current) {
+        navbar.current.classList.remove("top-0")
         navbar.current.style.top = "-300px"
         navbar.current.style.transition = "0.8s ease-out"
       }
@@ -41,30 +44,48 @@ const LargeNav = () => {
 
   return (
     <>
-      <div className="position-fixed mb-5 col-12 z-2" ref={navbar}>
+      <div className="navbar-down-space"></div>
+      <div className={`position-fixed col-12 z-2 top-0`} ref={navbar}>
         <MiniNav />
-        <nav className="navbar navbar-expand-lg px-3">
-          <div className="container-fluid">
-            <div className="navbar-brand">
-              <img className="nav-logo" src={Logo}></img>
-            </div>
-            <ul className="navbar-nav ms-5 me-auto gap-5 mb-2 mb-lg-0">
-              <li className="nav-item">SHOP</li>
-              <li className="nav-item">DISCOVER</li>
-              <li className="nav-item">HELP</li>
-            </ul>
+        {/* navbar-expand-lg */}
 
-            <div className="navbar-nav me-3 gap-4 mb-2 mb-lg-0">
-              <div className="search-bg rounded-circle">
-                <LuSearch className="search-icon" />
+        <nav className="nav">
+          <div className="nav__menu">
+            <div className="nav__menu__logo">
+              <Link to="/">
+                <img className="nav-logo" src={Logo}></img>
+              </Link>
+            </div>
+
+            <ul className="list nav__menu__list">
+              <Link to="/shop">
+                <li className="list__item text-black">SHOP</li>
+              </Link>
+              <li className="list__item nav-item--disabled">DISCOVER</li>
+              <li className="list__item nav-item--disabled">HELP</li>
+            </ul>
+          </div>
+
+          {/*-------------------------------------------------  */}
+
+          <div className="nav__actions-menu">
+            <div className="nav__actions-menu-content">
+              <div className="menu-content__icon icon-container">
+                <LuSearch />
               </div>
-              <div className="nav-right-item">
-                <FiHeart className="heart-icon" />
+              <div className="menu-content__icon mb-1">
+                <Link to="/wishList" className="text-black">
+                  <FiHeart />
+                </Link>
               </div>
-              <div className="nav-right-item">
-                <HiOutlineShoppingBag className="cart-icon" />
-                <div className="cart-counter">(0)</div>
-              </div>
+              <Link to="/cart" className="text-black">
+                <div className="menu-content__icon d-flex align-items-center">
+                  <HiOutlineShoppingBag fontSize={"1.5rem"} />
+                  <div className="cart-counter">
+                    {shoppingCartItemCount || 0}
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </nav>

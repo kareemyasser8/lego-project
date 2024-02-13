@@ -25,7 +25,7 @@ const ProductCard = ({ product }: Props) => {
           <div className="heart-product">
             <AiOutlineHeart size={20} color={"#006DB7"}/>
           </div>
-          <img className="w-100" src={product.image} alt="" />
+          <img className="w-100" src={product.image} alt={product.title} loading="lazy"  />
         </div>
         <div className="card-Title mt-2 fw-bold">
           <p>{product.title}</p>
@@ -34,7 +34,8 @@ const ProductCard = ({ product }: Props) => {
         <div className="product-price fs-5 fw-bold">
           <p> ${product.price}</p>
         </div>
-        <button type="button" className="addToBag w-100">
+
+        <button type="button" className="butn btn--primary btn--block" style={{height: '55px'}}>
           Add to Bag
         </button>
       </div>
