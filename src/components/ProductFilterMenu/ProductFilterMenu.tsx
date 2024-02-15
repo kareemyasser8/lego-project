@@ -11,12 +11,12 @@ interface response {
 const ProductFilterMenu = () => {
   const { data, isLoading } = useProductsFilterOptions();
 
-  if (!data || !Array.isArray(data)) return null;
+  // if (!data || !Array.isArray(data)) return null;
 
   return (
     <div>
       <SelectedFiltersForProducts />
-      {data.map((filter: filterOption, index: number) => (
+      {data?.map((filter: filterOption, index: number) => (
         <ProductFilter
           key={index}
           options={filter.value}

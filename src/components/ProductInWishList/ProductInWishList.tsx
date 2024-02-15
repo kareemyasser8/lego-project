@@ -42,7 +42,8 @@ const ProductInWishList = ({
           </div>
         </div>
         <div className="wishlist-details__prevImg">
-          <img src={APILink + "/" + img} loading="lazy" />
+          {/* <img src={APILink + "/" + img} loading="lazy" /> */}
+          <img src={img} loading="lazy" />
         </div>
       </div>
 

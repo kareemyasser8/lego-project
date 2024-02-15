@@ -15,12 +15,18 @@ interface Props {
 }
 
 const SmallImageCarousel = ({ product }: Props) => {
+  const [isHeartClicked, setIsHeartClicked] = useState(false)
+  const { mutate } = useAddOrDeleteProductToWishList()
+  const { data } = useIsProductInWishList(product.id)
   const imageListRef = useRef<HTMLDivElement>(null)
   const prevButtonRef = useRef<HTMLDivElement>(null)
   const nextButtonRef = useRef<HTMLDivElement>(null)
   const [isBtnShown, setIsBtnShown] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
+  useEffect(() => {
+    setIsHeartClicked(data?.isProductInWishList || false)
+  }, [data])
 
   const slideScroll = (ref: MutableRefObject<any>) => {
     const direction = ref === prevButtonRef ? -1 : 1
@@ -31,15 +37,6 @@ const SmallImageCarousel = ({ product }: Props) => {
     setScrollPosition((prevScrollPosition) => prevScrollPosition + scrollAmount)
   }
 
-  const [isHeartClicked, setIsHeartClicked] = useState(false)
-  const {data} = useIsProductInWishList(product.id)
-  const { mutate } = useAddOrDeleteProductToWishList()
-  
-
-  useEffect(()=>{
-    setIsHeartClicked(data?.isProductInWishList || false)
-  },[data])
-  
   const addOrRemoveProductInWishList = (productId: string) => {
     setIsHeartClicked(!isHeartClicked)
     const elementTobeSent: elementToBeSentOrRemovedFromWishList = {
@@ -49,7 +46,6 @@ const SmallImageCarousel = ({ product }: Props) => {
 
     mutate(elementTobeSent)
   }
-
 
   return (
     <>
@@ -73,33 +69,27 @@ const SmallImageCarousel = ({ product }: Props) => {
           </div>
         </div>
 
-        {isBtnShown && scrollPosition !== 0 && (
-          <div
-            className="back-btn"
-            style={{ left: "0px", outline: "none", boxShadow: "none" }}
-            ref={prevButtonRef}
-            onClick={() => slideScroll(prevButtonRef)}
-          >
-            <div className="back-btn-circle bg-light mt-5">
-              <BsChevronLeft size={"20px"} />
-            </div>
+        <div
+          className="back-btn"
+          style={{ left: "0px", outline: "none", boxShadow: "none" }}
+          ref={prevButtonRef}
+          onClick={() => slideScroll(prevButtonRef)}
+        >
+          <div className="back-btn-circle bg-light mt-5">
+            <BsChevronLeft size={"20px"} />
           </div>
-        )}
+        </div>
 
-        {isBtnShown &&
-          scrollPosition + (imageListRef.current?.clientWidth ?? 0) <
-            (imageListRef.current?.scrollWidth ?? 0) && (
-            <div
-              className="forward-btn"
-              style={{ right: "0px" }}
-              ref={nextButtonRef}
-              onClick={() => slideScroll(nextButtonRef)}
-            >
-              <div className="forward-btn-circle bg-light mt-5">
-                <BsChevronRight size={"20px"} />
-              </div>
-            </div>
-          )}
+        <div
+          className="forward-btn"
+          style={{ right: "0px" }}
+          ref={nextButtonRef}
+          onClick={() => slideScroll(nextButtonRef)}
+        >
+          <div className="forward-btn-circle bg-light mt-5">
+            <BsChevronRight size={"20px"} />
+          </div>
+        </div>
 
         <div className="small-carousel-container" ref={imageListRef}>
           <div className="small-carousel-list">
@@ -111,7 +101,8 @@ const SmallImageCarousel = ({ product }: Props) => {
                       <img
                         className="w-100 object-fit-contain"
                         style={{ height: "300px" }}
-                        src={APILink + "/" + img.url}
+                        // src={APILink + "/" + img.url}
+                        src={img.url}
                         loading="lazy"
                         alt={img.preview}
                       />

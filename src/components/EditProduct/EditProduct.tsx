@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { useParams } from "react-router-dom"
 import { z } from "zod"
 import toast from "react-hot-toast"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 import {
   usePriceInput,
@@ -20,6 +20,7 @@ import ProductPreviewCard from "../ProductPreviewCard/ProductPreviewCard"
 import { APILink } from "../../constants/APILink"
 import useEditProduct from "../../Hooks/useEditProduct"
 import { useQueryClient } from "@tanstack/react-query"
+import ImageInputURL from "../ImageInputURL/ImageInputURL"
 
 const schema = useProductValidation()
 export type ProductFormData = z.infer<typeof schema>
@@ -28,7 +29,7 @@ const EditProduct = () => {
   const { id } = useParams()
   let mode = id ? "edit" : "create"
   const queryClient = useQueryClient()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const {
     product,
@@ -69,7 +70,7 @@ const EditProduct = () => {
   let singleProductData: any
 
   if (id) {
-    ({ data: singleProductData } = useSingleProduct(id))
+    ;({ data: singleProductData } = useSingleProduct(id))
   }
 
   useEffect(() => {
@@ -77,7 +78,8 @@ const EditProduct = () => {
       // console.log(singleProductData)
 
       singleProductData.Images.forEach((image: any) => {
-        updateImages(APILink + "/" + image.url)
+        updateImages(image.url)
+        // updateImages(APILink + "/" + image.url)
       })
 
       updateID(singleProductData.id)
@@ -108,8 +110,8 @@ const EditProduct = () => {
       queryClient.invalidateQueries(["product"])
       resetProduct()
       reset()
-      navigate('/user/products')
-      window.scrollTo(0, 0);
+      navigate("/user/products")
+      window.scrollTo(0, 0)
       toast.success("Product added successfully")
     }
 
@@ -118,8 +120,8 @@ const EditProduct = () => {
       queryClient.invalidateQueries(["product"])
       resetProduct()
       reset()
-      navigate('/user/products')
-      window.scrollTo(0, 0);
+      navigate("/user/products")
+      window.scrollTo(0, 0)
       toast.success("Product edited successfully")
     }
   }, [addProductSuccess, editProductSuccess])
@@ -148,7 +150,7 @@ const EditProduct = () => {
     }
 
     if (product.id) {
-      formData.append("id", product.id.toString());
+      formData.append("id", product.id.toString())
     }
 
     if (mode == "create") {
@@ -248,7 +250,6 @@ const EditProduct = () => {
 
               <div className="mb-3">
                 <label htmlFor="rating">Images</label>
-                <div className="input-container">
                   <ImageUploadInput
                     imageOptions={{ ...register("images") }}
                     errors={errors}
@@ -256,7 +257,6 @@ const EditProduct = () => {
                     trigger={trigger}
                     getValues={getValues}
                   />
-                </div>
               </div>
 
               <div className="mb-3">

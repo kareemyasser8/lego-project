@@ -3,12 +3,15 @@ import ProductInWishList from "../ProductInWishList/ProductInWishList"
 import useProductsInWishList from "../../Hooks/useProductsInWishList"
 import EmptyCartOrWishList from "../EmptyCartOrWishlist/EmptyCartOrWishList"
 import AnimatedDiv from "../AnimatedDiv"
+import Spinner from "../Spinner/Spinner"
 
 const WishList = () => {
   let id = localStorage.getItem("wishListId")
   const { data, isLoading, error } = useProductsInWishList(id || "")
 
-  if (data && data?.WishList_Products?.length == 0) {
+  if(isLoading) return <Spinner color="text-warning"/>
+
+  if (data && data?.WishList_Products?.length == 0 || data === undefined) {
     return <EmptyCartOrWishList type="WishList" />
   }
 

@@ -1,0 +1,20 @@
+.ImageURLInputContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.ImageURLInputContainer__urls{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ImageURLInput__InputField{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.ImageURLInputContainer__previews{
+    background-color: aliceblue;
+}

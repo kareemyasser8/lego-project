@@ -12,7 +12,7 @@ const Cart = () => {
   const { data, isLoading, isError } = useTempCartProducts()
   // console.log(data)
 
-  if (data?.TemporaryCartItems?.length === 0) {
+  if (data?.TemporaryCartItems?.length === 0 || data === undefined) {
     return <EmptyCartOrWishList type="Cart" />;
   }
 
@@ -25,7 +25,7 @@ const Cart = () => {
             (value: TempCartResponseProduct, index: number) => (
               <AnimatedDiv key={index} index={index}>
                 <ProductInCart
-                  image={APILink + "/" + value.Product.Images[0].url}
+                  image={value.Product.Images[0].url}
                   price={value.unit_price}
                   title={value.Product.title}
                   tempCartId={data.id}

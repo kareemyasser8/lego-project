@@ -38,7 +38,6 @@ const ImageUploadInput = ({ imageOptions, errors, setValue, trigger, getValues }
       trigger("images")
       // console.log("Updated form values:", getValues());
     }
-   
   }
 
   return (

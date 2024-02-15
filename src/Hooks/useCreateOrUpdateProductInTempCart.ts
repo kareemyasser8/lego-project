@@ -20,7 +20,7 @@ const useCreateOrUpdateProductInTempCart = () => {
       if (!localStorage.getItem("temporaryCartId")) {
         localStorage.setItem("temporaryCartId", result.id)
       }
-      // toast.success("Product added To Cart successfully")
+      toast.success("Product added To Cart successfully")
       queryClient.invalidateQueries(["product"])
       queryClient.invalidateQueries(["temporaryCart"])
       queryClient.invalidateQueries(["products"])
@@ -28,6 +28,7 @@ const useCreateOrUpdateProductInTempCart = () => {
     },
     onError(error) {
       toast.error("Product failed to be added To Cart")
+      console.log(error)
       return error
     },
   })

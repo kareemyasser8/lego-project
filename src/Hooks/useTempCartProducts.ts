@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { UseQueryResult, useQuery, useQueryClient } from "@tanstack/react-query"
 import temporaryCartService, {
   productToBeSentForTemporaryCart,
 } from "../services/temporaryCartService"
@@ -8,7 +8,7 @@ export interface TempCartResponseImage {
 }
 
 export interface TempCartResponseProduct {
-  Product: { id: string, title: string; Images: TempCartResponseImage[] }
+  Product: { id: string; title: string; Images: TempCartResponseImage[] }
   quantity: number
   unit_price: number
 }
@@ -20,13 +20,16 @@ interface TempCartResponse {
 }
 
 const useTempCartProducts = () => {
-  const temporaryCartId = localStorage.getItem("temporaryCartId");
-  return useQuery<productToBeSentForTemporaryCart, Error, TempCartResponse, any>({
-    queryKey: ["temporaryCart", temporaryCartId],
-    queryFn: () => temporaryCartService.getOne(temporaryCartId || ""),
-    staleTime: 10 * (60 * 1000), // 10 mins,
-    cacheTime: 15 * (60 * 1000), // 15 mins
-  })
+  const temporaryCartId = localStorage.getItem("temporaryCartId")
+
+  return temporaryCartId != null
+    ? useQuery<productToBeSentForTemporaryCart, Error, TempCartResponse, any>({
+        queryKey: ["temporaryCart", temporaryCartId],
+        queryFn: () => temporaryCartService.getOne(temporaryCartId || ""),
+        staleTime: 10 * (60 * 1000), // 10 mins
+        cacheTime: 15 * (60 * 1000), // 15 mins
+      })
+    : ({} as UseQueryResult<TempCartResponse, Error>)
 }
 
 export default useTempCartProducts

@@ -21,13 +21,13 @@ const useAddOrDeleteProductToWishList = () => {
         toast.success(result)
       }
       
-      queryClient.invalidateQueries(["WishList"])
+      // queryClient.invalidateQueries(["WishList"])
       // queryClient.invalidateQueries(["products"])
       
     },
-    onError(error) {
+    onError() {
       toast.error("Product failed to be added To WishList")
-      return error
+      // return error
     },
   })
 }

@@ -104,7 +104,7 @@ const ProductDetailsPage = () => {
                       : ``
                   }`}
                 >
-                  <img src={APILink + "/" + img.url} alt="" loading="lazy" />
+                  <img src={img.url} alt="" loading="lazy" />
                 </div>
               </AnimatedDiv>
             )
@@ -123,7 +123,8 @@ const ProductDetailsPage = () => {
               <img
                 className="w-100"
                 src={
-                  APILink + "/" + singleProductData?.Images[currentImgIndex].url
+                  // APILink + "/" + singleProductData?.Images[currentImgIndex].url
+                 singleProductData?.Images[currentImgIndex].url
                 }
                 alt={singleProductData.title}
                 loading="lazy"
@@ -211,7 +212,8 @@ const ProductDetailsPage = () => {
             {singleProductData?.Images ? (
               <img
                 className="product-specification__image"
-                src={APILink + "/" + singleProductData.Images[0].url}
+                src={singleProductData.Images[0].url}
+                // src={APILink + "/" + singleProductData.Images[0].url}
                 alt={singleProductData.title}
                 loading="lazy"
               />

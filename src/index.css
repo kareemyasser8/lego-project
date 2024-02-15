@@ -216,6 +216,15 @@ p {
   color: white;
 }
 
+.btn--red{
+  background-color: var(--st-color-red);
+  color: white;
+}
+
+.btn--red:hover{
+  background-color: var(--st-color-red-dark);
+}
+
 .btn--rounded {
   border-radius: var(--border-radius-xl);
 }
