@@ -95,7 +95,7 @@ const SmallImageCarousel = ({ product, isInWishList}: Props) => {
                 <img
                   className="w-100 object-fit-contain"
                   style={{ height: "300px" }}
-                  src={APILink + "/" + img.url}
+                  src={img.url}
                   loading="lazy"
                   alt={img.preview}
                 />
