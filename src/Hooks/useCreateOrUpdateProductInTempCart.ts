@@ -5,6 +5,7 @@ import temporaryCartService, {
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import useProductDetails from "./useProductDetails"
+import useTempCartProducts from "./useTempCartProducts"
 
 const useCreateOrUpdateProductInTempCart = () => {
   const queryClient = useQueryClient()
@@ -20,9 +21,10 @@ const useCreateOrUpdateProductInTempCart = () => {
       if (!localStorage.getItem("temporaryCartId")) {
         localStorage.setItem("temporaryCartId", result.id)
       }
-      toast.success("Product added To Cart successfully")
-      queryClient.invalidateQueries(["product"])
+      toast.success("Cart is updated successfully")
+      // queryClient.invalidateQueries(["temporaryCart", result.id])
       queryClient.invalidateQueries(["temporaryCart"])
+      queryClient.invalidateQueries(["product"])
       queryClient.invalidateQueries(["products"])
       // console.log(result)
     },

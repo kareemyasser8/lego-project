@@ -2,6 +2,7 @@ import "./MobileNav.css"
 import { IoIosMenu } from "react-icons/io"
 import legoLogo from "../../assets/LegoLogo.png"
 import { LuSearch } from "react-icons/lu"
+import { FcShop } from "react-icons/fc";
 import { FiHeart } from "react-icons/fi"
 import { HiOutlineShoppingBag } from "react-icons/hi"
 import { TbLego } from "react-icons/tb"
@@ -12,9 +13,13 @@ import { Link } from "react-router-dom"
 import AuthContext from "../../state-management/contexts/authContext"
 import { useNavigate } from "react-router-dom"
 
-const MobileNav = () => {
+interface Props{
+  shoppingCartItemCount: number
+}
+
+const MobileNav = ({shoppingCartItemCount}: Props) => {
   const { dispatch } = useContext(LoginPopupContext)
-  const { shoppingCartItemCount } = useShoppingCartItemsCount()
+  // const { shoppingCartItemCount } = useShoppingCartItemsCount()
   const { isLoggedIn } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -102,7 +107,11 @@ const MobileNav = () => {
                 align-items-center
                 justify-content-end gap-3"
         >
-          <LuSearch className="mobile-nav-item" size={"23px"} />
+          {/* <LuSearch className="mobile-nav-item" size={"23px"} /> */}
+
+          <Link to="/shop" className="text-black text-bold">
+            <FcShop className="mobile-nav-item" size={"23px"}/>
+          </Link>
 
           <TbLego
             className="mobile-nav-item"

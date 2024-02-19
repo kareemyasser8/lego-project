@@ -5,6 +5,7 @@ import useCreateOrUpdateProductInTempCart from '../../Hooks/useCreateOrUpdatePro
 import { Product } from '../../Products';
 import { productToBeSentForTemporaryCart } from '../../services/temporaryCartService';
 import SmallImageCarousel from '../SmallImageCarousel/SmallImageCarousel';
+import useIsProductInWishList from '../../Hooks/useIsProductInWishList';
 
 interface Props {
   product: Product
@@ -12,6 +13,7 @@ interface Props {
 
 const ProductInGridCard = ({ product }: Props) => {
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
+  const {data} = useIsProductInWishList(product.id)
 
   const addProductToCart = (productId: string) => {
     const productTobeSent: productToBeSentForTemporaryCart = {
@@ -26,7 +28,7 @@ const ProductInGridCard = ({ product }: Props) => {
   return (
     <>
       <div className="p-2 ruled-grid__card">
-        <SmallImageCarousel product={product} />
+        <SmallImageCarousel product={product} isInWishList={data?.isProductInWishList} />
         <div className="col-12">
           <div className="d-flex align-items-center gap-1 mt-2">
             <img style={{ width: "20px" }} src={yellowStar} alt="" />

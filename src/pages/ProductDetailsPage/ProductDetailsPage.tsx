@@ -30,11 +30,15 @@ const ProductDetailsPage = () => {
     isProductInWishList,
   } = useProductDetails()
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const { setCurrentImgIndex, currentImgIndex, handleNextImg, handlePrevImg } =
     useImageGalleryBtns(numOfImages)
 
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
-  const { mutate: handleAddOrRemove } = useAddOrDeleteProductToWishList()
+  const { mutate: handleAddOrRemove} = useAddOrDeleteProductToWishList()
 
   const [isHeartClicked, setIsHeartClicked] = useState(false)
 
@@ -124,7 +128,7 @@ const ProductDetailsPage = () => {
                 className="w-100"
                 src={
                   // APILink + "/" + singleProductData?.Images[currentImgIndex].url
-                 singleProductData?.Images[currentImgIndex].url
+                  singleProductData?.Images[currentImgIndex].url
                 }
                 alt={singleProductData.title}
                 loading="lazy"

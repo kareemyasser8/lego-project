@@ -8,9 +8,13 @@ import { useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import useShoppingCartItemsCount from "../../Hooks/useShoppingCartItemsCount"
 
-const LargeNav = () => {
+interface Props{
+  shoppingCartItemCount: number
+}
+
+const LargeNav = ({shoppingCartItemCount}: Props) => {
   const navbar = useRef<HTMLDivElement>(null)
-  const {shoppingCartItemCount} = useShoppingCartItemsCount();
+  
 
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
   let scrollTopPosition = 0
@@ -61,8 +65,8 @@ const LargeNav = () => {
               <Link to="/shop">
                 <li className="list__item text-black">SHOP</li>
               </Link>
-              <li className="list__item nav-item--disabled">DISCOVER</li>
-              <li className="list__item nav-item--disabled">HELP</li>
+              {/* <li className="list__item nav-item--disabled">DISCOVER</li>
+              <li className="list__item nav-item--disabled">HELP</li> */}
             </ul>
           </div>
 
@@ -70,9 +74,9 @@ const LargeNav = () => {
 
           <div className="nav__actions-menu">
             <div className="nav__actions-menu-content">
-              <div className="menu-content__icon icon-container">
+              {/* <div className="menu-content__icon icon-container">
                 <LuSearch />
-              </div>
+              </div> */}
               <div className="menu-content__icon mb-1">
                 <Link to="/wishList" className="text-black">
                   <FiHeart />

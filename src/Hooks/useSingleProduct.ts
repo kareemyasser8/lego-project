@@ -1,15 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import productService from '../services/productService';
-import {FetchedProduct} from '../entities/FetchedProduct';
+import productService from "../services/productService"
+import { FetchedProduct } from "../entities/FetchedProduct"
 
-const useSingleProduct = (id: string) => {
-  return useQuery<FetchedProduct,Error>({
-    queryKey: ['product', id],
-    queryFn: ()=> productService.getOne(id),
-    staleTime: 10 * (60 * 1000), // 10 mins,
-    cacheTime: 15 * (60 * 1000), // 15 mins 
+const useSingleProduct = (id: string) => useQuery<FetchedProduct, Error>({
+    queryKey: ["product", id],
+    queryFn: () => productService.getOne(id),
   })
-}
 
 export default useSingleProduct

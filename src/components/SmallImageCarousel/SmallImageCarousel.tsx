@@ -11,111 +11,100 @@ import { elementToBeSentOrRemovedFromWishList } from "../../services/wishListSer
 import useIsProductInWishList from "../../Hooks/useIsProductInWishList"
 
 interface Props {
-  product: Product
+  product: Product,
+  isInWishList: boolean | undefined
 }
 
-const SmallImageCarousel = ({ product }: Props) => {
-  const [isHeartClicked, setIsHeartClicked] = useState(false)
-  const { mutate } = useAddOrDeleteProductToWishList()
-  const { data } = useIsProductInWishList(product.id)
-  const imageListRef = useRef<HTMLDivElement>(null)
-  const prevButtonRef = useRef<HTMLDivElement>(null)
-  const nextButtonRef = useRef<HTMLDivElement>(null)
-  const [isBtnShown, setIsBtnShown] = useState(false)
-  const [scrollPosition, setScrollPosition] = useState(0)
+const SmallImageCarousel = ({ product, isInWishList}: Props) => {
+  const [isHeartClicked, setIsHeartClicked] = useState<boolean>(false);
+  const { mutate } = useAddOrDeleteProductToWishList();
+  
+  const prevButtonRef = useRef<HTMLDivElement>(null);
+  const nextButtonRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  
+  useEffect(()=>{
+    if(!isInWishList){
+      setIsHeartClicked(false);
+    }else{
+      setIsHeartClicked(isInWishList)
+    }
+  },[isInWishList]);
 
-  useEffect(() => {
-    setIsHeartClicked(data?.isProductInWishList || false)
-  }, [data])
-
-  const slideScroll = (ref: MutableRefObject<any>) => {
-    const direction = ref === prevButtonRef ? -1 : 1
-    const scrollAmount =
-      (imageListRef.current?.clientWidth as number) * direction
-    imageListRef.current?.scrollBy({ left: scrollAmount, behavior: "smooth" })
-
+  const slideScroll = (ref: MutableRefObject<HTMLDivElement | null>, direction: number) => {
+    if (!ref.current) return
+    const scrollAmount = ref.current.clientWidth * direction
+    ref.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
     setScrollPosition((prevScrollPosition) => prevScrollPosition + scrollAmount)
   }
 
   const addOrRemoveProductInWishList = (productId: string) => {
-    setIsHeartClicked(!isHeartClicked)
+    setIsHeartClicked((prevIsHeartClicked) => !prevIsHeartClicked)
     const elementTobeSent: elementToBeSentOrRemovedFromWishList = {
       wishListId: localStorage.getItem("wishListId"),
       productId: productId,
     }
-
     mutate(elementTobeSent)
   }
 
+
   return (
-    <>
-      <div
-        onMouseEnter={() => setIsBtnShown(true)}
-        onMouseLeave={() => setIsBtnShown(false)}
-        className="col-12 position-relative"
-      >
-        <div className="d-flex w-100 position-relative">
-          <div className="badge bg-warning text-dark ms-auto">New</div>
-          <div
-            className="heart-product z-1 "
-            style={{ top: "0px", left: "0px" }}
-            onClick={() => addOrRemoveProductInWishList(product.id)}
-          >
-            {isHeartClicked ? (
-              <AiFillHeart size={20} color={"#006DB7"} />
-            ) : (
-              <AiOutlineHeart size={20} color={"#006DB7"} />
-            )}
-          </div>
-        </div>
-
+    <div className="col-12 position-relative">
+      <div className="d-flex w-100 position-relative">
+        <div className="badge bg-warning text-dark ms-auto">New</div>
         <div
-          className="back-btn"
-          style={{ left: "0px", outline: "none", boxShadow: "none" }}
-          ref={prevButtonRef}
-          onClick={() => slideScroll(prevButtonRef)}
+          className="heart-product z-1 "
+          style={{ top: "0px", left: "0px" }}
+          onClick={() => addOrRemoveProductInWishList(product.id)}
         >
-          <div className="back-btn-circle bg-light mt-5">
-            <BsChevronLeft size={"20px"} />
-          </div>
-        </div>
-
-        <div
-          className="forward-btn"
-          style={{ right: "0px" }}
-          ref={nextButtonRef}
-          onClick={() => slideScroll(nextButtonRef)}
-        >
-          <div className="forward-btn-circle bg-light mt-5">
-            <BsChevronRight size={"20px"} />
-          </div>
-        </div>
-
-        <div className="small-carousel-container" ref={imageListRef}>
-          <div className="small-carousel-list">
-            {product.Images?.map((img: any, index) => {
-              if (index < 2) {
-                return (
-                  <div key={index}>
-                    <Link to={`/shop/${product.id}`}>
-                      <img
-                        className="w-100 object-fit-contain"
-                        style={{ height: "300px" }}
-                        // src={APILink + "/" + img.url}
-                        src={img.url}
-                        loading="lazy"
-                        alt={img.preview}
-                      />
-                    </Link>
-                  </div>
-                )
-              }
-              return null // Return null for the remaining iterations
-            })}
-          </div>
+          {isHeartClicked ? (
+            <AiFillHeart size={20} color={"#006DB7"} />
+          ) : (
+            <AiOutlineHeart size={20} color={"#006DB7"} />
+          )}
         </div>
       </div>
-    </>
+
+      <div
+        className="back-btn"
+        style={{ left: "0px", outline: "none", boxShadow: "none" }}
+        ref={prevButtonRef}
+        onClick={() => slideScroll(prevButtonRef, -1)}
+      >
+        <div className="back-btn-circle bg-light mt-5">
+          <BsChevronLeft size={"20px"} />
+        </div>
+      </div>
+
+      <div
+        className="forward-btn"
+        style={{ right: "0px" }}
+        ref={nextButtonRef}
+        onClick={() => slideScroll(nextButtonRef, 1)}
+      >
+        <div className="forward-btn-circle bg-light mt-5">
+          <BsChevronRight size={"20px"} />
+        </div>
+      </div>
+
+      <div className="small-carousel-container">
+        <div className="small-carousel-list">
+          {product && product?.Images?.map((img: any, index) => (
+            <div key={index}>
+              <Link to={`/shop/${product.id}`}>
+                <img
+                  className="w-100 object-fit-contain"
+                  style={{ height: "300px" }}
+                  src={APILink + "/" + img.url}
+                  loading="lazy"
+                  alt={img.preview}
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
 

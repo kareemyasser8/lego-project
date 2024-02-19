@@ -18,17 +18,17 @@ const useProductDetails = () => {
   let numOfImages: number = 0
   let isProductInWishList = false
 
-  if (id) {
-    ;({
-      data: singleProductData,
-      isLoading: singleProductLoading,
-      error: singleProductError,
-    } = useSingleProduct(id))
-    // console.log(singleProductData)
-    numOfImages = singleProductData?.Images.length || 0
-    const { data } = useIsProductInWishList(id)
-    isProductInWishList = data?.isProductInWishList || false
-  }
+
+  ;({
+    data: singleProductData,
+    isLoading: singleProductLoading,
+    error: singleProductError,
+  } = useSingleProduct(id!))
+
+  numOfImages = singleProductData?.Images.length || 0
+  const { data: wishListResult } = useIsProductInWishList(singleProductData?.id!)
+  isProductInWishList = wishListResult?.isProductInWishList || false
+
 
   const checkProductInCart = (productId: string) => {
     const result = data?.TemporaryCartItems.findIndex(

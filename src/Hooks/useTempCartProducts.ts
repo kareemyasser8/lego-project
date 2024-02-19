@@ -22,14 +22,26 @@ interface TempCartResponse {
 const useTempCartProducts = () => {
   const temporaryCartId = localStorage.getItem("temporaryCartId")
 
-  return temporaryCartId != null
-    ? useQuery<productToBeSentForTemporaryCart, Error, TempCartResponse, any>({
-        queryKey: ["temporaryCart", temporaryCartId],
-        queryFn: () => temporaryCartService.getOne(temporaryCartId || ""),
-        staleTime: 10 * (60 * 1000), // 10 mins
-        cacheTime: 15 * (60 * 1000), // 15 mins
-      })
-    : ({} as UseQueryResult<TempCartResponse, Error>)
+  return useQuery<
+    productToBeSentForTemporaryCart,
+    Error,
+    TempCartResponse,
+    any
+  >({
+    queryKey: temporaryCartId ? ["temporaryCart", temporaryCartId] : [],
+    queryFn: () => temporaryCartId ? temporaryCartService.getOne(temporaryCartId) : Promise.resolve({
+      TemporaryCartItems: [],
+      totalPrice: 0,
+    }),
+    // staleTime: 10 * (60 * 1000), // 10 mins
+    // cacheTime: 15 * (60 * 1000), // 15 mins
+    placeholderData: {
+      TemporaryCartItems: [],
+      totalPrice: 0,
+      id: temporaryCartId || "defaultId", // Use a default id if temporaryCartId is falsy
+    },
+  })
 }
+
 
 export default useTempCartProducts

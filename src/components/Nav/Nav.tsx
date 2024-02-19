@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 import LargeNav from "../LargeNav/LargeNav"
 import MobileNav from "../MobileNav/MobileNav"
+import useShoppingCartItemsCount from "../../Hooks/useShoppingCartItemsCount"
+import useTempCartId from "../../Hooks/useTempCartId"
 
 const Nav = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 991)
-
+  const { shoppingCartItemCount } = useShoppingCartItemsCount()
+  
   // const handleWindowScroll = () => {
   //   if (document.body.scrollTop > -100) {
   //     console.log("hiii")
@@ -34,7 +37,11 @@ const Nav = () => {
 
   return (
     <>
-        {isSmallScreen ? <MobileNav /> : <LargeNav />}
+      {isSmallScreen ? (
+        <MobileNav shoppingCartItemCount={shoppingCartItemCount} />
+      ) : (
+        <LargeNav shoppingCartItemCount={shoppingCartItemCount} />
+      )}
     </>
   )
 }

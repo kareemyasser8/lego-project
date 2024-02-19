@@ -11,17 +11,18 @@ const useAddOrDeleteProductToWishList = () => {
     mutationFn: (element: elementToBeSentOrRemovedFromWishList) =>
       wishListService.post(element),
     onSuccess: (result: any) => {
-      if (!localStorage.getItem("wishListId")) {
-        localStorage.setItem("wishListId", result.WishListId)
+      if (result && !localStorage.getItem("wishListId")) {
+        localStorage.setItem("wishListId", result.WishListId);
       }
-
-      if(result.WishListId){
+      if(result && result.WishListId){
         toast.success("Product added to WishList")
       }else{
         toast.success(result)
       }
-      
-      // queryClient.invalidateQueries(["WishList"])
+    
+      queryClient.invalidateQueries(["WishList"])
+      queryClient.invalidateQueries(["temporaryCart"]);
+      // queryClient.invalidateQueries(['temporaryCart'])
       // queryClient.invalidateQueries(["products"])
       
     },

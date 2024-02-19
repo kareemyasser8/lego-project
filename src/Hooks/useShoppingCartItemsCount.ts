@@ -3,25 +3,26 @@ import useTempCartProducts from "./useTempCartProducts"
 
 const useShoppingCartItemsCount = () => {
   const { data, isLoading, isError } = useTempCartProducts()
-  const [shoppingCartItemCount, setShoppingCartItemCount] = useState(0)
 
-  useEffect(() => {
-    setShoppingCartItemCount(0)
-
-    if (data?.TemporaryCartItems) {
-      setShoppingCartItemCount((prevCount) =>
-        data.TemporaryCartItems.reduce(
-          (totalCount, product) => totalCount + product.quantity,
-          prevCount
-        )
+  const getShoppingCartItemCount = () => {
+    if (data && data.TemporaryCartItems.length) {
+      return data.TemporaryCartItems.reduce(
+        (totalCount, product) => totalCount + product.quantity,
+        0
       )
     }
-  }, [data])
-
-  return{
-    shoppingCartItemCount
+    return 0;
   }
 
+  const [shoppingCartItemCount, setShoppingCartItemCount] = useState(getShoppingCartItemCount())
+
+  useEffect(() => {
+    setShoppingCartItemCount(getShoppingCartItemCount())
+  }, [isLoading, data])
+
+  return {
+    shoppingCartItemCount
+  }
 }
 
 export default useShoppingCartItemsCount
