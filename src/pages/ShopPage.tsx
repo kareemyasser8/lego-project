@@ -6,22 +6,31 @@ import CollapsibleSelect from "../components/collapsible-select/CollapsibleSelec
 import { useState } from "react"
 
 const ShopPage = () => {
-
-  const [productsCount, setProductsCount] = useState<string>('')
+  const [productsCount, setProductsCount] = useState<string>("")
 
   return (
     <>
-      <BreadCrumb />
-      <TitleBar>Shop</TitleBar>
-      <div className="summary-wrapper page-layout mt-5 mb-3">
-        <header>Showing {productsCount} Products</header>
-        <div className="product-select__collapsible__container">
-          <CollapsibleSelect></CollapsibleSelect>
-        </div>
+      <div className="max-content mx-auto">
+        <BreadCrumb />
       </div>
-      <div className="grid grid--1x2 page-layout mb-4">
-        <ProductFilterMenu />
-        <ProductsGrid count={(count)=>{setProductsCount(count)}} />
+      <TitleBar>Shop</TitleBar>
+      <div className="center mx-auto">
+        <div className="max-content">
+          <div className="summary-wrapper page-layout mt-5 mb-3">
+            <header>Showing {productsCount} Products</header>
+            <div className="product-select__collapsible__container">
+              <CollapsibleSelect></CollapsibleSelect>
+            </div>
+          </div>
+          <div className="grid grid--1x2 page-layout mb-4">
+            <ProductFilterMenu />
+            <ProductsGrid
+              count={(count) => {
+                setProductsCount(count)
+              }}
+            />
+          </div>
+        </div>
       </div>
     </>
   )

@@ -9,14 +9,14 @@ const WishList = () => {
   let id = localStorage.getItem("wishListId")
   const { data, isLoading, error } = useProductsInWishList(id || "")
 
-  if(isLoading) return <Spinner color="text-warning"/>
+  if (isLoading) return <Spinner color="text-warning" />
 
-  if (data && data?.WishList_Products?.length == 0 || data === undefined) {
+  if ((data && data?.WishList_Products?.length == 0) || data === undefined) {
     return <EmptyCartOrWishList type="WishList" />
   }
 
   return (
-    <div className="col-12">
+    <div className="max-content px-2 mx-auto">
       <p className="h4">Wish List</p>
       <div className="productsInWishList-container mb-4">
         {data?.WishList_Products?.map((value: any, index: number) => (

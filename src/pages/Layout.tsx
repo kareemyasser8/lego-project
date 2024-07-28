@@ -14,7 +14,8 @@ const Layout = () => {
         </LoginPopupContextProvider>
       </div>
       <Outlet />
-      <Footer/>
+
+      <Footer />
     </>
   )
 }

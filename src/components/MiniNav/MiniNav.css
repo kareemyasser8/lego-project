@@ -3,17 +3,20 @@
   color: #2c2c2c;
   font-family: "CeraPro", "sans-serif";
   font-size: 0.85rem;
-  display: flex;
   height: var(--miniNavBannerHeight);
   padding-top: 15px;
+}
+
+.mini-nav__content {
+  display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.sign-in-section{
+.sign-in-section {
   cursor: pointer;
 }
 
-.sign-in-icon{
+.sign-in-icon {
   font-size: 1.4rem;
 }

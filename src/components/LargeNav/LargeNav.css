@@ -1,14 +1,21 @@
 .nav {
   background-color: var(--secondary-color);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: space-between;
+  display: flex;
   align-items: center;
+  justify-content: center;
   font-family: "CeraPro", "sans-serif";
   padding: 0rem var(--page-horizontal-padding);
   height: var(--largeNavHeight);
   width: 100%;
   transition: all 0.3s ease-in-out;
+}
+
+.nav-content{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .navbar-down-space {

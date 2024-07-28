@@ -91,7 +91,7 @@ body {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 h2 {
@@ -568,6 +568,16 @@ textarea::placeholder {
 
 .page-height{
   min-height: 30vh;
+}
+
+.max-content{
+  max-width: 1320px;
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (min-width: 991px) {

@@ -20,7 +20,7 @@ const LargeBanner = ({ data }: Props) => {
             position-relative"
       >
         <div
-          className={`flex-column  justify-content-center position-absolute banner col-12 d-flex h-100
+          className={`banner
               ${
                 data.position === "center"
                   ? "align-items-center text-center "
@@ -33,11 +33,11 @@ const LargeBanner = ({ data }: Props) => {
               data.textColor === "light" ? "text-white" : "text-dark"
             }`}
           >
-            <p className="fs-1 lh-sm ps-2">{data.title}</p>
-            <p className="fs-md-5 ps-2">{data.text}</p>
+            <h1>{data.title}</h1>
+            <p>{data.text}</p>
           </div>
           <button
-            className={`fs-5 ms-2 btn ${
+            className={`btn ${
               data.textColor === "light" ? "btn-light" : "btn-dark"
             } `}
             onClick={handleClick}

@@ -21,7 +21,7 @@ const Recommended = () => {
     <AnimatedDiv
       index={3}
     >
-      <div className="page-layout">
+      {/* <div className="page-layout"> */}
         <h2 className="mb-3">Recommended for you</h2>
         <div className="slider-wrapper">
           <div
@@ -62,7 +62,7 @@ const Recommended = () => {
             })}
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </AnimatedDiv>
   )
 }

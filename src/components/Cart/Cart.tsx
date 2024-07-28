@@ -17,7 +17,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="col-12">
+    <div className="col-12 w-100">
       <p className="h4">My Cart</p>
       <div className="row">
         <div className="col-lg-8 col-sm-12 mb-3 cartProducts-container">

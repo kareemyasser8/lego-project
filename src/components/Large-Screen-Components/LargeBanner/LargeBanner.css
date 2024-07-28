@@ -1,15 +1,21 @@
-.banner{
-    font-family: 'CeraPro';
+.banner {
+  font-family: "CeraPro";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 @media (min-width: 840px) {
-    .lg-banner{
-        margin-top: 127px;
-    }   
+  .lg-banner {
+    margin-top: 127px;
+  }
 }
 
 @media (max-width: 991px) {
-    .lg-banner{
-        margin-top: 10px;
-    }   
+  .lg-banner {
+    margin-top: 10px;
+  }
 }

@@ -28,7 +28,7 @@ const Articles = () => {
 
   return (
     <>
-      <div className="page-layout">
+      {/* <div className="page-layout"> */}
         <div
           className="
         d-flex
@@ -51,7 +51,7 @@ const Articles = () => {
             </div>
           ))}
         </div>
-      </div>
+      {/* </div> */}
     </>
   )
 }

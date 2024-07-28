@@ -8,13 +8,12 @@ import { useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import useShoppingCartItemsCount from "../../Hooks/useShoppingCartItemsCount"
 
-interface Props{
+interface Props {
   shoppingCartItemCount: number
 }
 
-const LargeNav = ({shoppingCartItemCount}: Props) => {
+const LargeNav = ({ shoppingCartItemCount }: Props) => {
   const navbar = useRef<HTMLDivElement>(null)
-  
 
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop
   let scrollTopPosition = 0
@@ -54,42 +53,44 @@ const LargeNav = ({shoppingCartItemCount}: Props) => {
         {/* navbar-expand-lg */}
 
         <nav className="nav">
-          <div className="nav__menu">
-            <div className="nav__menu__logo">
-              <Link to="/">
-                <img className="nav-logo" src={Logo}></img>
-              </Link>
-            </div>
-
-            <ul className="list nav__menu__list">
-              <Link to="/shop">
-                <li className="list__item text-black">SHOP</li>
-              </Link>
-              {/* <li className="list__item nav-item--disabled">DISCOVER</li>
-              <li className="list__item nav-item--disabled">HELP</li> */}
-            </ul>
-          </div>
-
-          {/*-------------------------------------------------  */}
-
-          <div className="nav__actions-menu">
-            <div className="nav__actions-menu-content">
-              {/* <div className="menu-content__icon icon-container">
-                <LuSearch />
-              </div> */}
-              <div className="menu-content__icon mb-1">
-                <Link to="/wishList" className="text-black">
-                  <FiHeart />
+          <div className="nav-content max-content mx-auto px-lg-3">
+            <div className="nav__menu">
+              <div className="nav__menu__logo">
+                <Link to="/">
+                  <img className="nav-logo" src={Logo}></img>
                 </Link>
               </div>
-              <Link to="/cart" className="text-black">
-                <div className="menu-content__icon d-flex align-items-center">
-                  <HiOutlineShoppingBag fontSize={"1.5rem"} />
-                  <div className="cart-counter">
-                    {shoppingCartItemCount || 0}
-                  </div>
+
+              <ul className="list nav__menu__list">
+                <Link to="/shop">
+                  <li className="list__item text-black">SHOP</li>
+                </Link>
+                {/* <li className="list__item nav-item--disabled">DISCOVER</li>
+              <li className="list__item nav-item--disabled">HELP</li> */}
+              </ul>
+            </div>
+
+            {/*-------------------------------------------------  */}
+
+            <div className="nav__actions-menu">
+              <div className="nav__actions-menu-content">
+                {/* <div className="menu-content__icon icon-container">
+                <LuSearch />
+              </div> */}
+                <div className="menu-content__icon mb-1">
+                  <Link to="/wishList" className="text-black">
+                    <FiHeart />
+                  </Link>
                 </div>
-              </Link>
+                <Link to="/cart" className="text-black">
+                  <div className="menu-content__icon d-flex align-items-center">
+                    <HiOutlineShoppingBag fontSize={"1.5rem"} />
+                    <div className="cart-counter">
+                      {shoppingCartItemCount || 0}
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
         </nav>

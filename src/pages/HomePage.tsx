@@ -26,8 +26,8 @@ let bannerData: BannerData[] = [
 const HomePage = () => {
   return (
     <>
-      <div className=" row justify-content-center">
-        <div className="col-12">
+
+        <div className="max-content mx-auto px-4">
           <HomeBanner bannerData={bannerData[0]} />
           <div className="mt-5">
             <Recommended />
@@ -37,7 +37,7 @@ const HomePage = () => {
             <Articles />
           </div>
         </div>
-      </div>
+
     </>
   )
 }

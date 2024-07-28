@@ -13,27 +13,29 @@ const MiniNav = () => {
 
   return (
     <>
-      <div className=" mini-nav">
-        <p></p>
-        <p className="ms-5">FREE Shipping with orders over $35!*</p>
+      <div className=" mini-nav" >
+        <div className="mini-nav__content max-content mx-auto">
+          <p></p>
+          <p className="ms-5">FREE Shipping with orders over $35!*</p>
 
-        <div
-          onClick={() => {
-            if (!isLoggedIn) {
-              dispatch({ type: "SHOW_LOGIN_POPUP" })
-            }
-          }}
-          className="sign-in-section d-flex gap-2 me-5"
-        >
-          <TbLego className="sign-in-icon" />
+          <div
+            onClick={() => {
+              if (!isLoggedIn) {
+                dispatch({ type: "SHOW_LOGIN_POPUP" })
+              }
+            }}
+            className="sign-in-section d-flex gap-2 px-4"
+          >
+            <TbLego className="sign-in-icon" />
 
-          {isLoggedIn == true ? (
-            <Link to="/user">
-              <p className="text-black">Account</p>
-            </Link>
-          ) : (
-            <p>Sign In</p>
-          )}
+            {isLoggedIn == true ? (
+              <Link to="/user">
+                <p className="text-black">Account</p>
+              </Link>
+            ) : (
+              <p>Sign In</p>
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -38,7 +38,7 @@ const ProductDetailsPage = () => {
     useImageGalleryBtns(numOfImages)
 
   const { mutate, isLoading } = useCreateOrUpdateProductInTempCart()
-  const { mutate: handleAddOrRemove} = useAddOrDeleteProductToWishList()
+  const { mutate: handleAddOrRemove } = useAddOrDeleteProductToWishList()
 
   const [isHeartClicked, setIsHeartClicked] = useState(false)
 
@@ -93,149 +93,155 @@ const ProductDetailsPage = () => {
 
   return (
     <>
-      <BreadCrumb productName={singleProductData?.title} />
-      <div className="grid product-content page-layout mt-1 mb-3">
-        <div className="product-content__images-col">
-          {singleProductData?.Images?.map(
-            (img: FetchedProductImage, index: number) => (
-              <AnimatedDiv index={index} key={index}>
-                <div
-                  onClick={() => setCurrentImgIndex(index)}
-                  // key={index}
-                  className={`images-col__thumbnail ${
-                    index == currentImgIndex
-                      ? `images-col__thumbnail--selected`
-                      : ``
-                  }`}
-                >
-                  <img src={img.url} alt="" loading="lazy" />
-                </div>
-              </AnimatedDiv>
-            )
-          )}
-        </div>
-
-        <div className="product-content__image-preview">
-          <div className="image-preview__image-counter-badge">{`${
-            currentImgIndex + 1
-          } / ${numOfImages}`}</div>
-          <div className="chevron-btn chevron-left" onClick={handlePrevImg}>
-            <BsChevronLeft size={"25px"} />
-          </div>
-          <div className="image-preview__container">
-            {singleProductData?.Images != undefined ? (
-              <img
-                className="w-100"
-                src={
-                  // APILink + "/" + singleProductData?.Images[currentImgIndex].url
-                  singleProductData?.Images[currentImgIndex].url
-                }
-                alt={singleProductData.title}
-                loading="lazy"
-              />
-            ) : (
-              <img className="w-100" src={noImage} alt="" />
-            )}
-          </div>
-          <div className="chevron-btn chevron-right" onClick={handleNextImg}>
-            <BsChevronRight size={"25px"} />
-          </div>
-        </div>
-
-        <AnimatedDiv>
-          <div className="product-content__product-details">
-            <ProductRating ratings={singleProductData?.rating || 0} />
-            <div className="product-details__title">
-              {singleProductData?.title}
-            </div>
-            <div className="product-details__price">
-              {" "}
-              ${singleProductData?.price}
-            </div>
-            <div className="product-details__counter-section">
-              <div className="counter-section__counter">
-                {singleProductData && (
-                  <AddToCartCounter
-                    cartId={temporaryCartId || ""}
-                    productId={singleProductData.id.toString() || ""}
-                    quantity={displayedQuantity}
-                    limit={singleProductData.limit}
-                  />
-                )}
-              </div>
-              {singleProductData && (
-                <small>Limit {singleProductData.limit}</small>
-              )}
-            </div>
-            <div className="product-details__addToCartSection">
-              {singleProductData && (
-                <>
-                  <button
-                    type="button"
-                    className="butn btn--block btn--orange btn--large btn--rounded"
-                    onClick={() =>
-                      addProductToCart(singleProductData.id.toString())
-                    }
-                  >
-                    {isLoading ? (
-                      "Loading ..."
-                    ) : (
-                      <>
-                        <HiOutlineShoppingBag fontSize={"1.3rem"} /> Add to Bag{" "}
-                      </>
-                    )}
-                  </button>
-                  <div className="product-details__addToCartSection__heart">
-                    <div
-                      className="heart-product-container"
-                      onClick={() =>
-                        addOrRemoveProductInWishList(
-                          singleProductData.id.toString()
-                        )
-                      }
-                    >
-                      {isHeartClicked ? (
-                        <AiFillHeart size={30} color={"#006DB7"} />
-                      ) : (
-                        <AiOutlineHeart size={30} color={"#006DB7"} />
-                      )}
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </AnimatedDiv>
+      <div className="max-content mx-auto">
+        <BreadCrumb productName={singleProductData?.title} />
       </div>
 
-      <section className="product-specification page-layout">
-        <AnimatedDiv>
-          <h2>Specifications</h2>
-          <div className="product-specification__content">
-            <p>{singleProductData?.description}</p>
-            {singleProductData?.Images ? (
-              <img
-                className="product-specification__image"
-                src={singleProductData.Images[0].url}
-                // src={APILink + "/" + singleProductData.Images[0].url}
-                alt={singleProductData.title}
-                loading="lazy"
-              />
-            ) : (
-              <img
-                className="product-specification__image"
-                src={noImage}
-                alt="no Image"
-                loading="lazy"
-              />
+      <div className="max-content mx-auto">
+        <div className="grid product-content page-layout mt-1 mb-3">
+          <div className="product-content__images-col">
+            {singleProductData?.Images?.map(
+              (img: FetchedProductImage, index: number) => (
+                <AnimatedDiv index={index} key={index}>
+                  <div
+                    onClick={() => setCurrentImgIndex(index)}
+                    // key={index}
+                    className={`images-col__thumbnail ${
+                      index == currentImgIndex
+                        ? `images-col__thumbnail--selected`
+                        : ``
+                    }`}
+                  >
+                    <img src={img.url} alt="" loading="lazy" />
+                  </div>
+                </AnimatedDiv>
+              )
             )}
           </div>
-        </AnimatedDiv>
-      </section>
 
-      <section className="mt-3">
-        <Recommended />
-      </section>
+          <div className="product-content__image-preview">
+            <div className="image-preview__image-counter-badge">{`${
+              currentImgIndex + 1
+            } / ${numOfImages}`}</div>
+            <div className="chevron-btn chevron-left" onClick={handlePrevImg}>
+              <BsChevronLeft size={"25px"} />
+            </div>
+            <div className="image-preview__container">
+              {singleProductData?.Images != undefined ? (
+                <img
+                  className="w-100"
+                  src={
+                    // APILink + "/" + singleProductData?.Images[currentImgIndex].url
+                    singleProductData?.Images[currentImgIndex].url
+                  }
+                  alt={singleProductData.title}
+                  loading="lazy"
+                />
+              ) : (
+                <img className="w-100" src={noImage} alt="" />
+              )}
+            </div>
+            <div className="chevron-btn chevron-right" onClick={handleNextImg}>
+              <BsChevronRight size={"25px"} />
+            </div>
+          </div>
+
+          <AnimatedDiv>
+            <div className="product-content__product-details">
+              <ProductRating ratings={singleProductData?.rating || 0} />
+              <div className="product-details__title">
+                {singleProductData?.title}
+              </div>
+              <div className="product-details__price">
+                {" "}
+                ${singleProductData?.price}
+              </div>
+              <div className="product-details__counter-section">
+                <div className="counter-section__counter">
+                  {singleProductData && (
+                    <AddToCartCounter
+                      cartId={temporaryCartId || ""}
+                      productId={singleProductData.id.toString() || ""}
+                      quantity={displayedQuantity}
+                      limit={singleProductData.limit}
+                    />
+                  )}
+                </div>
+                {singleProductData && (
+                  <small>Limit {singleProductData.limit}</small>
+                )}
+              </div>
+              <div className="product-details__addToCartSection">
+                {singleProductData && (
+                  <>
+                    <button
+                      type="button"
+                      className="butn btn--block btn--orange btn--large btn--rounded"
+                      onClick={() =>
+                        addProductToCart(singleProductData.id.toString())
+                      }
+                    >
+                      {isLoading ? (
+                        "Loading ..."
+                      ) : (
+                        <>
+                          <HiOutlineShoppingBag fontSize={"1.3rem"} /> Add to
+                          Bag{" "}
+                        </>
+                      )}
+                    </button>
+                    <div className="product-details__addToCartSection__heart">
+                      <div
+                        className="heart-product-container"
+                        onClick={() =>
+                          addOrRemoveProductInWishList(
+                            singleProductData.id.toString()
+                          )
+                        }
+                      >
+                        {isHeartClicked ? (
+                          <AiFillHeart size={30} color={"#006DB7"} />
+                        ) : (
+                          <AiOutlineHeart size={30} color={"#006DB7"} />
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </AnimatedDiv>
+        </div>
+
+        <section className="product-specification page-layout">
+          <AnimatedDiv>
+            <h2>Specifications</h2>
+            <div className="product-specification__content">
+              <p>{singleProductData?.description}</p>
+              {singleProductData?.Images ? (
+                <img
+                  className="product-specification__image"
+                  src={singleProductData.Images[0].url}
+                  // src={APILink + "/" + singleProductData.Images[0].url}
+                  alt={singleProductData.title}
+                  loading="lazy"
+                />
+              ) : (
+                <img
+                  className="product-specification__image"
+                  src={noImage}
+                  alt="no Image"
+                  loading="lazy"
+                />
+              )}
+            </div>
+          </AnimatedDiv>
+        </section>
+
+        <section className="mt-3 page-layout">
+          <Recommended />
+        </section>
+      </div>
     </>
   )
 }

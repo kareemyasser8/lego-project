@@ -3,7 +3,11 @@
   padding-inline: 2rem;
   padding-top: 3rem;
   padding-bottom: 10rem;
+}
+
+.footer__content{
   display: grid;
+  width: 100%;
 }
 
 .footer .collapsible__content--col > *:hover {
