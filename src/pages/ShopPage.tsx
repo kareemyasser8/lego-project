@@ -15,7 +15,7 @@ const ShopPage = () => {
       </div>
       <TitleBar>Shop</TitleBar>
       <div className="center mx-auto">
-        <div className="max-content">
+        <div className="max-content w-100">
           <div className="summary-wrapper page-layout mt-5 mb-3">
             <header>Showing {productsCount} Products</header>
             <div className="product-select__collapsible__container">

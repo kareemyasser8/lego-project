@@ -16,7 +16,7 @@ const WishList = () => {
   }
 
   return (
-    <div className="max-content px-2 mx-auto">
+    <div className="max-content mx-auto w-100">
       <p className="h4">Wish List</p>
       <div className="productsInWishList-container mb-4">
         {data?.WishList_Products?.map((value: any, index: number) => (
